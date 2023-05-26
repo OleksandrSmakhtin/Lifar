@@ -21,7 +21,7 @@ class FirstWelcomeVC: UIViewController {
     
     private let lifarLbl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Lifar"
+        lbl.text = "Liraf"
         lbl.font = UIFont(name: "Chalkboard SE", size: 30)
         lbl.textColor = .cakeWhite
         lbl.translatesAutoresizingMaskIntoConstraints = false

@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol CategoryViewDelegate: AnyObject {
+    func didTapTab(with title: String)
+}
+
 class CategoryView: UIView {
+    
+    //MARK: - Delegate
+    weak var delegate: CategoryViewDelegate?
     
     //MARK: - UI Objects
     private lazy var tabTapGesture: UITapGestureRecognizer = {
@@ -35,9 +42,9 @@ class CategoryView: UIView {
         layer.masksToBounds = true
         translatesAutoresizingMaskIntoConstraints = false
         // add subviews
-        //addSubviews()
+        addSubviews()
         // apply constraints
-        //applyConstraints()
+        applyConstraints()
         addGestureRecognizer(tabTapGesture)
         //tabTapGesture.addTarget(self, action: #selector(didSelectTab))
         
@@ -49,7 +56,8 @@ class CategoryView: UIView {
     }
     
     @objc private func didSelectTab() {
-        print("PUPA")
+        guard let title = titleLbl.text else { return }
+        delegate?.didTapTab(with: title)
     }
     
     //MARK: - Add subviews
@@ -73,10 +81,16 @@ class CategoryView: UIView {
         titleLbl.text = title
     }
     
-    //MARK: - didSelectTab
-//    public func didSelectTab() {
-//        titleLbl.textColor = .cakeFuchsia
-//        titleLbl.layer.borderWidth = 2
-//        titleLbl.layer.borderColor = UIColor.cakeFuchsia?.cgColor
-//    }
+    //MARK: - selectTab
+    public func selectTab() {
+        titleLbl.textColor = .cakeFuchsia
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.cakeFuchsia?.cgColor
+    }
+    
+    //MARK: - deselectTab
+    public func deselectTab() {
+        titleLbl.textColor = .cakePink
+        layer.borderWidth = 0
+    }
 }

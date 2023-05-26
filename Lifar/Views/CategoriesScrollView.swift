@@ -7,24 +7,37 @@
 
 import UIKit
 
+enum CategoriesTabs: String {
+    case wedding = "Wedding cakes"
+    case celebration = "Celebration & Bithday"
+    case tarts = "TARTS"
+    case cupcakes = "Cupcakes"
+    case miniCupcakes = "Mini cupcakes"
+    case desserts = "Desserts"
+    case macarons = "Macarons"
+}
+
 class CategoriesScrollView: UIView {
     
-    var selectedTabIndex = 0
+    var selectedTabIndex = 0 {
+        didSet {
+            for i in 0..<tabs.count {
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) { [weak self] in
+                    self?.tabs[i].deselectTab()
+                    self?.layoutIfNeeded()
+                } completion: { _ in }
+            }
+            
+            //scrollView.setContentOffset(CGPoint(x: tabs[selectedTabIndex].frame.origin.x - 100, y: 0), animated: true)
+        }
+    }
 
     private let categories = ["Wedding cakes", "Celebration & Bithday", "TARTS", "Cupcakes", "Cupcakes", "Desserts", "Macarons"]
     
-    private lazy var tabTapGesture: UITapGestureRecognizer = {
-        let gest = UITapGestureRecognizer()
-        gest.numberOfTapsRequired = 1
-        gest.addTarget(self, action: #selector(didSelectTab(_:)))
-        return gest
-    }()
-    
-    private lazy var tabs: [UIView] = ["Wedding cakes", "Celebration & Bithday", "TARTS", "Cupcakes", "Cupcakes", "Desserts", "Macarons"].map { title in
+    private lazy var tabs: [CategoryView] = ["Wedding cakes", "Celebration & Bithday", "TARTS", "Cupcakes", "Mini cupcakes", "Desserts", "Macarons"].map { title in
         let view = CategoryView()
-        //guard let title = title as? String else { return UILabel() }
         view.setTitle(title: title)
-        view.addGestureRecognizer(tabTapGesture)
+        view.delegate = self
         return view
     }
     
@@ -56,22 +69,18 @@ class CategoriesScrollView: UIView {
         applyConstraints()
         // enable constraints
         translatesAutoresizingMaskIntoConstraints = false
-        tabTapGesture.addTarget(self, action: #selector(didSelectTab(_:)))
+        configureFirstLook()
     }
     
     //MARK: - required init
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
-    @objc private func didSelectTab(_ sender: CategoryView) {
-        print(sender.titleLbl.text)
-        print("PUPA")
-    }
+
     
     //MARK: - Configure first look
     private func configureFirstLook() {
-        
+        tabs[0].selectTab()
     }
     
     //MARK: - Add subviews
@@ -100,7 +109,6 @@ class CategoriesScrollView: UIView {
             NSLayoutConstraint.activate([
                 tab.topAnchor.constraint(equalTo: scrollView.topAnchor),
                 tab.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                tab.widthAnchor.constraint(equalToConstant: 100)
             ])
         }
         
@@ -112,3 +120,30 @@ class CategoriesScrollView: UIView {
 
 }
 
+//MARK: - CategoryViewDelegate
+extension CategoriesScrollView: CategoryViewDelegate {
+    func didTapTab(with title: String) {
+        switch title {
+        case CategoriesTabs.wedding.rawValue:
+            selectedTabIndex = 0
+        case CategoriesTabs.celebration.rawValue:
+            selectedTabIndex = 1
+        case CategoriesTabs.tarts.rawValue:
+            selectedTabIndex = 2
+        case CategoriesTabs.cupcakes.rawValue:
+            selectedTabIndex = 3
+        case CategoriesTabs.miniCupcakes.rawValue:
+            selectedTabIndex = 4
+        case CategoriesTabs.desserts.rawValue:
+            selectedTabIndex = 5
+        case CategoriesTabs.macarons.rawValue:
+            selectedTabIndex = 6
+        default:
+            selectedTabIndex = 0
+        }
+        tabs[selectedTabIndex].layer.borderWidth = 2
+        tabs[selectedTabIndex].layer.borderColor = UIColor.cakeFuchsia?.cgColor
+        tabs[selectedTabIndex].selectTab()
+    }
+    
+}
