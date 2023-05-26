@@ -8,9 +8,22 @@
 import UIKit
 
 class MainVC: UIViewController {
+    
+    //MARK: - Data
+    private let sectionsTitles = ["Top Products", "New Products", "All", "Custom"]
 
     //MARK: - UI Objects
     private let categoriesScrollView = CategoriesScrollView()
+    
+    private let mainTable: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.register(MainCell.self, forCellReuseIdentifier: MainCell.identifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -23,6 +36,10 @@ class MainVC: UIViewController {
         addSubviews()
         // apply constraints
         applyConstraints()
+        // apply delegates
+        applyDelegates()
+        // configure table
+        configureMainTable()
     }
     
     //MARK: - viewWillAppear
@@ -64,6 +81,7 @@ class MainVC: UIViewController {
     //MARK: - Add subviews
     private func addSubviews() {
         view.addSubview(categoriesScrollView)
+        view.addSubview(mainTable)
     }
     
     //MARK: - Apply constraints
@@ -75,7 +93,67 @@ class MainVC: UIViewController {
             categoriesScrollView.heightAnchor.constraint(equalToConstant: 40)
         ]
         
+        let mainTableConstraints = [
+            mainTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mainTable.topAnchor.constraint(equalTo: categoriesScrollView.bottomAnchor, constant: 20),
+            mainTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ]
+        
         NSLayoutConstraint.activate(categoriesScrollViewConstraints)
+        NSLayoutConstraint.activate(mainTableConstraints)
     }
 
+}
+
+//MARK: - UITableViewDelegate & DataSource
+extension MainVC: UITableViewDelegate, UITableViewDataSource {
+    private func applyDelegates() {
+        mainTable.delegate = self
+        mainTable.dataSource = self
+    }
+    
+    private func configureMainTable() {
+        let footer = MainTableFooter(frame: CGRect(x: 0, y: 0, width: mainTable.frame.width, height: 120))
+        mainTable.tableFooterView = footer
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionsTitles[section]
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        
+        header.tintColor = .cakePink
+        header.textLabel?.font = UIFont(name: "Futura", size: 25)
+        header.textLabel?.textColor = .cakeWhite
+        
+        guard let firstLetterCapitalized = header.textLabel?.text?.first?.uppercased() else { return }
+        header.textLabel?.text = header.textLabel?.text?.lowercased()
+        header.textLabel?.text?.remove(at: header.textLabel!.text!.startIndex)
+        header.textLabel?.text?.insert(contentsOf: firstLetterCapitalized, at: header.textLabel!.text!.startIndex)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionsTitles.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainCell.identifier) as? MainCell else { return UITableViewCell() }
+        //cell.backgroundColor = .clear
+        return cell
+    }
 }

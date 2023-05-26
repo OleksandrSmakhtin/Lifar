@@ -27,8 +27,6 @@ class CategoriesScrollView: UIView {
                     self?.layoutIfNeeded()
                 } completion: { _ in }
             }
-            
-            //scrollView.setContentOffset(CGPoint(x: tabs[selectedTabIndex].frame.origin.x - 100, y: 0), animated: true)
         }
     }
 
@@ -141,8 +139,7 @@ extension CategoriesScrollView: CategoryViewDelegate {
         default:
             selectedTabIndex = 0
         }
-        tabs[selectedTabIndex].layer.borderWidth = 2
-        tabs[selectedTabIndex].layer.borderColor = UIColor.cakeFuchsia?.cgColor
+
         tabs[selectedTabIndex].selectTab()
     }
     
