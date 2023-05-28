@@ -29,7 +29,7 @@ class MainCell: UITableViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(ProductCell.self, forCellWithReuseIdentifier: ProductCell.identifier)
         return collectionView
-    }()
+    }() 
     
     //MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
