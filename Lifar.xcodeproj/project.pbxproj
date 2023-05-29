@@ -88,7 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				44DBF4B62A1DD0CF00A71EE6 /* Core */,
-				44DBF4AD2A1DC18300A71EE6 /* Welcomes */,
+				44DBF4C92A25372E00A71EE6 /* General */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -142,6 +142,14 @@
 				44DBF4B82A1DD3DF00A71EE6 /* Extension+UIColor.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		44DBF4C92A25372E00A71EE6 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				44DBF4AD2A1DC18300A71EE6 /* Welcomes */,
+			);
+			path = General;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
