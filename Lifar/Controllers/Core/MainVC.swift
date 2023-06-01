@@ -64,7 +64,7 @@ class MainVC: UIViewController {
             present(vc, animated: false)
         }
         
-        viewModel.getPopular(for: CategoriesTabs.allCases[categoriesScrollView.selectedTabIndex])
+        viewModel.retrieveCakes(for: CategoriesTabs.allCases[categoriesScrollView.selectedTabIndex])
     }
     
     
@@ -76,10 +76,12 @@ class MainVC: UIViewController {
     
     //MARK: - Bind views
     private func bindViews() {
-        viewModel.$popularCakes.sink { [weak self] cakes in
+        viewModel.$allCakes.sink { [weak self] cakes in
             for cake in cakes {
-                print(cake)
+                print(cake.title)
             }
+
+            print("-------------")
         }.store(in: &subscriptions)
     }
     
@@ -118,9 +120,13 @@ class MainVC: UIViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: nil)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "basket", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "basket", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: #selector(ttt))
         
         navigationItem.titleView = lifarLbl
+    }
+    
+    @objc func ttt() {
+        print(viewModel.allCakes.count)
     }
 
 }
