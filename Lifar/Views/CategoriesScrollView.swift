@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum CategoriesTabs: String {
+enum CategoriesTabs: String, CaseIterable {
     case wedding = "Wedding cakes"
     case celebration = "Celebration & Bithday"
     case tarts = "TARTS"
@@ -30,7 +30,7 @@ class CategoriesScrollView: UIView {
         }
     }
 
-    private let categories = ["Wedding cakes", "Celebration & Bithday", "TARTS", "Cupcakes", "Cupcakes", "Desserts", "Macarons"]
+    let categories = ["Wedding cakes", "Celebration & Bithday", "TARTS", "Cupcakes", "Mini cupcakes", "Desserts", "Macarons"]
     
     private lazy var tabs: [CategoryView] = ["Wedding cakes", "Celebration & Bithday", "TARTS", "Cupcakes", "Mini cupcakes", "Desserts", "Macarons"].map { title in
         let view = CategoryView()

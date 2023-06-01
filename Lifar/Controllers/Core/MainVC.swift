@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 class MainVC: UIViewController {
+    
+    //MARK: - ViewViewModel
+    private var viewModel = MainViewViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
     
     //MARK: - Data
     private let sectionsTitles = ["Top Products", "New Products", "All", "Custom"]
@@ -40,6 +45,8 @@ class MainVC: UIViewController {
         applyDelegates()
         // configure table
         configureMainTable()
+        // bind views
+        bindViews()
     }
     
     //MARK: - viewWillAppear
@@ -56,32 +63,24 @@ class MainVC: UIViewController {
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: false)
         }
+        
+        viewModel.getPopular(for: CategoriesTabs.allCases[categoriesScrollView.selectedTabIndex])
     }
     
-    //MARK: - Configure nav bar
-    private func configureNavBar() {
-        let lifarLbl: UILabel = {
-            let lbl = UILabel()
-            lbl.text = "Liraf"
-            lbl.font = UIFont(name: "Chalkboard SE", size: 30)
-            lbl.textColor = .cakeWhite
-            lbl.translatesAutoresizingMaskIntoConstraints = false
-            return lbl
-        }()
-        
-        navigationController?.navigationBar.tintColor = .cakeWhite
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: nil)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "basket", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: nil)
-        
-        navigationItem.titleView = lifarLbl
-    }
     
     //MARK: - Add subviews
     private func addSubviews() {
         view.addSubview(categoriesScrollView)
         view.addSubview(mainTable)
+    }
+    
+    //MARK: - Bind views
+    private func bindViews() {
+        viewModel.$popularCakes.sink { [weak self] cakes in
+            for cake in cakes {
+                print(cake)
+            }
+        }.store(in: &subscriptions)
     }
     
     //MARK: - Apply constraints
@@ -102,6 +101,26 @@ class MainVC: UIViewController {
         
         NSLayoutConstraint.activate(categoriesScrollViewConstraints)
         NSLayoutConstraint.activate(mainTableConstraints)
+    }
+    
+    //MARK: - Configure nav bar
+    private func configureNavBar() {
+        let lifarLbl: UILabel = {
+            let lbl = UILabel()
+            lbl.text = "Liraf"
+            lbl.font = UIFont(name: "Chalkboard SE", size: 30)
+            lbl.textColor = .cakeWhite
+            lbl.translatesAutoresizingMaskIntoConstraints = false
+            return lbl
+        }()
+        
+        navigationController?.navigationBar.tintColor = .cakeWhite
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: nil)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "basket", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: nil)
+        
+        navigationItem.titleView = lifarLbl
     }
 
 }
