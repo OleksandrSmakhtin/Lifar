@@ -13,7 +13,7 @@ class MainCell: UITableViewCell {
     static let identifier = "MainCell"
     
     //MARK: - Data
-    private let products = ["d", "d", "d", "d", "d", "d", "d", "d"]
+    private var cakes: [Cake] = []
     
     //MARK: - UI Objects
     private let productsCollectionView: UICollectionView = {
@@ -48,6 +48,16 @@ class MainCell: UITableViewCell {
         productsCollectionView.frame = contentView.bounds
     }
     
+    //MARK: - Configure
+    public func configure(with cakes: [Cake]) {
+        self.cakes = cakes
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.productsCollectionView.reloadData()
+        }
+        
+    }
+    
     //MARK: - required init
     required init?(coder: NSCoder) {
         fatalError()
@@ -62,11 +72,14 @@ extension MainCell: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return products.count
+        return cakes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.identifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
+        
+        cell.configure(cake: cakes[indexPath.row])
+        
         return cell
     }
     

@@ -8,6 +8,14 @@
 import UIKit
 import Combine
 
+
+enum Sections: String {
+    case topProducts = "Top Products"
+    case newProdutcs = "New Products"
+    case all = "All"
+    case custom = "Custom"
+}
+
 class MainVC: UIViewController {
     
     //MARK: - ViewViewModel
@@ -15,7 +23,7 @@ class MainVC: UIViewController {
     private var subscriptions: Set<AnyCancellable> = []
     
     //MARK: - Data
-    private let sectionsTitles = ["Top Products", "New Products", "All", "Custom"]
+    private let sectionsTitles = [Sections.topProducts, Sections.newProdutcs, Sections.all, Sections.custom]
 
     //MARK: - UI Objects
     private let categoriesScrollView = CategoriesScrollView()
@@ -77,11 +85,11 @@ class MainVC: UIViewController {
     //MARK: - Bind views
     private func bindViews() {
         viewModel.$allCakes.sink { [weak self] cakes in
-            for cake in cakes {
-                print(cake.title)
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.mainTable.reloadData()
             }
-
-            print("-------------")
+            
         }.store(in: &subscriptions)
     }
     
@@ -144,7 +152,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionsTitles[section]
+        return sectionsTitles[section].rawValue
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -178,6 +186,20 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainCell.identifier) as? MainCell else { return UITableViewCell() }
+        
+        switch indexPath.section {
+        case 0:
+            cell.configure(with: viewModel.popularCakes)
+        case 1:
+            cell.configure(with: viewModel.newCakes)
+        case 2:
+            cell.configure(with: viewModel.allCakes)
+        case 3:
+            cell.configure(with: viewModel.newCakes)
+        default:
+            return UITableViewCell()
+        }
+        
         //cell.backgroundColor = .clear
         return cell
     }
