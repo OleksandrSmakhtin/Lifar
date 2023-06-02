@@ -14,13 +14,15 @@ class MainCell: UITableViewCell {
     
     //MARK: - Data
     private var cakes: [Cake] = []
+    private var isCustom = false
+    private var categoryForCustom: CategoriesTabs? = nil
     
     //MARK: - UI Objects
     private let productsCollectionView: UICollectionView = {
         // create a layout to define a scroll direction
         let layout = UICollectionViewFlowLayout()
         // set item size
-        layout.itemSize = CGSize(width: 170, height: 200)
+        layout.itemSize = CGSize(width: 170, height: 230)
         layout.scrollDirection = .horizontal
         //layout.minimumLineSpacing = 5
         
@@ -28,6 +30,9 @@ class MainCell: UITableViewCell {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(ProductCell.self, forCellWithReuseIdentifier: ProductCell.identifier)
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
         return collectionView
     }() 
     
@@ -38,6 +43,8 @@ class MainCell: UITableViewCell {
         backgroundColor = .clear
         // add subviews
         contentView.addSubview(productsCollectionView)
+        // apply constraints
+        applyConstraints()
         // apply delegates
         applyCollectionDelegates()
     }
@@ -45,7 +52,19 @@ class MainCell: UITableViewCell {
     //MARK: - didLayotSubviews
     override func layoutSubviews() {
         super.layoutSubviews()
-        productsCollectionView.frame = contentView.bounds
+        //productsCollectionView.frame = contentView.bounds
+    }
+    
+    //MARK: - Apply constraints
+    private func applyConstraints() {
+        let productsCollectionViewConstraints = [
+            productsCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            productsCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            productsCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            productsCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+        ]
+        
+        NSLayoutConstraint.activate(productsCollectionViewConstraints)
     }
     
     //MARK: - Configure
@@ -55,7 +74,6 @@ class MainCell: UITableViewCell {
         DispatchQueue.main.async { [weak self] in
             self?.productsCollectionView.reloadData()
         }
-        
     }
     
     //MARK: - required init
@@ -77,7 +95,7 @@ extension MainCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.identifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
-        
+
         cell.configure(cake: cakes[indexPath.row])
         
         return cell

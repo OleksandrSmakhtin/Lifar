@@ -31,6 +31,7 @@
 		44DBF4E42A28E2F900A71EE6 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4E32A28E2F900A71EE6 /* DatabaseManager.swift */; };
 		44DBF4E62A28E3D200A71EE6 /* Cake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4E52A28E3D200A71EE6 /* Cake.swift */; };
 		44DBF4E82A28EA5B00A71EE6 /* MainViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4E72A28EA5B00A71EE6 /* MainViewViewModel.swift */; };
+		44DBF4EB2A2A951500A71EE6 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 44DBF4EA2A2A951500A71EE6 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 			files = (
 				44DBF4DB2A28C90E00A71EE6 /* FirebaseFirestoreSwift in Frameworks */,
 				44DBF4DF2A28C90E00A71EE6 /* FirebaseStorageCombine-Community in Frameworks */,
+				44DBF4EB2A2A951500A71EE6 /* SDWebImage in Frameworks */,
 				44DBF4D52A28C90E00A71EE6 /* FirebaseDatabaseSwift in Frameworks */,
 				44DBF4D92A28C90E00A71EE6 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				44DBF4D32A28C90E00A71EE6 /* FirebaseDatabase in Frameworks */,
@@ -210,6 +212,7 @@
 				44DBF4DA2A28C90E00A71EE6 /* FirebaseFirestoreSwift */,
 				44DBF4DC2A28C90E00A71EE6 /* FirebaseStorage */,
 				44DBF4DE2A28C90E00A71EE6 /* FirebaseStorageCombine-Community */,
+				44DBF4EA2A2A951500A71EE6 /* SDWebImage */,
 			);
 			productName = Lifar;
 			productReference = 44DBF4902A1DBE8A00A71EE6 /* Lifar.app */;
@@ -241,6 +244,7 @@
 			mainGroup = 44DBF4872A1DBE8A00A71EE6;
 			packageReferences = (
 				44DBF4D12A28C90E00A71EE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				44DBF4E92A2A951500A71EE6 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 44DBF4912A1DBE8A00A71EE6 /* Products */;
 			projectDirPath = "";
@@ -500,6 +504,14 @@
 				minimumVersion = 10.10.0;
 			};
 		};
+		44DBF4E92A2A951500A71EE6 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.15.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -537,6 +549,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 44DBF4D12A28C90E00A71EE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		44DBF4EA2A2A951500A71EE6 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44DBF4E92A2A951500A71EE6 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

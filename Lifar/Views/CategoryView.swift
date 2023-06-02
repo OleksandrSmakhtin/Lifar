@@ -27,7 +27,7 @@ class CategoryView: UIView {
     var titleLbl: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont(name: "Futura", size: 16)
-        lbl.textColor = .cakePink
+        lbl.textColor = .black
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -36,6 +36,7 @@ class CategoryView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         // settings
+        deselectTab()
         backgroundColor = .cakeWhite
         layer.cornerRadius = 20
         clipsToBounds = true
@@ -83,14 +84,15 @@ class CategoryView: UIView {
     
     //MARK: - selectTab
     public func selectTab() {
-        titleLbl.textColor = .cakeFuchsia
+        titleLbl.textColor = .black
         layer.borderWidth = 2
-        layer.borderColor = UIColor.cakeFuchsia?.cgColor
+        layer.borderColor = UIColor.black.cgColor
     }
     
     //MARK: - deselectTab
     public func deselectTab() {
-        titleLbl.textColor = .cakePink
-        layer.borderWidth = 0
+        titleLbl.textColor = .systemGray2
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.systemGray2.cgColor
     }
 }

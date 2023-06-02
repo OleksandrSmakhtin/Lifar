@@ -106,7 +106,7 @@ class CategoriesScrollView: UIView {
         for tab in tabs {
             NSLayoutConstraint.activate([
                 tab.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                tab.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                tab.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
             ])
         }
         

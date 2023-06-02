@@ -12,6 +12,7 @@ struct Cake: Codable {
     
     let title: String
     let path: String
+    let price: String
     let description: String
     
 }

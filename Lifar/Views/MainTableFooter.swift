@@ -13,7 +13,7 @@ class MainTableFooter: UIView {
     private let callUsLbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "CALL US"
-        lbl.textColor = .cakeFuchsia
+        lbl.textColor = .black
         lbl.font = UIFont(name: "Arial Rounded MT Bold", size: 22)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
@@ -22,7 +22,7 @@ class MainTableFooter: UIView {
     private let phoneImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "phone", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .bold))
-        imageView.tintColor = .cakeFuchsia
+        imageView.tintColor = .black
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -30,7 +30,15 @@ class MainTableFooter: UIView {
     private let callUsBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.backgroundColor = .cakeWhite
-        btn.layer.cornerRadius = 35
+        btn.layer.borderWidth = 2
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.layer.cornerRadius = 20
+        // shadow
+        btn.layer.shadowColor = UIColor.black.cgColor
+        btn.layer.shadowOpacity = 0.5
+        btn.layer.shadowOffset = CGSize(width: 4, height: 4)
+        btn.layer.shadowRadius = 4
+        
         btn.addTarget(self, action: #selector(didTapCall), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn

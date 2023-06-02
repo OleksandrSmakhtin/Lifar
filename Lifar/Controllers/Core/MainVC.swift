@@ -42,7 +42,7 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // bg color
-        view.backgroundColor = .cakePink
+        view.backgroundColor = .cakeWhite
         // configure nav bar
         configureNavBar()
         // add subviews
@@ -99,13 +99,13 @@ class MainVC: UIViewController {
             categoriesScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoriesScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoriesScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            categoriesScrollView.heightAnchor.constraint(equalToConstant: 40)
+            categoriesScrollView.heightAnchor.constraint(equalToConstant: 50)
         ]
         
         let mainTableConstraints = [
             mainTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainTable.topAnchor.constraint(equalTo: categoriesScrollView.bottomAnchor, constant: 20),
+            mainTable.topAnchor.constraint(equalTo: categoriesScrollView.bottomAnchor, constant: 2),
             mainTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         
@@ -119,12 +119,14 @@ class MainVC: UIViewController {
             let lbl = UILabel()
             lbl.text = "Liraf"
             lbl.font = UIFont(name: "Chalkboard SE", size: 30)
-            lbl.textColor = .cakeWhite
+            lbl.textColor = .black
             lbl.translatesAutoresizingMaskIntoConstraints = false
             return lbl
         }()
         
-        navigationController?.navigationBar.tintColor = .cakeWhite
+        
+        
+        navigationController?.navigationBar.tintColor = .black
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: nil)
         
@@ -158,9 +160,9 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         
-        header.tintColor = .cakePink
+        header.tintColor = .black
         header.textLabel?.font = UIFont(name: "Futura", size: 25)
-        header.textLabel?.textColor = .cakeWhite
+        header.textLabel?.textColor = .black
         
         guard let firstLetterCapitalized = header.textLabel?.text?.first?.uppercased() else { return }
         header.textLabel?.text = header.textLabel?.text?.lowercased()
@@ -177,7 +179,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 250
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -195,7 +197,8 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         case 2:
             cell.configure(with: viewModel.allCakes)
         case 3:
-            cell.configure(with: viewModel.newCakes)
+            let custom = Cake(title: CategoriesTabs.allCases[categoriesScrollView.selectedTabIndex].rawValue, path: "", price: "", description: "")
+            cell.configure(with: [custom])
         default:
             return UITableViewCell()
         }
