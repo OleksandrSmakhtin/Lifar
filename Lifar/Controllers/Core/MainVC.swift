@@ -139,7 +139,7 @@ class MainVC: UIViewController {
         print(viewModel.allCakes.count)
     }
 
-} 
+}  
 
 //MARK: - UITableViewDelegate & DataSource
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
