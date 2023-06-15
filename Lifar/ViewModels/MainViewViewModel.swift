@@ -11,6 +11,7 @@ import Combine
 
 final class MainViewViewModel: ObservableObject {
     
+    @Published var isSideMenuHidden = true
     @Published var popularCakes: [Cake] = []
     @Published var newCakes: [Cake] = []
     @Published var allCakes: [Cake] = []

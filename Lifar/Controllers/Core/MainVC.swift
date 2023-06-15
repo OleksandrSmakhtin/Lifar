@@ -26,6 +26,8 @@ class MainVC: UIViewController {
     private let sectionsTitles = [Sections.topProducts, Sections.newProdutcs, Sections.all, Sections.custom]
 
     //MARK: - UI Objects
+    private let sideMenu = SideMenuView()
+    
     private let categoriesScrollView = CategoriesScrollView()
     
     private let mainTable: UITableView = {
@@ -80,10 +82,31 @@ class MainVC: UIViewController {
     private func addSubviews() {
         view.addSubview(categoriesScrollView)
         view.addSubview(mainTable)
+        view.addSubview(sideMenu)
     }
     
     //MARK: - Bind views
     private func bindViews() {
+        // side menu
+        viewModel.$isSideMenuHidden.sink { [weak self] state in
+            
+            if state {
+                print("PUPsA")
+                self?.sideMenu.widthAnchor.constraint(equalToConstant: 160).isActive = false
+                self?.sideMenu.layoutIfNeeded()
+                self?.sideMenu.widthAnchor.constraint(equalToConstant: 0).isActive = true
+            } else {
+
+                print("PUPA")
+                self?.sideMenu.widthAnchor.constraint(equalToConstant: 0).isActive = false
+                self?.sideMenu.layoutIfNeeded()
+                self?.sideMenu.widthAnchor.constraint(equalToConstant: 160).isActive = true
+                
+            }
+            
+        }.store(in: &subscriptions)
+        
+        // cakes
         viewModel.$allCakes.sink { [weak self] cakes in
             
             DispatchQueue.main.async { [weak self] in
@@ -109,8 +132,16 @@ class MainVC: UIViewController {
             mainTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         
+        let sideMenuConstraints = [
+            sideMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            sideMenu.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            sideMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            sideMenu.widthAnchor.constraint(equalToConstant: 0)
+        ]
+        
         NSLayoutConstraint.activate(categoriesScrollViewConstraints)
         NSLayoutConstraint.activate(mainTableConstraints)
+        NSLayoutConstraint.activate(sideMenuConstraints)
     }
     
     //MARK: - Configure nav bar
@@ -128,11 +159,22 @@ class MainVC: UIViewController {
         
         navigationController?.navigationBar.tintColor = .black
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: #selector(didTapSideMenu))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "basket", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: #selector(ttt))
         
         navigationItem.titleView = lifarLbl
+    }
+    
+    //MARK: - Actions
+    @objc private func didTapSideMenu() {
+        
+        viewModel.isSideMenuHidden.toggle()
+//        if sideMenu. {
+//            
+//        }
+        
+        //sideMenu.isHidden.toggle()
     }
     
     @objc func ttt() {
