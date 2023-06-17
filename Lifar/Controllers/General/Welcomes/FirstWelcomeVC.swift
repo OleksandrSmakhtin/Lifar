@@ -14,7 +14,7 @@ class FirstWelcomeVC: UIViewController {
         let lbl = UILabel()
         lbl.text = "WELCOME TO"
         lbl.font = UIFont(name: "Arial Rounded MT Bold", size: 30)
-        lbl.textColor = .cakeWhite
+        lbl.textColor = .black
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -23,7 +23,7 @@ class FirstWelcomeVC: UIViewController {
         let lbl = UILabel()
         lbl.text = "Liraf"
         lbl.font = UIFont(name: "Chalkboard SE", size: 30)
-        lbl.textColor = .cakeWhite
+        lbl.textColor = .black
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -32,7 +32,7 @@ class FirstWelcomeVC: UIViewController {
         let lbl = UILabel()
         lbl.text = "We invite you to the world of delicious and unique desserts."
         lbl.font = UIFont(name: "Futura", size: 20)
-        lbl.textColor = .cakeWhite
+        lbl.textColor = .black
         lbl.numberOfLines = 0
         lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -43,8 +43,8 @@ class FirstWelcomeVC: UIViewController {
         let pageControl = UIPageControl()
         pageControl.currentPage = 0
         pageControl.numberOfPages = 2
-        pageControl.currentPageIndicatorTintColor = .cakeWhite
-        pageControl.pageIndicatorTintColor = .cakeWhite?.withAlphaComponent(0.5)
+        pageControl.currentPageIndicatorTintColor = .black
+        pageControl.pageIndicatorTintColor = .black.withAlphaComponent(0.5)
         pageControl.addTarget(self, action: #selector(didChangePage(_:)), for: .valueChanged)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         return pageControl
@@ -60,11 +60,20 @@ class FirstWelcomeVC: UIViewController {
     
     private let nextBtn: UIButton = {
         let btn = UIButton(type: .system)
-        btn.backgroundColor = .cakeWhite
-        btn.tintColor = .cakeFuchsia
+        btn.tintColor = .black
         btn.setTitle("NEXT", for: .normal)
         btn.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 20)
-        btn.layer.cornerRadius = 30
+        
+        btn.backgroundColor = .cakeWhite
+        btn.layer.borderWidth = 2
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.layer.cornerRadius = 20
+        // shadow
+        btn.layer.shadowColor = UIColor.black.cgColor
+        btn.layer.shadowOpacity = 0.5
+        btn.layer.shadowOffset = CGSize(width: 4, height: 4)
+        btn.layer.shadowRadius = 4
+        
         btn.addTarget(self, action: #selector(didTapNext), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
@@ -76,7 +85,7 @@ class FirstWelcomeVC: UIViewController {
         // nav bar tint
         navigationController?.navigationBar.tintColor = .cakeWhite
         // bg color
-        view.backgroundColor = .cakePink
+        view.backgroundColor = .cakeWhite
         // add subviews
         addSubviews()
         // apply constraints

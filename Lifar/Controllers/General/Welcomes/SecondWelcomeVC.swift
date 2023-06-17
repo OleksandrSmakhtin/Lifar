@@ -14,7 +14,7 @@ class SecondWelcomeVC: UIViewController {
         let lbl = UILabel()
         lbl.text = "BEST DESSERTS IN"
         lbl.font = UIFont(name: "Arial Rounded MT Bold", size: 30)
-        lbl.textColor = .cakeWhite
+        lbl.textColor = .black
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -23,7 +23,7 @@ class SecondWelcomeVC: UIViewController {
         let lbl = UILabel()
         lbl.text = "IRELAND"
         lbl.font = UIFont(name: "Chalkboard SE", size: 30)
-        lbl.textColor = .cakeWhite
+        lbl.textColor = .black
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -32,7 +32,7 @@ class SecondWelcomeVC: UIViewController {
         let lbl = UILabel()
         lbl.text = "Here you can easily and conveniently order cake and other desserts for any special moment in your life."
         lbl.font = UIFont(name: "Futura", size: 20)
-        lbl.textColor = .cakeWhite
+        lbl.textColor = .black
         lbl.numberOfLines = 0
         lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -43,8 +43,8 @@ class SecondWelcomeVC: UIViewController {
         let pageControl = UIPageControl()
         pageControl.currentPage = 1
         pageControl.numberOfPages = 2
-        pageControl.currentPageIndicatorTintColor = .cakeWhite
-        pageControl.pageIndicatorTintColor = .cakeWhite?.withAlphaComponent(0.5)
+        pageControl.currentPageIndicatorTintColor = .black
+        pageControl.pageIndicatorTintColor = .black.withAlphaComponent(0.5)
         pageControl.addTarget(self, action: #selector(didChangePage(_:)), for: .valueChanged)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         return pageControl
@@ -60,11 +60,20 @@ class SecondWelcomeVC: UIViewController {
     
     private let getStartedBtn: UIButton = {
         let btn = UIButton(type: .system)
-        btn.backgroundColor = .cakeWhite
-        btn.tintColor = .cakeFuchsia
+        btn.tintColor = .black
         btn.setTitle("GET STARTED", for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        btn.layer.cornerRadius = 30
+        
+        btn.backgroundColor = .cakeWhite
+        btn.layer.borderWidth = 2
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.layer.cornerRadius = 20
+        // shadow
+        btn.layer.shadowColor = UIColor.black.cgColor
+        btn.layer.shadowOpacity = 0.5
+        btn.layer.shadowOffset = CGSize(width: 4, height: 4)
+        btn.layer.shadowRadius = 4
+        
         btn.addTarget(self, action: #selector(didTapGetStarted), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
@@ -74,7 +83,7 @@ class SecondWelcomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // bg color
-        view.backgroundColor = .cakePink
+        view.backgroundColor = .cakeWhite
         // add subviews
         addSubviews()
         // apply constraints
