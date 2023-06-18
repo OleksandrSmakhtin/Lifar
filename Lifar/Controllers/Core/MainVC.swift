@@ -91,17 +91,18 @@ class MainVC: UIViewController {
         viewModel.$isSideMenuHidden.sink { [weak self] state in
             
             if state {
-                print("PUPsA")
-                self?.sideMenu.widthAnchor.constraint(equalToConstant: 160).isActive = false
-                self?.sideMenu.layoutIfNeeded()
-                self?.sideMenu.widthAnchor.constraint(equalToConstant: 0).isActive = true
-            } else {
-
-                print("PUPA")
-                self?.sideMenu.widthAnchor.constraint(equalToConstant: 0).isActive = false
-                self?.sideMenu.layoutIfNeeded()
-                self?.sideMenu.widthAnchor.constraint(equalToConstant: 160).isActive = true
                 
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) { [weak self] in
+                    self?.sideMenu.layer.opacity = 0
+                } completion: { _ in }
+                self?.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "line.3.horizontal", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+                
+            } else {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) { [weak self] in
+                    self?.sideMenu.layer.opacity = 1
+                } completion: { _ in }
+                
+                self?.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "line.3.horizontal", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular))?.rotate(degrees: 90)
             }
             
         }.store(in: &subscriptions)
@@ -136,7 +137,7 @@ class MainVC: UIViewController {
             sideMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             sideMenu.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             sideMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            sideMenu.widthAnchor.constraint(equalToConstant: 0)
+            sideMenu.widthAnchor.constraint(equalToConstant: 160)
         ]
         
         NSLayoutConstraint.activate(categoriesScrollViewConstraints)
@@ -168,13 +169,7 @@ class MainVC: UIViewController {
     
     //MARK: - Actions
     @objc private func didTapSideMenu() {
-        
         viewModel.isSideMenuHidden.toggle()
-//        if sideMenu. {
-//            
-//        }
-        
-        //sideMenu.isHidden.toggle()
     }
     
     @objc func ttt() {

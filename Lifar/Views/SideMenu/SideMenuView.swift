@@ -34,6 +34,7 @@ class SideMenuView: UIView {
         applyTableDelegates()
         // isHidden
         //isHidden = true
+        layer.opacity = 0
         // enable constraints
         translatesAutoresizingMaskIntoConstraints = false
     }
