@@ -7,7 +7,18 @@
 
 import UIKit
 
+protocol SideMenuDelegate: AnyObject {
+    func didSelectProfile()
+    func didSelectFavorite()
+    func didSelectRate()
+    func didSelectShare()
+    func didSelectAbout()
+}
+
 class SideMenuView: UIView {
+    
+    //MARK: - Delegate
+    weak var delegate: SideMenuDelegate?
     
     //MARK: - Data
     private let menuItems = MenuItemData.shared.getMenuItems()
@@ -17,6 +28,7 @@ class SideMenuView: UIView {
         let table = UITableView()
         table.backgroundColor = .clear
         //table.separatorStyle = .none
+        table.isScrollEnabled = false
         table.showsVerticalScrollIndicator = false
         table.register(SideMenuCell.self, forCellReuseIdentifier: SideMenuCell.identifier)
         //table.translatesAutoresizingMaskIntoConstraints = false
@@ -35,6 +47,12 @@ class SideMenuView: UIView {
         // isHidden
         //isHidden = true
         layer.opacity = 0
+        // shadow
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowOffset = CGSize(width: 7, height: 10)
+        layer.shadowRadius = 3
+        layer.masksToBounds = false
         // enable constraints
         translatesAutoresizingMaskIntoConstraints = false
     }
@@ -68,20 +86,41 @@ extension SideMenuView: UITableViewDelegate, UITableViewDataSource {
         menuTable.dataSource = self
     }
     
+    // number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuItems.count
     }
     
+    // cell for row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SideMenuCell.identifier) as? SideMenuCell else { return UITableViewCell() }
-        
         cell.configure(with: menuItems[indexPath.row])
-        
         return cell
     }
     
+    // height for row
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return 60
+    }
+    
+    // did select row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch indexPath.row {
+        case 0:
+            delegate?.didSelectProfile()
+        case 1:
+            delegate?.didSelectFavorite()
+        case 2:
+            delegate?.didSelectRate()
+        case 3:
+            delegate?.didSelectShare()
+        case 4:
+            delegate?.didSelectAbout()
+        default:
+            return
+        }
     }
     
     

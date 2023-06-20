@@ -52,7 +52,8 @@ class MainVC: UIViewController {
         // apply constraints
         applyConstraints()
         // apply delegates
-        applyDelegates()
+        applyTableDelegates()
+        applySideMenuDelegate()
         // configure table
         configureMainTable()
         // bind views
@@ -181,7 +182,7 @@ class MainVC: UIViewController {
 
 //MARK: - UITableViewDelegate & DataSource
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
-    private func applyDelegates() {
+    private func applyTableDelegates() {
         mainTable.delegate = self
         mainTable.dataSource = self
     }
@@ -244,4 +245,40 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         //cell.backgroundColor = .clear
         return cell
     }
+}
+
+
+//MARK: - SideMenuDelegate
+extension MainVC: SideMenuDelegate {
+    private func applySideMenuDelegate() {
+        sideMenu.delegate = self
+    }
+    
+    func didSelectProfile() {
+        print("PROFILE TAPPED")
+    }
+    
+    func didSelectFavorite() {
+        print("FAVORITE TAPPED")
+    }
+    
+    func didSelectRate() {
+        print("RATE TAPPED")
+    }
+    
+    func didSelectShare() {
+        print("SHARE TAPPED")
+    }
+    
+    func didSelectAbout() {
+        print("ABOUT TAPPED")
+        let vc = AboutVC()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    
 }

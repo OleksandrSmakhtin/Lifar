@@ -36,6 +36,8 @@
 		44DBF4F12A3B5C9700A71EE6 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4F02A3B5C9700A71EE6 /* MenuItem.swift */; };
 		44DBF4F62A3B5E4600A71EE6 /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4F52A3B5E4600A71EE6 /* SideMenuCell.swift */; };
 		44DBF4FA2A3FBAE000A71EE6 /* Extension+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4F92A3FBAE000A71EE6 /* Extension+UIImage.swift */; };
+		44DBF4FC2A425E3C00A71EE6 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4FB2A425E3C00A71EE6 /* ProfileVC.swift */; };
+		44DBF4FE2A425E4900A71EE6 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4FD2A425E4900A71EE6 /* AboutVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		44DBF4F02A3B5C9700A71EE6 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		44DBF4F52A3B5E4600A71EE6 /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		44DBF4F92A3FBAE000A71EE6 /* Extension+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIImage.swift"; sourceTree = "<group>"; };
+		44DBF4FB2A425E3C00A71EE6 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		44DBF4FD2A425E4900A71EE6 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				44DBF4AD2A1DC18300A71EE6 /* Welcomes */,
+				44DBF4FB2A425E3C00A71EE6 /* ProfileVC.swift */,
+				44DBF4FD2A425E4900A71EE6 /* AboutVC.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -312,6 +318,7 @@
 				44DBF4AF2A1DC1A200A71EE6 /* FirstWelcomeVC.swift in Sources */,
 				44DBF4E62A28E3D200A71EE6 /* Cake.swift in Sources */,
 				44DBF4E82A28EA5B00A71EE6 /* MainViewViewModel.swift in Sources */,
+				44DBF4FC2A425E3C00A71EE6 /* ProfileVC.swift in Sources */,
 				44DBF4942A1DBE8A00A71EE6 /* AppDelegate.swift in Sources */,
 				44DBF4B12A1DC1F000A71EE6 /* SecondWelcomeVC.swift in Sources */,
 				44DBF4C62A21734D00A71EE6 /* MainTableFooter.swift in Sources */,
@@ -324,6 +331,7 @@
 				44DBF4EF2A3B5A6F00A71EE6 /* SideMenuView.swift in Sources */,
 				44DBF4F12A3B5C9700A71EE6 /* MenuItem.swift in Sources */,
 				44DBF4B92A1DD3DF00A71EE6 /* Extension+UIColor.swift in Sources */,
+				44DBF4FE2A425E4900A71EE6 /* AboutVC.swift in Sources */,
 				44DBF4FA2A3FBAE000A71EE6 /* Extension+UIImage.swift in Sources */,
 				44DBF4C22A2165BF00A71EE6 /* MainCell.swift in Sources */,
 				44DBF4F62A3B5E4600A71EE6 /* SideMenuCell.swift in Sources */,
