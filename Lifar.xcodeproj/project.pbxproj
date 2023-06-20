@@ -38,6 +38,7 @@
 		44DBF4FA2A3FBAE000A71EE6 /* Extension+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4F92A3FBAE000A71EE6 /* Extension+UIImage.swift */; };
 		44DBF4FC2A425E3C00A71EE6 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4FB2A425E3C00A71EE6 /* ProfileVC.swift */; };
 		44DBF4FE2A425E4900A71EE6 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4FD2A425E4900A71EE6 /* AboutVC.swift */; };
+		44DBF5002A426A9400A71EE6 /* FavoriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF4FF2A426A9400A71EE6 /* FavoriteVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		44DBF4F92A3FBAE000A71EE6 /* Extension+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIImage.swift"; sourceTree = "<group>"; };
 		44DBF4FB2A425E3C00A71EE6 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		44DBF4FD2A425E4900A71EE6 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		44DBF4FF2A426A9400A71EE6 /* FavoriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 			children = (
 				44DBF4AD2A1DC18300A71EE6 /* Welcomes */,
 				44DBF4FB2A425E3C00A71EE6 /* ProfileVC.swift */,
+				44DBF4FF2A426A9400A71EE6 /* FavoriteVC.swift */,
 				44DBF4FD2A425E4900A71EE6 /* AboutVC.swift */,
 			);
 			path = General;
@@ -334,6 +337,7 @@
 				44DBF4FE2A425E4900A71EE6 /* AboutVC.swift in Sources */,
 				44DBF4FA2A3FBAE000A71EE6 /* Extension+UIImage.swift in Sources */,
 				44DBF4C22A2165BF00A71EE6 /* MainCell.swift in Sources */,
+				44DBF5002A426A9400A71EE6 /* FavoriteVC.swift in Sources */,
 				44DBF4F62A3B5E4600A71EE6 /* SideMenuCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

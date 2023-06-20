@@ -32,6 +32,15 @@ class ProductCell: UICollectionViewCell {
         return lbl
     }()
     
+    private let addToFavoriteBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold)), for: .normal)
+        btn.tintColor = .black
+        btn.addTarget(self, action: #selector(didTapAddToFavorite), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
     private let productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "testCake")
@@ -56,6 +65,11 @@ class ProductCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    //MARK: - Actions
+    @objc private func didTapAddToFavorite() {
+        print("\(titleLbl.text) WAS ADDED TO FAV")
+    }
     
     //MARK: - init
     override init(frame: CGRect) {
@@ -85,6 +99,7 @@ class ProductCell: UICollectionViewCell {
         customContentView.addSubview(productImageView)
         contentView.addSubview(titleLbl)
         contentView.addSubview(priceLbl)
+        contentView.addSubview(addToFavoriteBtn)
     }
     
     //MARK: - Apply constraints
@@ -113,10 +128,16 @@ class ProductCell: UICollectionViewCell {
             priceLbl.bottomAnchor.constraint(equalTo: customContentView.bottomAnchor, constant: -10)
         ]
         
+        let addToFavoriteBtnConstraints = [
+            addToFavoriteBtn.topAnchor.constraint(equalTo: customContentView.topAnchor, constant: 10),
+            addToFavoriteBtn.trailingAnchor.constraint(equalTo: customContentView.trailingAnchor, constant: -10),
+        ]
+        
         NSLayoutConstraint.activate(customContentViewConstraints)
         NSLayoutConstraint.activate(productImageViewConstraints)
         NSLayoutConstraint.activate(titleLblConstraints)
         NSLayoutConstraint.activate(priceLblConstraints)
+        NSLayoutConstraint.activate(addToFavoriteBtnConstraints)
     }
     
     //MARK: - Configure

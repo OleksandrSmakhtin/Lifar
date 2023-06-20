@@ -157,7 +157,7 @@ class MainVC: UIViewController {
             return lbl
         }()
         
-        
+        navigationController?.navigationBar.backgroundColor = .cakeWhite
         
         navigationController?.navigationBar.tintColor = .black
         
@@ -256,10 +256,20 @@ extension MainVC: SideMenuDelegate {
     
     func didSelectProfile() {
         print("PROFILE TAPPED")
+        let vc = ProfileVC()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func didSelectFavorite() {
         print("FAVORITE TAPPED")
+        let vc = FavoriteVC()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func didSelectRate() {
@@ -277,7 +287,6 @@ extension MainVC: SideMenuDelegate {
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
         navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     

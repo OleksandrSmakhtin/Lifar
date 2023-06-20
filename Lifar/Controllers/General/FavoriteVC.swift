@@ -1,29 +1,28 @@
 //
-//  ProfileVC.swift
+//  FavoriteVC.swift
 //  Lifar
 //
-//  Created by Oleksandr Smakhtin on 20.06.2023.
+//  Created by Oleksandr Smakhtin on 21.06.2023.
 //
 
 import UIKit
 
-class ProfileVC: UIViewController {
+class FavoriteVC: UIViewController {
 
-    //MARK: viewDidLoad
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        // bg color
+        //bg color
         view.backgroundColor = .cakeWhite
         // configure nav bar
         configureNavBar()
     }
     
-    
     //MARK: - Configure nav bar
     private func configureNavBar() {
         let lifarLbl: UILabel = {
             let lbl = UILabel()
-            lbl.text = "Profile"
+            lbl.text = "Favorite"
             lbl.font = UIFont(name: "Chalkboard SE", size: 30)
             lbl.textColor = .black
             lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -32,5 +31,4 @@ class ProfileVC: UIViewController {
         navigationController?.navigationBar.tintColor = .black
         navigationItem.titleView = lifarLbl
     }
-
 }
