@@ -58,10 +58,10 @@ class SecondWelcomeVC: UIViewController {
         return swipe
     }()
     
-    private let getStartedBtn: UIButton = {
+    private let logInBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.tintColor = .black
-        btn.setTitle("GET STARTED", for: .normal)
+        btn.setTitle("Log In", for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         
         btn.backgroundColor = .cakeWhite
@@ -74,7 +74,28 @@ class SecondWelcomeVC: UIViewController {
         btn.layer.shadowOffset = CGSize(width: 4, height: 4)
         btn.layer.shadowRadius = 4
         
-        btn.addTarget(self, action: #selector(didTapGetStarted), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(didTapLogIn), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
+    private let signUpBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.tintColor = .cakeWhite
+        btn.setTitle("Sign Up", for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        
+        btn.backgroundColor = .black
+        btn.layer.borderWidth = 2
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.layer.cornerRadius = 20
+        // shadow
+        btn.layer.shadowColor = UIColor.black.cgColor
+        btn.layer.shadowOpacity = 0.5
+        btn.layer.shadowOffset = CGSize(width: 4, height: 4)
+        btn.layer.shadowRadius = 4
+        
+        btn.addTarget(self, action: #selector(didTapLogIn), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -94,13 +115,18 @@ class SecondWelcomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         pageControl.currentPage = 1
+        navigationController?.navigationBar.tintColor = .cakeWhite
+//        guard let rootVC = navigationController?.topViewController as? FirstWelcomeVC else { return }
+//        rootVC.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
     
     //MARK: - Actions
-    @objc private func didTapGetStarted() {
-        guard let controller = navigationController?.viewControllers.first as? FirstWelcomeVC else { return }
-        UserDefaults.standard.set(true, forKey: "isOnboarded")
-        controller.dismiss(animated: true)
+    @objc private func didTapLogIn() {
+        let vc = LogInVC()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func didChangePage(_ sender: UIPageControl) {
@@ -116,7 +142,8 @@ class SecondWelcomeVC: UIViewController {
     //MARK: - Add subviews
     private func addSubviews() {
         view.addGestureRecognizer(rightSwipe)
-        view.addSubview(getStartedBtn)
+        view.addSubview(logInBtn)
+        view.addSubview(signUpBtn)
         view.addSubview(pageControl)
         view.addSubview(welcomeLbl)
         view.addSubview(lifarLbl)
@@ -125,16 +152,23 @@ class SecondWelcomeVC: UIViewController {
     
     //MARK: - Apply constraints
     private func applyConstraints() {
-        let getStartedBtnConstraints = [
-            getStartedBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            getStartedBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            getStartedBtn.heightAnchor.constraint(equalToConstant: 60),
-            getStartedBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60)
+        let logInBtnConstraints = [
+            logInBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            logInBtn.widthAnchor.constraint(equalToConstant: view.frame.width / 2 - 35),
+            logInBtn.heightAnchor.constraint(equalToConstant: 60),
+            logInBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60)
+        ]
+        
+        let signUpBtnConstraints = [
+            signUpBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            signUpBtn.widthAnchor.constraint(equalToConstant: view.frame.width / 2 - 35),
+            signUpBtn.heightAnchor.constraint(equalToConstant: 60),
+            signUpBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60)
         ]
         
         let pageControlConstraints = [
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pageControl.bottomAnchor.constraint(equalTo: getStartedBtn.topAnchor, constant: -10)
+            pageControl.bottomAnchor.constraint(equalTo: logInBtn.topAnchor, constant: -10)
         ]
         
         let welcomeLblConstraints = [
@@ -153,7 +187,8 @@ class SecondWelcomeVC: UIViewController {
             descriptionLbl.topAnchor.constraint(equalTo: lifarLbl.bottomAnchor, constant: 40)
         ]
         
-        NSLayoutConstraint.activate(getStartedBtnConstraints)
+        NSLayoutConstraint.activate(logInBtnConstraints)
+        NSLayoutConstraint.activate(signUpBtnConstraints)
         NSLayoutConstraint.activate(pageControlConstraints)
         NSLayoutConstraint.activate(welcomeLblConstraints)
         NSLayoutConstraint.activate(lifarLblConstraints)

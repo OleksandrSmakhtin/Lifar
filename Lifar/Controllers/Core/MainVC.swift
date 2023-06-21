@@ -7,7 +7,7 @@
 
 import UIKit
 import Combine
-
+import FirebaseAuth
 
 enum Sections: String {
     case topProducts = "Top Products"
@@ -64,16 +64,7 @@ class MainVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //
-        //UserDefaults.standard.set(false, forKey: "isOnboarded")
-        //
-        
-        
-        if !UserDefaults.standard.bool(forKey: "isOnboarded") {
-            let vc = UINavigationController(rootViewController: FirstWelcomeVC())
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: false)
-        }
+        handleAuth()
         
         viewModel.retrieveCakes(for: CategoriesTabs.allCases[categoriesScrollView.selectedTabIndex])
     }
@@ -90,9 +81,7 @@ class MainVC: UIViewController {
     private func bindViews() {
         // side menu
         viewModel.$isSideMenuHidden.sink { [weak self] state in
-            
             if state {
-                
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) { [weak self] in
                     self?.sideMenu.layer.opacity = 0
                 } completion: { _ in }
@@ -102,19 +91,18 @@ class MainVC: UIViewController {
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) { [weak self] in
                     self?.sideMenu.layer.opacity = 1
                 } completion: { _ in }
-                
+        
                 self?.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "line.3.horizontal", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular))?.rotate(degrees: 90)
             }
             
         }.store(in: &subscriptions)
         
+        
         // cakes
         viewModel.$allCakes.sink { [weak self] cakes in
-            
             DispatchQueue.main.async { [weak self] in
                 self?.mainTable.reloadData()
             }
-            
         }.store(in: &subscriptions)
     }
     
@@ -146,6 +134,18 @@ class MainVC: UIViewController {
         NSLayoutConstraint.activate(sideMenuConstraints)
     }
     
+    
+    
+    //MARK: - Handle Auth
+    private func handleAuth() {
+        if Auth.auth().currentUser == nil {
+            let vc = UINavigationController(rootViewController: FirstWelcomeVC())
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: false)
+        }
+    }
+    
+    
     //MARK: - Configure nav bar
     private func configureNavBar() {
         let lifarLbl: UILabel = {
@@ -163,7 +163,7 @@ class MainVC: UIViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: #selector(didTapSideMenu))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "basket", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: #selector(ttt))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "basket", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: #selector(didTapBasket))
         
         navigationItem.titleView = lifarLbl
     }
@@ -173,8 +173,12 @@ class MainVC: UIViewController {
         viewModel.isSideMenuHidden.toggle()
     }
     
-    @objc func ttt() {
-        print(viewModel.allCakes.count)
+    @objc private func didTapBasket() {
+        let vc = BasketVC()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 }
