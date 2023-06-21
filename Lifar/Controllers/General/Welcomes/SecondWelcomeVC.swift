@@ -95,7 +95,7 @@ class SecondWelcomeVC: UIViewController {
         btn.layer.shadowOffset = CGSize(width: 4, height: 4)
         btn.layer.shadowRadius = 4
         
-        btn.addTarget(self, action: #selector(didTapLogIn), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -123,6 +123,14 @@ class SecondWelcomeVC: UIViewController {
     //MARK: - Actions
     @objc private func didTapLogIn() {
         let vc = LogInVC()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func didTapSignUp() {
+        let vc = SignUpVC()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))

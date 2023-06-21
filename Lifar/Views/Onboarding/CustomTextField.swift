@@ -12,7 +12,7 @@ class CustomTextField: UITextField {
     //MARK: - UI Objects
     private let targetLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Futura", size: 22)
+        lbl.font = UIFont(name: "Futura", size: 18)
         lbl.textColor = .black
         lbl.numberOfLines = 0
         lbl.textAlignment = .center
@@ -35,18 +35,25 @@ class CustomTextField: UITextField {
         // text
         textColor = .black
         tintColor = .black
-        font = UIFont(name: "Futura", size: 20)
-        keyboardType = .emailAddress
+        font = UIFont(name: "Futura", size: 19)
+        
+        if target == "Password" || target == "Repeat password" {
+            keyboardType = .default
+            isSecureTextEntry = true
+        } else {
+            keyboardType = .emailAddress
+        }
+        
         autocorrectionType = .no
         // borders & corners
         layer.borderWidth = 2
         layer.borderColor = UIColor.black.cgColor
-        layer.cornerRadius = 20
+        layer.cornerRadius = 15
         // shadow
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = CGSize(width: 4, height: 4)
-        layer.shadowRadius = 4
+//        layer.shadowColor = UIColor.black.cgColor
+//        layer.shadowOpacity = 0.5
+//        layer.shadowOffset = CGSize(width: 4, height: 4)
+//        layer.shadowRadius = 4
         // padding from beggining
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: frame.height))
         leftView = paddingView

@@ -44,6 +44,10 @@
 		44DBF5152A4274DF00A71EE6 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 44DBF5142A4274DF00A71EE6 /* FirebaseStorageCombine-Community */; };
 		44DBF5182A42789300A71EE6 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5172A42789300A71EE6 /* LogInVC.swift */; };
 		44DBF51B2A427B8C00A71EE6 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF51A2A427B8C00A71EE6 /* CustomTextField.swift */; };
+		44DBF51D2A43313D00A71EE6 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF51C2A43313D00A71EE6 /* SignUpVC.swift */; };
+		44DBF51F2A43353800A71EE6 /* AuthViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF51E2A43353800A71EE6 /* AuthViewViewModel.swift */; };
+		44DBF5212A43399500A71EE6 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5202A43399500A71EE6 /* AuthManager.swift */; };
+		44DBF5232A433BE400A71EE6 /* LirafUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5222A433BE400A71EE6 /* LirafUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +80,10 @@
 		44DBF5012A426E6B00A71EE6 /* BasketVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketVC.swift; sourceTree = "<group>"; };
 		44DBF5172A42789300A71EE6 /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		44DBF51A2A427B8C00A71EE6 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		44DBF51C2A43313D00A71EE6 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		44DBF51E2A43353800A71EE6 /* AuthViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewViewModel.swift; sourceTree = "<group>"; };
+		44DBF5202A43399500A71EE6 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		44DBF5222A433BE400A71EE6 /* LirafUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LirafUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				44DBF4E72A28EA5B00A71EE6 /* MainViewViewModel.swift */,
+				44DBF51E2A43353800A71EE6 /* AuthViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -167,6 +176,7 @@
 			children = (
 				44DBF4E52A28E3D200A71EE6 /* Cake.swift */,
 				44DBF4F02A3B5C9700A71EE6 /* MenuItem.swift */,
+				44DBF5222A433BE400A71EE6 /* LirafUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -214,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				44DBF4E32A28E2F900A71EE6 /* DatabaseManager.swift */,
+				44DBF5202A43399500A71EE6 /* AuthManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -250,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				44DBF5172A42789300A71EE6 /* LogInVC.swift */,
+				44DBF51C2A43313D00A71EE6 /* SignUpVC.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -359,9 +371,13 @@
 				44DBF4C62A21734D00A71EE6 /* MainTableFooter.swift in Sources */,
 				44DBF4962A1DBE8A00A71EE6 /* SceneDelegate.swift in Sources */,
 				44DBF4BE2A20189600A71EE6 /* CategoriesScrollView.swift in Sources */,
+				44DBF5212A43399500A71EE6 /* AuthManager.swift in Sources */,
+				44DBF5232A433BE400A71EE6 /* LirafUser.swift in Sources */,
 				44DBF4B52A1DD0C000A71EE6 /* MainVC.swift in Sources */,
 				44DBF4C02A2025BE00A71EE6 /* CategoryView.swift in Sources */,
 				44DBF4E42A28E2F900A71EE6 /* DatabaseManager.swift in Sources */,
+				44DBF51F2A43353800A71EE6 /* AuthViewViewModel.swift in Sources */,
+				44DBF51D2A43313D00A71EE6 /* SignUpVC.swift in Sources */,
 				44DBF4C42A2170A300A71EE6 /* ProductCell.swift in Sources */,
 				44DBF4EF2A3B5A6F00A71EE6 /* SideMenuView.swift in Sources */,
 				44DBF4F12A3B5C9700A71EE6 /* MenuItem.swift in Sources */,

@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
 import FirebaseFirestoreSwift
 import FirebaseFirestoreCombineSwift
 import Combine
@@ -18,36 +19,37 @@ class DatabaseManager {
     
     let db = Firestore.firestore()
     
-    //New/WeddingCakes/Cakes
-    //Popular/WeddingCakes/Cakes
+    let usersPath = "Users"
+    
+    //MARK: - Create User
+    func collectionUsers(add user: User) -> AnyPublisher<Bool, Error> {
+        let lirafUser = LirafUser(from: user)
+        return db.collection(usersPath).document(lirafUser.id).setData(from: lirafUser).map { _ in
+            return true
+        }.eraseToAnyPublisher()
+    }
     
     //MARK: - Get popular cakes
     func collectionPopularCakes(for category: CategoriesTabs) -> AnyPublisher<[Cake], Error> {
         let path = getPopularPath(for: category)
-        
         return db.collection(path).getDocuments()
             .tryMap(\.documents)
             .tryMap { snapshots in
-                
                 try snapshots.map({
                     try $0.data(as: Cake.self)
                 })
-                
             }.eraseToAnyPublisher()
     }
     
     //MARK: - Get new cakes
     func collectionNewCakes(for category: CategoriesTabs) -> AnyPublisher<[Cake], Error> {
         let path = getNewPath(for: category)
-        
         return db.collection(path).getDocuments()
             .tryMap(\.documents)
             .tryMap { snapshots in
-                
                 try snapshots.map({
                     try $0.data(as: Cake.self)
                 })
-                
             }.eraseToAnyPublisher()
     }
     
