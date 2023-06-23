@@ -43,7 +43,7 @@ final class AuthViewViewModel: ObservableObject {
     
     
     //MARK: - Sign Up User
-    private func signUpUser() {
+    func signUpUser() {
         guard let email = email, let password = password else { return }
         AuthManager.shared.signUpUser(with: email, password: password)
             // handle user output

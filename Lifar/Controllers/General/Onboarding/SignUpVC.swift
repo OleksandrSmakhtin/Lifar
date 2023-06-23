@@ -50,7 +50,7 @@ class SignUpVC: UIViewController {
         // is enable
         btn.isEnabled = false
         
-        //btn.addTarget(self, action: #selector(didTapLogIn), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -71,7 +71,7 @@ class SignUpVC: UIViewController {
     }
 
     @objc private func didTapSignUp() {
-        
+        viewModel.signUpUser()
     }
     
     //MARK: - viewDidLoad
@@ -95,6 +95,21 @@ class SignUpVC: UIViewController {
         // is auth form valid
         viewModel.$isAuthFormValid.sink { [weak self] state in
             self?.signUpBtn.isEnabled = state
+        }.store(in: &subscriptions)
+        
+        
+        // auth binding
+        viewModel.$user.sink { [weak self] user in
+            guard user != nil else { return }
+            guard let vc = self?.navigationController?.viewControllers.first as? FirstWelcomeVC else { return }
+            vc.dismiss(animated: true)
+        }.store(in: &subscriptions)
+        
+        
+        // error binding
+        viewModel.$error.sink { [weak self] error in
+            guard let error = error else { return }
+            self?.presentAlert(with: error)
         }.store(in: &subscriptions)
         
         
@@ -166,6 +181,14 @@ class SignUpVC: UIViewController {
         }()
         navigationController?.navigationBar.tintColor = .black
         navigationItem.titleView = lifarLbl
+    }
+    
+    //MARK: - Present alert
+    private func presentAlert(with error: String) {
+        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        let errorAction = UIAlertAction(title: "OK", style: .destructive)
+        alert.addAction(errorAction)
+        present(alert, animated: true)
     }
 
 }
