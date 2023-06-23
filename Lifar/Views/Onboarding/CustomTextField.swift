@@ -39,7 +39,7 @@ class CustomTextField: UITextField {
         
         if target == "Password" || target == "Repeat password" {
             keyboardType = .default
-            isSecureTextEntry = true
+            //isSecureTextEntry = true
         } else {
             keyboardType = .emailAddress
         }
