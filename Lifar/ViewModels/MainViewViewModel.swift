@@ -20,15 +20,16 @@ final class MainViewViewModel: ObservableObject {
     private var subscriptions: Set<AnyCancellable> = []
     
     
-    
+    //MARK: - get user
+    func retreiveUser() {
+        
+    }
     
     //MARK: - get cakes
-    func retrieveCakes(for category: CategoriesTabs) {
+    func retreiveCakes(for category: CategoriesTabs) {
         getPopular(for: category)
         getNew(for: category)
     }
-    
-    
     
     
     

@@ -1,31 +1,28 @@
 //
-//  ProfileVC.swift
+//  OrdersVC.swift
 //  Lifar
 //
-//  Created by Oleksandr Smakhtin on 20.06.2023.
+//  Created by Oleksandr Smakhtin on 27/06/2023.
 //
 
 import UIKit
-import Firebase
-import FirebaseAuth
 
-class ProfileVC: UIViewController {
+class OrdersVC: UIViewController {
 
-    //MARK: viewDidLoad
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        // bg color
+        //bg color
         view.backgroundColor = .cakeWhite
         // configure nav bar
         configureNavBar()
     }
     
-    
     //MARK: - Configure nav bar
     private func configureNavBar() {
         let lifarLbl: UILabel = {
             let lbl = UILabel()
-            lbl.text = "Profile"
+            lbl.text = "Orders"
             lbl.font = UIFont(name: "Chalkboard SE", size: 30)
             lbl.textColor = .black
             lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -33,15 +30,6 @@ class ProfileVC: UIViewController {
         }()
         navigationController?.navigationBar.tintColor = .black
         navigationItem.titleView = lifarLbl
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward.square.fill"), style: .plain, target: self, action: #selector(didTapSignOut))
-    }
-    
-    //MARK: - Actions
-    @objc private func didTapSignOut() {
-        
-        try? Auth.auth().signOut()
-        navigationController?.popViewController(animated: false)
     }
 
 }

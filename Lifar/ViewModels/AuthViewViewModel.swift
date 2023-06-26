@@ -12,6 +12,7 @@ import FirebaseAuth
 
 final class AuthViewViewModel: ObservableObject {
     
+    @Published var name: String?
     @Published var email: String?
     @Published var password: String?
     @Published var repeatedPassword: String?
@@ -32,6 +33,17 @@ final class AuthViewViewModel: ObservableObject {
         print(isAuthFormValid)
     }
     
+    //MARK: - validate SignUp form
+    func validateSignUpForm() {
+        guard let name = name, let email = email, let password = password, let repeatedPassword = repeatedPassword else {
+            isAuthFormValid = false
+            return
+        }
+        
+        isAuthFormValid = isValidEmail(email) && password.count >= 6 && password == repeatedPassword && name != ""
+        
+    }
+    
     
     //MARK: - email validation
     private func isValidEmail(_ email: String) -> Bool {
@@ -44,7 +56,7 @@ final class AuthViewViewModel: ObservableObject {
     
     //MARK: - Sign Up User
     func signUpUser() {
-        guard let email = email, let password = password else { return }
+        guard let name = name, let email = email, let password = password else { return }
         AuthManager.shared.signUpUser(with: email, password: password)
             // handle user output
             .handleEvents(receiveOutput: { [weak self] user in
@@ -58,14 +70,14 @@ final class AuthViewViewModel: ObservableObject {
             }
             // handle firestore
         } receiveValue: { [weak self] user in
-            self?.createUserRecord(for: user)
+            self?.createUserRecord(for: user, with: name)
         }.store(in: &subscriptions )
     }
     
     
     //MARK: - Create user record
-    private func createUserRecord(for user: User) {
-        DatabaseManager.shared.collectionUsers(add: user).sink { [weak self] completion in
+    private func createUserRecord(for user: User, with name: String) {
+        DatabaseManager.shared.collectionUsers(add: user, with: name).sink { [weak self] completion in
             if case .failure(let error) = completion {
                 self?.error = error.localizedDescription
             }
@@ -75,7 +87,7 @@ final class AuthViewViewModel: ObservableObject {
     }
     
     //MARK: - Log In
-    private func loginUser() {
+    func loginUser() {
         guard let email = email, let password = password else { return }
         AuthManager.shared.logInUser(with: email, password: password).sink { [weak self] completion in
             // handle errors

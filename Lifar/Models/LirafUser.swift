@@ -16,7 +16,8 @@ struct LirafUser: Codable {
     var favorite: [Cake] = []
     var avatarPath: String = ""
     
-    init(from user: User) {
+    init(from user: User, name: String) {
         self.id = user.uid
+        self.name = name
     }
 }

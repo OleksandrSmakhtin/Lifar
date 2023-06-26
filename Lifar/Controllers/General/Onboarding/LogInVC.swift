@@ -6,13 +6,26 @@
 //
 
 import UIKit
+import Combine
 
 class LogInVC: UIViewController {
     
-    //MARK: - UI Objects
-    private let loginTextField = CustomTextField(frame: .zero, target: "E-mail")
+    //MARK: - Data
+    private var viewModel = AuthViewViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
     
-    private let passwordTextField = CustomTextField(frame: .zero, target: "Password")
+    //MARK: - UI Objects
+    private let loginTextField: CustomTextField = {
+        let textField = CustomTextField(frame: .zero, target: "E-mail")
+        textField.addTarget(self, action: #selector(didChangeLogin), for: .editingChanged)
+        return textField
+    }()
+    
+    private let passwordTextField: CustomTextField = {
+        let textField = CustomTextField(frame: .zero, target: "Password")
+        textField.addTarget(self, action: #selector(didChangePassword), for: .editingChanged)
+        return textField
+    }()
     
     private let logInBtn: UIButton = {
         let btn = UIButton(type: .system)
@@ -30,7 +43,9 @@ class LogInVC: UIViewController {
         btn.layer.shadowOffset = CGSize(width: 4, height: 4)
         btn.layer.shadowRadius = 4
         
-        //btn.addTarget(self, action: #selector(didTapLogIn), for: .touchUpInside)
+        btn.isEnabled = false
+        
+        btn.addTarget(self, action: #selector(didTapLogIn), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -38,6 +53,20 @@ class LogInVC: UIViewController {
     //MARK: - Actions
     @objc private func didTapToDissmiss() {
         view.endEditing(true)
+    }
+    
+    @objc private func didChangeLogin() {
+        viewModel.email = loginTextField.text
+        viewModel.validateLogInForm()
+    }
+    
+    @objc private func didChangePassword() {
+        viewModel.password = passwordTextField.text
+        viewModel.validateLogInForm()
+    }
+    
+    @objc private func didTapLogIn() {
+        viewModel.loginUser()
     }
 
     
@@ -52,6 +81,32 @@ class LogInVC: UIViewController {
         addSubviews()
         // apply constraints
         applyConstraints()
+        // bind views
+        bindViews()
+    }
+    
+    //MARK: - Bind views
+    private func bindViews() {
+        
+        // user binding
+        viewModel.$user.sink { [weak self] user in
+            guard user != nil else { return }
+            guard let vc = self?.navigationController?.viewControllers.first as? FirstWelcomeVC else { return }
+            vc.dismiss(animated: true)
+        }.store(in: &subscriptions)
+        
+        
+        // error binding
+        viewModel.$error.sink { [weak self] error in
+            guard let error = error else { return }
+            self?.presentAlert(with: error)
+        }.store(in: &subscriptions)
+        
+        // is btn enabled
+        viewModel.$isAuthFormValid.sink { [weak self] state in
+            self?.logInBtn.isEnabled = state
+        }.store(in: &subscriptions)
+        
     }
     
     //MARK: - Add subviews
@@ -103,6 +158,13 @@ class LogInVC: UIViewController {
         navigationController?.navigationBar.tintColor = .black
         navigationItem.titleView = lifarLbl
     }
-
+    
+    //MARK: - Present alert
+    private func presentAlert(with error: String) {
+        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        let errorAction = UIAlertAction(title: "OK", style: .destructive)
+        alert.addAction(errorAction)
+        present(alert, animated: true)
+    }
 
 }

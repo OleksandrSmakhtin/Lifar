@@ -19,6 +19,7 @@ class MenuItemData {
         
         let menuItems = [
             MenuItem(title: "Profile", image: "person"),
+            MenuItem(title: "Orders", image: "basket"),
             MenuItem(title: "Favorite", image: "heart"),
             MenuItem(title: "Rate app", image: "hand.thumbsup"),
             MenuItem(title: "Share app", image: "square.and.arrow.up"),

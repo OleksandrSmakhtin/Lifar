@@ -9,6 +9,7 @@ import UIKit
 
 protocol SideMenuDelegate: AnyObject {
     func didSelectProfile()
+    func didSelectOrders()
     func didSelectFavorite()
     func didSelectRate()
     func didSelectShare()
@@ -111,12 +112,14 @@ extension SideMenuView: UITableViewDelegate, UITableViewDataSource {
         case 0:
             delegate?.didSelectProfile()
         case 1:
-            delegate?.didSelectFavorite()
+            delegate?.didSelectOrders()
         case 2:
-            delegate?.didSelectRate()
+            delegate?.didSelectFavorite()
         case 3:
-            delegate?.didSelectShare()
+            delegate?.didSelectRate()
         case 4:
+            delegate?.didSelectShare()
+        case 5:
             delegate?.didSelectAbout()
         default:
             return

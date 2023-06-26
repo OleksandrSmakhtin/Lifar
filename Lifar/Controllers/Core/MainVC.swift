@@ -66,7 +66,7 @@ class MainVC: UIViewController {
         
         handleAuth()
         
-        viewModel.retrieveCakes(for: CategoriesTabs.allCases[categoriesScrollView.selectedTabIndex])
+        viewModel.retreiveCakes(for: CategoriesTabs.allCases[categoriesScrollView.selectedTabIndex])
     }
     
     
@@ -261,6 +261,15 @@ extension MainVC: SideMenuDelegate {
     func didSelectProfile() {
         print("PROFILE TAPPED")
         let vc = ProfileVC()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func didSelectOrders() {
+        print("ORDERS TAPPED")
+        let vc = OrdersVC()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))

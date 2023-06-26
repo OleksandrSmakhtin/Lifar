@@ -48,6 +48,7 @@
 		44DBF51F2A43353800A71EE6 /* AuthViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF51E2A43353800A71EE6 /* AuthViewViewModel.swift */; };
 		44DBF5212A43399500A71EE6 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5202A43399500A71EE6 /* AuthManager.swift */; };
 		44DBF5232A433BE400A71EE6 /* LirafUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5222A433BE400A71EE6 /* LirafUser.swift */; };
+		44DBF5252A4A561200A71EE6 /* OrdersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5242A4A561200A71EE6 /* OrdersVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,7 @@
 		44DBF51E2A43353800A71EE6 /* AuthViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewViewModel.swift; sourceTree = "<group>"; };
 		44DBF5202A43399500A71EE6 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		44DBF5222A433BE400A71EE6 /* LirafUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LirafUser.swift; sourceTree = "<group>"; };
+		44DBF5242A4A561200A71EE6 /* OrdersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +215,7 @@
 				44DBF5162A42787C00A71EE6 /* Onboarding */,
 				44DBF4AD2A1DC18300A71EE6 /* Welcomes */,
 				44DBF4FB2A425E3C00A71EE6 /* ProfileVC.swift */,
+				44DBF5242A4A561200A71EE6 /* OrdersVC.swift */,
 				44DBF4FF2A426A9400A71EE6 /* FavoriteVC.swift */,
 				44DBF4FD2A425E4900A71EE6 /* AboutVC.swift */,
 				44DBF5012A426E6B00A71EE6 /* BasketVC.swift */,
@@ -368,6 +371,7 @@
 				44DBF4FC2A425E3C00A71EE6 /* ProfileVC.swift in Sources */,
 				44DBF4942A1DBE8A00A71EE6 /* AppDelegate.swift in Sources */,
 				44DBF4B12A1DC1F000A71EE6 /* SecondWelcomeVC.swift in Sources */,
+				44DBF5252A4A561200A71EE6 /* OrdersVC.swift in Sources */,
 				44DBF4C62A21734D00A71EE6 /* MainTableFooter.swift in Sources */,
 				44DBF4962A1DBE8A00A71EE6 /* SceneDelegate.swift in Sources */,
 				44DBF4BE2A20189600A71EE6 /* CategoriesScrollView.swift in Sources */,

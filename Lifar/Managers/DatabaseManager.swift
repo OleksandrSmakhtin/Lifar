@@ -22,11 +22,16 @@ class DatabaseManager {
     let usersPath = "Users"
     
     //MARK: - Create User
-    func collectionUsers(add user: User) -> AnyPublisher<Bool, Error> {
-        let lirafUser = LirafUser(from: user)
+    func collectionUsers(add user: User, with name: String) -> AnyPublisher<Bool, Error> {
+        let lirafUser = LirafUser(from: user, name: name)
         return db.collection(usersPath).document(lirafUser.id).setData(from: lirafUser).map { _ in
             return true
         }.eraseToAnyPublisher()
+    }
+    
+    //MARK: - Retreive user
+    func collectionUsers(retreive id: String) -> AnyPublisher<LirafUser, Error> {
+        db.collection(usersPath).document(id).getDocument().tryMap { try $0.data(as: LirafUser.self) }.eraseToAnyPublisher()
     }
     
     //MARK: - Get popular cakes

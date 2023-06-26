@@ -15,7 +15,11 @@ class SignUpVC: UIViewController {
     private var subscriptions: Set<AnyCancellable> = []
 
     //MARK: - UI Objects
-    private let nameTextField = CustomTextField(frame: .zero, target: "Name")
+    private let nameTextField: CustomTextField = {
+        let textField = CustomTextField(frame: .zero, target: "Name")
+        textField.addTarget(self, action: #selector(didChangeName), for: .editingChanged)
+        return textField
+    }()
     
     private let loginTextField: CustomTextField = {
         let textField = CustomTextField(frame: .zero, target: "E-mail")
@@ -29,7 +33,11 @@ class SignUpVC: UIViewController {
         return textField
     }()
     
-    private let repeatPasswordTextField = CustomTextField(frame: .zero, target: "Repeat password")
+    private let repeatPasswordTextField: CustomTextField = {
+        let textField = CustomTextField(frame: .zero, target: "Repeat password")
+        textField.addTarget(self, action: #selector(didChangeRepeatPassword), for: .editingChanged)
+        return textField
+    }()
     
     private let signUpBtn: UIButton = {
         let btn = UIButton(type: .system)
@@ -60,14 +68,24 @@ class SignUpVC: UIViewController {
         view.endEditing(true)
     }
     
+    @objc private func didChangeName() {
+        viewModel.name = nameTextField.text
+        viewModel.validateSignUpForm()
+    }
+    
     @objc private func didChangeEmail() {
         viewModel.email = loginTextField.text
-        viewModel.validateLogInForm()
+        viewModel.validateSignUpForm()
     }
     
     @objc private func didChangePassword() {
         viewModel.password = passwordTextField.text
-        viewModel.validateLogInForm()
+        viewModel.validateSignUpForm()
+    }
+    
+    @objc private func didChangeRepeatPassword() {
+        viewModel.repeatedPassword = repeatPasswordTextField.text
+        viewModel.validateSignUpForm()
     }
 
     @objc private func didTapSignUp() {
