@@ -22,7 +22,7 @@ class SideMenuView: UIView {
     weak var delegate: SideMenuDelegate?
     
     //MARK: - Data
-    private let menuItems = MenuItemData.shared.getMenuItems()
+    private let menuItems = MenuItemData.shared.getSideMenuItems()
 
     //MARK: -  UI Objects
     private let menuTable: UITableView = {

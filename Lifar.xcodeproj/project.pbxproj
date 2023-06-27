@@ -49,6 +49,9 @@
 		44DBF5212A43399500A71EE6 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5202A43399500A71EE6 /* AuthManager.swift */; };
 		44DBF5232A433BE400A71EE6 /* LirafUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5222A433BE400A71EE6 /* LirafUser.swift */; };
 		44DBF5252A4A561200A71EE6 /* OrdersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5242A4A561200A71EE6 /* OrdersVC.swift */; };
+		44DBF5282A4B6A9B00A71EE6 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5272A4B6A9B00A71EE6 /* ProfileCell.swift */; };
+		44DBF52C2A4B739C00A71EE6 /* ProfileViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF52B2A4B739C00A71EE6 /* ProfileViewViewModel.swift */; };
+		44DBF52E2A4B7E8800A71EE6 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF52D2A4B7E8800A71EE6 /* DeleteAccountView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +89,9 @@
 		44DBF5202A43399500A71EE6 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		44DBF5222A433BE400A71EE6 /* LirafUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LirafUser.swift; sourceTree = "<group>"; };
 		44DBF5242A4A561200A71EE6 /* OrdersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersVC.swift; sourceTree = "<group>"; };
+		44DBF5272A4B6A9B00A71EE6 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		44DBF52B2A4B739C00A71EE6 /* ProfileViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewViewModel.swift; sourceTree = "<group>"; };
+		44DBF52D2A4B7E8800A71EE6 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +165,7 @@
 				44DBF5192A427B4600A71EE6 /* Onboarding */,
 				44DBF4F32A3B5E1200A71EE6 /* Main */,
 				44DBF4F22A3B5DD700A71EE6 /* Categories */,
+				44DBF5262A4B6A5100A71EE6 /* Profile */,
 				44DBF4F42A3B5E1F00A71EE6 /* SideMenu */,
 			);
 			path = Views;
@@ -169,6 +176,7 @@
 			children = (
 				44DBF4E72A28EA5B00A71EE6 /* MainViewViewModel.swift */,
 				44DBF51E2A43353800A71EE6 /* AuthViewViewModel.swift */,
+				44DBF52B2A4B739C00A71EE6 /* ProfileViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -277,6 +285,15 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		44DBF5262A4B6A5100A71EE6 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				44DBF5272A4B6A9B00A71EE6 /* ProfileCell.swift */,
+				44DBF52D2A4B7E8800A71EE6 /* DeleteAccountView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -366,6 +383,7 @@
 			files = (
 				44DBF4AF2A1DC1A200A71EE6 /* FirstWelcomeVC.swift in Sources */,
 				44DBF4E62A28E3D200A71EE6 /* Cake.swift in Sources */,
+				44DBF52C2A4B739C00A71EE6 /* ProfileViewViewModel.swift in Sources */,
 				44DBF5022A426E6B00A71EE6 /* BasketVC.swift in Sources */,
 				44DBF4E82A28EA5B00A71EE6 /* MainViewViewModel.swift in Sources */,
 				44DBF4FC2A425E3C00A71EE6 /* ProfileVC.swift in Sources */,
@@ -373,8 +391,10 @@
 				44DBF4B12A1DC1F000A71EE6 /* SecondWelcomeVC.swift in Sources */,
 				44DBF5252A4A561200A71EE6 /* OrdersVC.swift in Sources */,
 				44DBF4C62A21734D00A71EE6 /* MainTableFooter.swift in Sources */,
+				44DBF5282A4B6A9B00A71EE6 /* ProfileCell.swift in Sources */,
 				44DBF4962A1DBE8A00A71EE6 /* SceneDelegate.swift in Sources */,
 				44DBF4BE2A20189600A71EE6 /* CategoriesScrollView.swift in Sources */,
+				44DBF52E2A4B7E8800A71EE6 /* DeleteAccountView.swift in Sources */,
 				44DBF5212A43399500A71EE6 /* AuthManager.swift in Sources */,
 				44DBF5232A433BE400A71EE6 /* LirafUser.swift in Sources */,
 				44DBF4B52A1DD0C000A71EE6 /* MainVC.swift in Sources */,

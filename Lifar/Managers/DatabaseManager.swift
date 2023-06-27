@@ -34,6 +34,13 @@ class DatabaseManager {
         db.collection(usersPath).document(id).getDocument().tryMap { try $0.data(as: LirafUser.self) }.eraseToAnyPublisher()
     }
     
+    //MARK: - Delete user
+    func collectionUsers(delete id: String) -> AnyPublisher<Bool, Error> {
+        db.collection(usersPath).document(id).delete().map { _ in
+            return true
+        }.eraseToAnyPublisher()
+    }
+    
     //MARK: - Get popular cakes
     func collectionPopularCakes(for category: CategoriesTabs) -> AnyPublisher<[Cake], Error> {
         let path = getPopularPath(for: category)
