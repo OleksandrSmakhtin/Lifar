@@ -121,17 +121,7 @@ class ProfileVC: UIViewController {
         }()
         navigationController?.navigationBar.tintColor = .black
         navigationItem.titleView = lifarLbl
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward.square.fill"), style: .plain, target: self, action: #selector(didTapSignOut))
     }
-    
-    //MARK: - Actions
-    @objc private func didTapSignOut() {
-        
-        try? Auth.auth().signOut()
-        navigationController?.popViewController(animated: false)
-    }
-
 }
 
 
@@ -168,6 +158,34 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     // height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    // did select row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+        switch indexPath.row {
+        case 0:
+            print("Change name pressed")
+        case 1:
+            print("Change email pressed")
+        case 2:
+            print("Change password pressed")
+        case 3:
+            print("Change delivery pressed")
+        case 4:
+            print("Contact pressed")
+        case 5:
+            print("Sign out pressed")
+            showAlert(with: "Signing Out", and: "Are you sure, you want to sign out?") { [weak self] in
+                try? Auth.auth().signOut()
+                self?.navigationController?.popViewController(animated: false)
+            }
+        default:
+            return
+        }
+        
     }
 }
 
