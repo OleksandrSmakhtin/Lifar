@@ -151,7 +151,6 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == viewModel.profileMenuItems.count - 1 {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 2000, bottom: 0, right: 0)
         }
-        
         return cell
     }
     
