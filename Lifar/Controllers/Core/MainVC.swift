@@ -65,7 +65,7 @@ class MainVC: UIViewController {
         super.viewWillAppear(animated)
         
         handleAuth()
-        
+        configureNavBar()
         viewModel.retreiveCakes(for: CategoriesTabs.allCases[categoriesScrollView.selectedTabIndex])
     }
     
@@ -232,6 +232,8 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainCell.identifier) as? MainCell else { return UITableViewCell() }
         
+        cell.delegate = self
+        
         switch indexPath.section {
         case 0:
             cell.configure(with: viewModel.popularCakes)
@@ -300,6 +302,21 @@ extension MainVC: SideMenuDelegate {
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+//MARK: - MainCellDelegate
+extension MainVC: MainCellDelegate {
+    func didSelectItem(item: Cake) {
+        
+        let vc = ItemVC()
+        vc.viewModel.item = item
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.pushViewController(vc, animated: true)
+        
+        
     }
     
     

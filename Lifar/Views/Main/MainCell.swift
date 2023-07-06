@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol MainCellDelegate: AnyObject {
+    func didSelectItem(item: Cake)
+}
+
 class MainCell: UITableViewCell {
+    
+    //MARK: - Delegate
+    weak var delegate: MainCellDelegate?
     
     //MARK: - Identifier
     static let identifier = "MainCell"
@@ -89,16 +96,27 @@ extension MainCell: UICollectionViewDelegate, UICollectionViewDataSource {
         productsCollectionView.dataSource = self
     }
     
+    // number of items
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cakes.count
     }
     
+    // cell for row
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.identifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
 
         cell.configure(cake: cakes[indexPath.row])
         
         return cell
+    }
+    
+    // did select
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let item = cakes[indexPath.row]
+        
+        delegate?.didSelectItem(item: item)
+        
     }
     
     
