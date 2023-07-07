@@ -69,6 +69,8 @@ class ItemVC: UIViewController {
         configureNavBar()
         // bind views
         bindViews()
+        // apply delegates
+        applyScrollViewDelegate()
         
     }
     
@@ -132,6 +134,28 @@ class ItemVC: UIViewController {
     //MARK: - Configure nav bar
     private func configureNavBar() {
         navigationController?.navigationBar.backgroundColor = .white
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: nil)
+    }
+    
+}
+
+//MARK: - UIScrollViewDelegate
+extension ItemVC: UIScrollViewDelegate {
+    
+    private func applyScrollViewDelegate() {
+        scrollView.delegate = self
+    }
+    
+    // did scroll
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let yPosition = scrollView.contentOffset.y
+        
+        if yPosition < 0 {
+            scrollView.contentOffset.y = 0
+        }
+        
     }
     
 }
