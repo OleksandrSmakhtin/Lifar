@@ -24,6 +24,14 @@ class ItemVC: UIViewController {
         return scrollView
     }()
     
+    private let titleLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont(name: "Arial Rounded MT Bold", size: 30)
+        lbl.textColor = .black
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
     private let topSeparatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -79,7 +87,7 @@ class ItemVC: UIViewController {
     private func bindViews() {
         viewModel.$item.sink { [weak self] item in
             guard let item = item else { return }
-            print(item.title)
+            self?.titleLbl.text = item.title
             print(item.price)
             self?.productImageView.sd_setImage(with: URL(string: item.path))
         }.store(in: &subscriptions)
@@ -91,6 +99,8 @@ class ItemVC: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(imageContainerView)
         imageContainerView.addSubview(productImageView)
+        scrollView.addSubview(titleLbl)
+        
     }
     
     //MARK: - Apply constraints
@@ -125,10 +135,16 @@ class ItemVC: UIViewController {
             //productImageView.widthAnchor.constraint(equalToConstant: 100)
         ]
         
+        let titleLblConstraints = [
+            titleLbl.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+            titleLbl.topAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: 20)
+        ]
+        
         NSLayoutConstraint.activate(topSeparatorViewConstraints)
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(imageContainerViewConstraints)
         NSLayoutConstraint.activate(productImageViewConstraints)
+        NSLayoutConstraint.activate(titleLblConstraints)
     }
     
     //MARK: - Configure nav bar
