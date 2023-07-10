@@ -24,6 +24,81 @@ class ItemVC: UIViewController {
         return scrollView
     }()
     
+    private let callUsView: CallUsView = {
+        let view = CallUsView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let descriptionLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont(name: "Futura", size: 20)
+        lbl.textColor = .black
+        lbl.numberOfLines = 0
+        //lbl.textAlignment = .center
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    private let buyBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.tintColor = .cakeWhite
+        btn.setTitle("Buy", for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        
+        btn.backgroundColor = .black
+        btn.layer.borderWidth = 2
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.layer.cornerRadius = 20
+        // shadow
+        btn.layer.shadowColor = UIColor.black.cgColor
+        btn.layer.shadowOpacity = 0.5
+        btn.layer.shadowOffset = CGSize(width: 4, height: 4)
+        btn.layer.shadowRadius = 4
+        
+        //btn.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
+    private let minusValueBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage(systemName: "minus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), for: .normal)
+        btn.tintColor = .white
+        btn.backgroundColor = .black
+        btn.layer.cornerRadius = 20
+        btn.addTarget(self, action: #selector(didMinusValueBtnPressed), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
+    private let plusValueBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), for: .normal)
+        btn.tintColor = .white
+        btn.backgroundColor = .black
+        btn.layer.cornerRadius = 20
+        btn.addTarget(self, action: #selector(didPlusValueBtnPressed), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
+    private let valueLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont(name: "Arial Rounded MT Bold", size: 30)
+        lbl.textColor = .black
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    private let priceLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont(name: "Arial Rounded MT Bold", size: 28)
+        lbl.textColor = .black
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
     private let titleLbl: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont(name: "Arial Rounded MT Bold", size: 30)
@@ -64,6 +139,19 @@ class ItemVC: UIViewController {
         return imageView
     }()
     
+    //MARK: - Actions
+    @objc private func didMinusValueBtnPressed() {
+        viewModel.minusValue()
+        viewModel.validateValue()
+        viewModel.calculatePrice(isPlusOperation: false)
+    }
+    
+    @objc private func didPlusValueBtnPressed() {
+        viewModel.plusValue()
+        viewModel.validateValue()
+        viewModel.calculatePrice(isPlusOperation: true)
+    }
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,11 +173,42 @@ class ItemVC: UIViewController {
     
     //MARK: - Bind views
     private func bindViews() {
+        // item
         viewModel.$item.sink { [weak self] item in
             guard let item = item else { return }
             self?.titleLbl.text = item.title
-            print(item.price)
+            self?.descriptionLbl.text = item.description
+            self?.priceLbl.text = "€\(item.price)"
             self?.productImageView.sd_setImage(with: URL(string: item.path))
+        }.store(in: &subscriptions)
+        
+        // value
+        viewModel.$valueToOrder.sink { [weak self] value in
+            self?.valueLbl.text = "\(value)"
+        }.store(in: &subscriptions)
+        
+        // minus btn
+        viewModel.$isMinusValueActive.sink { [weak self] state in
+            self?.minusValueBtn.isEnabled = state
+            
+            if state {
+                self?.minusValueBtn.backgroundColor = .black
+            } else {
+                self?.minusValueBtn.backgroundColor = .black.withAlphaComponent(0.7)
+            }
+            
+        }.store(in: &subscriptions)
+        
+        // plus btn
+        viewModel.$isPlusValueActive.sink { [weak self] state in
+            self?.plusValueBtn.isEnabled = state
+            
+            if state {
+                self?.plusValueBtn.backgroundColor = .black
+            } else {
+                self?.plusValueBtn.backgroundColor = .black.withAlphaComponent(0.7)
+            }
+            
         }.store(in: &subscriptions)
     }
     
@@ -100,6 +219,13 @@ class ItemVC: UIViewController {
         scrollView.addSubview(imageContainerView)
         imageContainerView.addSubview(productImageView)
         scrollView.addSubview(titleLbl)
+        scrollView.addSubview(priceLbl)
+        scrollView.addSubview(minusValueBtn)
+        scrollView.addSubview(valueLbl)
+        scrollView.addSubview(plusValueBtn)
+        scrollView.addSubview(buyBtn)
+        scrollView.addSubview(descriptionLbl)
+        scrollView.addSubview(callUsView)
         
     }
     
@@ -140,11 +266,64 @@ class ItemVC: UIViewController {
             titleLbl.topAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: 20)
         ]
         
+        let priceLblConstraints = [
+            priceLbl.leadingAnchor.constraint(equalTo: titleLbl.leadingAnchor, constant: 5),
+            priceLbl.topAnchor.constraint(equalTo: titleLbl.bottomAnchor, constant: 20)
+        ]
+        
+        let minusValueBtnConstraints = [
+            minusValueBtn.heightAnchor.constraint(equalToConstant: 40),
+            minusValueBtn.widthAnchor.constraint(equalToConstant: 40),
+            minusValueBtn.leadingAnchor.constraint(equalTo: titleLbl.leadingAnchor),
+            minusValueBtn.topAnchor.constraint(equalTo: priceLbl.bottomAnchor, constant: 30)
+        ]
+        
+        let valueLblConstraints = [
+            valueLbl.centerYAnchor.constraint(equalTo: minusValueBtn.centerYAnchor),
+            valueLbl.leadingAnchor.constraint(equalTo: minusValueBtn.trailingAnchor, constant: 15)
+        ]
+        
+        let plusValueBtnConstraints = [
+            plusValueBtn.heightAnchor.constraint(equalToConstant: 40),
+            plusValueBtn.widthAnchor.constraint(equalToConstant: 40),
+            plusValueBtn.leadingAnchor.constraint(equalTo: valueLbl.trailingAnchor, constant: 15),
+            plusValueBtn.topAnchor.constraint(equalTo: minusValueBtn.topAnchor)
+        ]
+        
+        let buyBtnConstraints = [
+            buyBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            buyBtn.centerYAnchor.constraint(equalTo: plusValueBtn.centerYAnchor),
+            //buyBtn.leadingAnchor.constraint(equalTo: plusValueBtn.trailingAnchor, constant: 30),
+            buyBtn.heightAnchor.constraint(equalToConstant: 50),
+            buyBtn.widthAnchor.constraint(equalToConstant: 200)
+        ]
+        
+        let descriptionLblConstraints = [
+            descriptionLbl.topAnchor.constraint(equalTo: buyBtn.bottomAnchor, constant: 30),
+            descriptionLbl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            descriptionLbl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
+        ]
+        
+        let callUsViewConstraints = [
+            callUsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            callUsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            callUsView.topAnchor.constraint(equalTo: descriptionLbl.bottomAnchor, constant: 30),
+            callUsView.heightAnchor.constraint(equalToConstant: 100),
+            callUsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20)
+        ]
+        
         NSLayoutConstraint.activate(topSeparatorViewConstraints)
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(imageContainerViewConstraints)
         NSLayoutConstraint.activate(productImageViewConstraints)
         NSLayoutConstraint.activate(titleLblConstraints)
+        NSLayoutConstraint.activate(priceLblConstraints)
+        NSLayoutConstraint.activate(minusValueBtnConstraints)
+        NSLayoutConstraint.activate(valueLblConstraints)
+        NSLayoutConstraint.activate(plusValueBtnConstraints)
+        NSLayoutConstraint.activate(buyBtnConstraints)
+        NSLayoutConstraint.activate(descriptionLblConstraints)
+        NSLayoutConstraint.activate(callUsViewConstraints)
     }
     
     //MARK: - Configure nav bar

@@ -192,7 +192,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     private func configureMainTable() {
-        let footer = MainTableFooter(frame: CGRect(x: 0, y: 0, width: mainTable.frame.width, height: 120))
+        let footer = CallUsView(frame: CGRect(x: 0, y: 0, width: mainTable.frame.width, height: 120))
         mainTable.tableFooterView = footer
     }
     

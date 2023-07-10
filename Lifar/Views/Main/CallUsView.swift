@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTableFooter: UIView {
+class CallUsView: UIView {
 
     //MARK: - UI Objects
     private let callUsLbl: UILabel = {
