@@ -41,6 +41,11 @@ class DatabaseManager {
         }.eraseToAnyPublisher()
     }
     
+    //MARK: - Update user's fields
+    func collectionUsers(updateFields: [String: Any], for id: String) -> AnyPublisher<Bool, Error> {
+        db.collection(usersPath).document(id).updateData(updateFields).map { _ in true }.eraseToAnyPublisher()
+    }
+    
     //MARK: - Get popular cakes
     func collectionPopularCakes(for category: CategoriesTabs) -> AnyPublisher<[Cake], Error> {
         let path = getPopularPath(for: category)

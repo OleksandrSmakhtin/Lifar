@@ -13,7 +13,7 @@ struct LirafUser: Codable {
     let id: String
     var name: String = ""
     var orders: [Cake] = []
-    var favorite: [Cake] = []
+    var favorite: [String] = []
     var avatarPath: String = ""
     
     init(from user: User, name: String) {

@@ -152,6 +152,10 @@ class ItemVC: UIViewController {
         viewModel.calculatePrice(isPlusOperation: true)
     }
     
+    @objc private func didPressAddToFavorite() {
+        viewModel.addToFavotites()
+    }
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -330,7 +334,7 @@ class ItemVC: UIViewController {
     private func configureNavBar() {
         navigationController?.navigationBar.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), style: .plain, target: self, action: #selector(didPressAddToFavorite))
     }
     
 }
