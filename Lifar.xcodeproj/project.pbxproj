@@ -54,6 +54,7 @@
 		44DBF52E2A4B7E8800A71EE6 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF52D2A4B7E8800A71EE6 /* DeleteAccountView.swift */; };
 		44DBF5962A56DEAB00A71EE6 /* ItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5952A56DEAB00A71EE6 /* ItemVC.swift */; };
 		44DBF5982A56DFF900A71EE6 /* ItemViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5972A56DFF900A71EE6 /* ItemViewViewModel.swift */; };
+		44DBF59B2A5EF41F00A71EE6 /* ProductTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF59A2A5EF41F00A71EE6 /* ProductTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,7 @@
 		44DBF52D2A4B7E8800A71EE6 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		44DBF5952A56DEAB00A71EE6 /* ItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemVC.swift; sourceTree = "<group>"; };
 		44DBF5972A56DFF900A71EE6 /* ItemViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewViewModel.swift; sourceTree = "<group>"; };
+		44DBF59A2A5EF41F00A71EE6 /* ProductTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 				44DBF4F32A3B5E1200A71EE6 /* Main */,
 				44DBF4F22A3B5DD700A71EE6 /* Categories */,
 				44DBF5262A4B6A5100A71EE6 /* Profile */,
+				44DBF5992A5EF3D700A71EE6 /* Favorites */,
 				44DBF4F42A3B5E1F00A71EE6 /* SideMenu */,
 			);
 			path = Views;
@@ -261,6 +264,7 @@
 				44DBF4C12A2165BF00A71EE6 /* MainCell.swift */,
 				44DBF4C32A2170A300A71EE6 /* ProductCell.swift */,
 				44DBF4C52A21734D00A71EE6 /* CallUsView.swift */,
+				44DBF59A2A5EF41F00A71EE6 /* ProductTableCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -298,6 +302,13 @@
 				44DBF52D2A4B7E8800A71EE6 /* DeleteAccountView.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		44DBF5992A5EF3D700A71EE6 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Favorites;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -415,6 +426,7 @@
 				44DBF4B92A1DD3DF00A71EE6 /* Extension+UIColor.swift in Sources */,
 				44DBF4FE2A425E4900A71EE6 /* AboutVC.swift in Sources */,
 				44DBF4FA2A3FBAE000A71EE6 /* Extension+UIImage.swift in Sources */,
+				44DBF59B2A5EF41F00A71EE6 /* ProductTableCell.swift in Sources */,
 				44DBF5982A56DFF900A71EE6 /* ItemViewViewModel.swift in Sources */,
 				44DBF4C22A2165BF00A71EE6 /* MainCell.swift in Sources */,
 				44DBF51B2A427B8C00A71EE6 /* CustomTextField.swift in Sources */,
