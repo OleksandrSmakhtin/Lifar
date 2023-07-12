@@ -16,10 +16,12 @@ final class ItemViewViewModel: ObservableObject {
     @Published var valueToOrder = 1
     @Published var isMinusValueActive: Bool = false
     @Published var isPlusValueActive: Bool = true
+    @Published var isItemInFavorite: Bool = false
+    @Published var favorites: [String] = []
     @Published var error: String?
     
     private lazy var itemPrice = Float(item!.price)
-    private var favorites: [String] = []
+    //private var favorites: [String] = []
     
     private var subscriptions: Set<AnyCancellable> = []
     
@@ -27,21 +29,31 @@ final class ItemViewViewModel: ObservableObject {
     
     
     func addToFavotites() {
-        getUserFavorites()
         
-        print("Adding to: \(favorites)")
-        print("Addition: \(item)")
         
-        guard let id = Auth.auth().currentUser?.uid else { return }
+        guard let userID = Auth.auth().currentUser?.uid else { return }
         guard let title = item?.title else { return }
+
         
-        favorites.append(title)
-        
+        if favorites.contains(title) {
+            
+            for index in 0...favorites.count - 1 {
+                //print(index)
+                if favorites[index] == title {
+                    favorites.remove(at: index)
+                    break
+                }
+            }
+            
+        } else {
+            favorites.append(title)
+        }
+
         let updatedFields: [String : Any] = [
             "favorite" : favorites
         ]
-        
-        DatabaseManager.shared.collectionUsers(updateFields: updatedFields, for: id).sink { [weak self] completion in
+
+        DatabaseManager.shared.collectionUsers(updateFields: updatedFields, for: userID).sink { [weak self] completion in
             if case .failure(let error) = completion {
                 print(error.localizedDescription)
                 self?.error = error.localizedDescription
@@ -55,7 +67,7 @@ final class ItemViewViewModel: ObservableObject {
     
     
     // get favorites
-    private func getUserFavorites() {
+    func getAndCheckUserFavorites() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         DatabaseManager.shared.collectionUsers(retreive: userID).sink { [weak self] completion in
             if case .failure(let error) = completion {
@@ -63,7 +75,22 @@ final class ItemViewViewModel: ObservableObject {
                 self?.error = error.localizedDescription
             }
         } receiveValue: { [weak self] user in
-            self?.favorites = user.favorite
+            
+            let favorites = user.favorite
+            
+            self?.favorites = favorites
+            
+            for fav in favorites {
+                
+                if fav == self?.item?.title {
+                    self?.isItemInFavorite = true
+                    return
+                } else {
+                    self?.isItemInFavorite = false
+                }
+                
+            }
+            
         }.store(in: &subscriptions)
 
     }

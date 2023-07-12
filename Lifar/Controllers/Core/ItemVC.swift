@@ -20,6 +20,7 @@ class ItemVC: UIViewController {
         scrollView.alwaysBounceVertical = true
         scrollView.keyboardDismissMode = .onDrag
         scrollView.backgroundColor = .cakeWhite
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -154,7 +155,9 @@ class ItemVC: UIViewController {
     
     @objc private func didPressAddToFavorite() {
         viewModel.addToFavotites()
+        viewModel.getAndCheckUserFavorites()
     }
+
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -175,6 +178,13 @@ class ItemVC: UIViewController {
     }
     
     
+    //MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.getAndCheckUserFavorites()
+    }
+    
+    
     //MARK: - Bind views
     private func bindViews() {
         // item
@@ -184,6 +194,17 @@ class ItemVC: UIViewController {
             self?.descriptionLbl.text = item.description
             self?.priceLbl.text = "€\(item.price)"
             self?.productImageView.sd_setImage(with: URL(string: item.path))
+        }.store(in: &subscriptions)
+        
+        // check favorite
+        viewModel.$isItemInFavorite.sink { [weak self] state in
+            if state {
+                self?.navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+            } else {
+                self?.navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+            }
+            
+            //print(self?.viewModel.favorites)
         }.store(in: &subscriptions)
         
         // value
