@@ -85,6 +85,17 @@ class FavoriteVC: UIViewController {
         }()
         navigationController?.navigationBar.tintColor = .black
         navigationItem.titleView = lifarLbl
+        
+        let clearAllLbl: UIButton = {
+            let btn = UIButton(type: .system)
+            btn.tintColor = .systemRed
+            btn.setTitle("Clear All", for: .normal)
+            btn.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 15)
+            btn.translatesAutoresizingMaskIntoConstraints = false
+            return btn
+        }()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: clearAllLbl)
     }
 }
 
@@ -112,6 +123,11 @@ extension FavoriteVC: UITableViewDelegate, UITableViewDataSource {
     // height for row
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    
+    // did select row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true )
     }
     
 }
