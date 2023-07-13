@@ -69,7 +69,7 @@ class DatabaseManager {
                 })
             }.eraseToAnyPublisher()
     }
-    
+     
     
     
     //MARK: - Path generator
