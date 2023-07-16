@@ -20,8 +20,10 @@ class DatabaseManager {
     let db = Firestore.firestore()
     
     let usersPath = "Users"
+    let favoritesPath = "/favorites"
     
-    //MARK: - Create User
+    //MARK: - USER
+    // add
     func collectionUsers(add user: User, with name: String) -> AnyPublisher<Bool, Error> {
         let lirafUser = LirafUser(from: user, name: name)
         return db.collection(usersPath).document(lirafUser.id).setData(from: lirafUser).map { _ in
@@ -29,24 +31,54 @@ class DatabaseManager {
         }.eraseToAnyPublisher()
     }
     
-    //MARK: - Retreive user
+    // retreive
     func collectionUsers(retreive id: String) -> AnyPublisher<LirafUser, Error> {
         db.collection(usersPath).document(id).getDocument().tryMap { try $0.data(as: LirafUser.self) }.eraseToAnyPublisher()
     }
     
-    //MARK: - Delete user
+    // delete
     func collectionUsers(delete id: String) -> AnyPublisher<Bool, Error> {
         db.collection(usersPath).document(id).delete().map { _ in
             return true
         }.eraseToAnyPublisher()
     }
     
-    //MARK: - Update user's fields
+    // update
     func collectionUsers(updateFields: [String: Any], for id: String) -> AnyPublisher<Bool, Error> {
         db.collection(usersPath).document(id).updateData(updateFields).map { _ in true }.eraseToAnyPublisher()
     }
     
-    //MARK: - Get popular cakes
+    
+    //MARK: - FAVORITE
+    // add
+    func collectionFavorite(add item: Cake, for id: String) -> AnyPublisher<Bool, Error> {
+        db.collection("\(usersPath)/\(id)\(favoritesPath)").document(item.title).setData(from: item).map { _ in
+            return true
+        }.eraseToAnyPublisher()
+    }
+    
+    // retreive
+    func collectionFavorite(retreiveFavs id: String) -> AnyPublisher<[Cake], Error> {
+        db.collection("\(usersPath)/\(id)\(favoritesPath)").getDocuments()
+            .tryMap(\.documents)
+            .tryMap { snapshots in
+                try snapshots.map({
+                    try $0.data(as: Cake.self)
+                })
+            }.eraseToAnyPublisher()
+    }
+    
+    // delete
+    func collectionFavorite(delete name: String, for id: String) -> AnyPublisher<Bool, Error> {
+        db.collection("\(usersPath)/\(id)\(favoritesPath)").document(name).delete().map { _ in
+            return true
+        }.eraseToAnyPublisher()
+    }
+    
+    
+    
+    
+    //MARK: - POPULAR
     func collectionPopularCakes(for category: CategoriesTabs) -> AnyPublisher<[Cake], Error> {
         let path = getPopularPath(for: category)
         return db.collection(path).getDocuments()
@@ -58,7 +90,7 @@ class DatabaseManager {
             }.eraseToAnyPublisher()
     }
     
-    //MARK: - Get new cakes
+    //MARK: - NEW
     func collectionNewCakes(for category: CategoriesTabs) -> AnyPublisher<[Cake], Error> {
         let path = getNewPath(for: category)
         return db.collection(path).getDocuments()

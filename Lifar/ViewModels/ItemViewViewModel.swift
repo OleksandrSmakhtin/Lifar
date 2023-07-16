@@ -33,66 +33,55 @@ final class ItemViewViewModel: ObservableObject {
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
         guard let title = item?.title else { return }
+        guard let item = item else { return }
 
-        
-        if favorites.contains(title) {
-            
-            for index in 0...favorites.count - 1 {
-                //print(index)
-                if favorites[index] == title {
-                    favorites.remove(at: index)
-                    break
+        if !isItemInFavorite {
+            // add
+            DatabaseManager.shared.collectionFavorite(add: item, for: userID).sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    print(error.localizedDescription)
+                    self?.error = error.localizedDescription
                 }
-            }
-            
+            } receiveValue: { state in
+                print("SAVING TO COLL STATE: \(state)")
+            }.store(in: &subscriptions)
         } else {
-            favorites.append(title)
+            // delete
+            DatabaseManager.shared.collectionFavorite(delete: title, for: userID).sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    print(error.localizedDescription)
+                    self?.error = error.localizedDescription
+                }
+            } receiveValue: { isDeleted in
+                print("FAV DELETION STATE: \(isDeleted)")
+            }.store(in: &subscriptions)
+
         }
-
-        let updatedFields: [String : Any] = [
-            "favorite" : favorites
-        ]
-
-        DatabaseManager.shared.collectionUsers(updateFields: updatedFields, for: userID).sink { [weak self] completion in
-            if case .failure(let error) = completion {
-                print(error.localizedDescription)
-                self?.error = error.localizedDescription
-            }
-        } receiveValue: { [weak self] isUpdated in
-            print("Is updated? - \(isUpdated)")
-        }.store(in: &subscriptions)
-
         
     }
     
     
     // get favorites
     func getAndCheckUserFavorites() {
+        
+        guard let title = item?.title else { return }
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        DatabaseManager.shared.collectionUsers(retreive: userID).sink { [weak self] completion in
+
+        DatabaseManager.shared.collectionFavorite(retreiveFavs: userID).sink { [weak self] completion in
             if case .failure(let error) = completion {
                 print(error.localizedDescription)
                 self?.error = error.localizedDescription
             }
-        } receiveValue: { [weak self] user in
-            
-            let favorites = user.favorite
-            
-            self?.favorites = favorites
-            
-            for fav in favorites {
-                
-                if fav == self?.item?.title {
+        } receiveValue: { [weak self] favs in
+            for fav in favs {
+                if fav.title == title {
                     self?.isItemInFavorite = true
                     return
                 } else {
                     self?.isItemInFavorite = false
                 }
-                
             }
-            
         }.store(in: &subscriptions)
-
     }
     
     
