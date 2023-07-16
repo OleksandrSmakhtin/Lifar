@@ -124,7 +124,8 @@ class FavoriteVC: UIViewController {
 
 
 //MARK: - UITableViewDelegate & DataSource
-extension FavoriteVC: UITableViewDelegate, UITableViewDataSource {
+extension FavoriteVC: UITableViewDelegate, UITableViewDataSource, ProductTableCellDelegate {
+    
     // delegates
     private func applyTableDelegates() {
         favoritesTable.delegate = self
@@ -141,7 +142,7 @@ extension FavoriteVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableCell.identifier) as? ProductTableCell else { return UITableViewCell() }
         
         let model = viewModel.favItems[indexPath.row]
-        
+        cell.delegate = self
         cell.configure(with: model)
         
         
@@ -156,6 +157,13 @@ extension FavoriteVC: UITableViewDelegate, UITableViewDataSource {
     // did select row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true )
+    }
+    
+    // did tap delete btn
+    func didTapDelete(title: String) {
+        print("ITEM TO DELETE: \(title)")
+        viewModel.deleteItem(with: title)
+
     }
     
 }

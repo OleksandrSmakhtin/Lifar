@@ -8,8 +8,15 @@
 import UIKit
 import SDWebImage
 
+protocol ProductTableCellDelegate: AnyObject {
+    func didTapDelete(title: String)
+}
+
 class ProductTableCell: UITableViewCell {
     
+    //MARK: - Delegate
+    weak var delegate: ProductTableCellDelegate?
+        
     //MARK: - Identifier
     static let identifier = "ProductTableCell"
 
@@ -45,9 +52,17 @@ class ProductTableCell: UITableViewCell {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(systemName: "trash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .semibold)), for: .normal)
         btn.tintColor = .black.withAlphaComponent(0.7)
+        btn.addTarget(self, action: #selector(didTapDelete), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
+    
+    //MARK: - Actions
+    @objc private func didTapDelete() {
+        guard let title = titleLbl.text else { return }
+        //let indexPath = IndexPath(row: deleteItemBtn.tag, section: 0)
+        delegate?.didTapDelete(title: title)
+    }
     
     private let customContentView: UIView = {
         let view = UIView()
@@ -132,6 +147,8 @@ class ProductTableCell: UITableViewCell {
         titleLbl.text = model.title
         priceLbl.text = "€\(model.price)"
         itemImageView.sd_setImage(with: URL(string: model.path))
+        
+        //cellIndex = indexPath
     }
     
     //MARK: - required init

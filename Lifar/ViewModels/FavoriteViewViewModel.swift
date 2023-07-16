@@ -17,7 +17,7 @@ final class FavoriteViewViewModel: ObservableObject {
     
     private var subscriptions: Set<AnyCancellable> = []
     
-    
+    // retreive
     func getFavoriteItems() {
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -30,10 +30,23 @@ final class FavoriteViewViewModel: ObservableObject {
         } receiveValue: { [weak self] items in
             self?.favItems = items
         }.store(in: &subscriptions)
-
-        
     }
     
+    // delete
+    func deleteItem(with name: String) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        DatabaseManager.shared.collectionFavorite(delete: name, for: userID).sink { [weak self] completion in
+            if case .failure(let error) = completion {
+                print(error.localizedDescription)
+                self?.error = error.localizedDescription
+            }
+        } receiveValue: { state in
+            print("DELETION STATE: \(state)")
+            self.getFavoriteItems()
+            
+        }.store(in: &subscriptions)
+    }
     
     
 }
