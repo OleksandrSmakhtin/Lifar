@@ -55,6 +55,7 @@
 		44DBF5962A56DEAB00A71EE6 /* ItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5952A56DEAB00A71EE6 /* ItemVC.swift */; };
 		44DBF5982A56DFF900A71EE6 /* ItemViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5972A56DFF900A71EE6 /* ItemViewViewModel.swift */; };
 		44DBF59B2A5EF41F00A71EE6 /* ProductTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF59A2A5EF41F00A71EE6 /* ProductTableCell.swift */; };
+		44DBF59D2A6474A300A71EE6 /* FavoriteViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF59C2A6474A300A71EE6 /* FavoriteViewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		44DBF5952A56DEAB00A71EE6 /* ItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemVC.swift; sourceTree = "<group>"; };
 		44DBF5972A56DFF900A71EE6 /* ItemViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewViewModel.swift; sourceTree = "<group>"; };
 		44DBF59A2A5EF41F00A71EE6 /* ProductTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableCell.swift; sourceTree = "<group>"; };
+		44DBF59C2A6474A300A71EE6 /* FavoriteViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 				44DBF51E2A43353800A71EE6 /* AuthViewViewModel.swift */,
 				44DBF52B2A4B739C00A71EE6 /* ProfileViewViewModel.swift */,
 				44DBF5972A56DFF900A71EE6 /* ItemViewViewModel.swift */,
+				44DBF59C2A6474A300A71EE6 /* FavoriteViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				44DBF4C42A2170A300A71EE6 /* ProductCell.swift in Sources */,
 				44DBF4EF2A3B5A6F00A71EE6 /* SideMenuView.swift in Sources */,
 				44DBF4F12A3B5C9700A71EE6 /* MenuItem.swift in Sources */,
+				44DBF59D2A6474A300A71EE6 /* FavoriteViewViewModel.swift in Sources */,
 				44DBF4B92A1DD3DF00A71EE6 /* Extension+UIColor.swift in Sources */,
 				44DBF4FE2A425E4900A71EE6 /* AboutVC.swift in Sources */,
 				44DBF4FA2A3FBAE000A71EE6 /* Extension+UIImage.swift in Sources */,

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ProductTableCell: UITableViewCell {
     
@@ -123,6 +124,14 @@ class ProductTableCell: UITableViewCell {
         NSLayoutConstraint.activate(itemImageViewConstraints)
         NSLayoutConstraint.activate(titleLblConstraints)
         NSLayoutConstraint.activate(priceLblConstraints)
+    }
+    
+    
+    //MARK: - Configure
+    public func configure(with model: Cake) {
+        titleLbl.text = model.title
+        priceLbl.text = "€\(model.price)"
+        itemImageView.sd_setImage(with: URL(string: model.path))
     }
     
     //MARK: - required init

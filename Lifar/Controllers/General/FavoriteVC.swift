@@ -6,8 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 class FavoriteVC: UIViewController {
+    
+    
+    //MARK: - ViewModel
+    private var viewModel = FavoriteViewViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
     
     //MARK: - UI Object
     private let favoritesTable: UITableView = {
@@ -40,10 +46,27 @@ class FavoriteVC: UIViewController {
         applyConstraints()
         // apply delegates
         applyTableDelegates()
+        // bind views
+        bindViews()
+    }
+    
+    //MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.getFavoriteItems()
     }
     
     //MARK: - Bind views
     private func bindViews() {
+        
+        // bind items
+        viewModel.$favItems.sink { [weak self] items in
+            DispatchQueue.main.async {
+                self?.favoritesTable.reloadData()
+            }
+        }.store(in: &subscriptions)
+        
+        
         
     }
     
@@ -110,12 +133,17 @@ extension FavoriteVC: UITableViewDelegate, UITableViewDataSource {
     
     // number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return viewModel.favItems.count
     }
     
     // cell for row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableCell.identifier) else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableCell.identifier) as? ProductTableCell else { return UITableViewCell() }
+        
+        let model = viewModel.favItems[indexPath.row]
+        
+        cell.configure(with: model)
+        
         
         return cell
     }
