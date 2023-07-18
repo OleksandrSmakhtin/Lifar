@@ -32,6 +32,13 @@ class FavoriteVC: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private let emptyView = EmptyView()
+    
+    //MARK: - Actions
+    @objc private func didTapDeleteAll() {
+        presentDeletionAlert()
+    }
 
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -46,6 +53,7 @@ class FavoriteVC: UIViewController {
         applyConstraints()
         // apply delegates
         applyTableDelegates()
+        applyEmptyViewDelegate()
         // bind views
         bindViews()
     }
@@ -63,6 +71,15 @@ class FavoriteVC: UIViewController {
         viewModel.$favItems.sink { [weak self] items in
             DispatchQueue.main.async {
                 self?.favoritesTable.reloadData()
+                
+                if items.isEmpty {
+                    self?.emptyView.isHidden = false
+                    self?.navigationItem.rightBarButtonItem?.isHidden = true
+                } else {
+                    self?.emptyView.isHidden = true
+                    self?.navigationItem.rightBarButtonItem?.isHidden = false
+                }
+                
             }
         }.store(in: &subscriptions)
         
@@ -74,6 +91,7 @@ class FavoriteVC: UIViewController {
     private func addSubviews() {
         view.addSubview(topSeparatorView)
         view.addSubview(favoritesTable)
+        view.addSubview(emptyView)
     }
     
     //MARK: - Apply constraints
@@ -92,8 +110,16 @@ class FavoriteVC: UIViewController {
             favoritesTable.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         
+        let emptyViewConstraints = [
+            emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            emptyView.topAnchor.constraint(equalTo: topSeparatorView.bottomAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        
         NSLayoutConstraint.activate(topSeparatorViewConstraints)
         NSLayoutConstraint.activate(favoritesTableConstraints)
+        NSLayoutConstraint.activate(emptyViewConstraints)
     }
     
     //MARK: - Configure nav bar
@@ -114,11 +140,28 @@ class FavoriteVC: UIViewController {
             btn.tintColor = .systemRed
             btn.setTitle("Clear All", for: .normal)
             btn.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 15)
+            btn.addTarget(self, action: #selector(didTapDeleteAll), for: .touchUpInside)
             btn.translatesAutoresizingMaskIntoConstraints = false
             return btn
         }()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: clearAllLbl)
+    }
+    
+    //MARK: - Present alert
+    private func presentDeletionAlert() {
+        
+        let alert = UIAlertController(title: "Deleting", message: "Are you sure you want to delete all your favorite items?", preferredStyle: .alert)
+        let positiveAction = UIAlertAction(title: "YES", style: .destructive) { [weak self] _ in
+            self?.viewModel.deleteAll()
+            self?.viewModel.favItems.removeAll()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(positiveAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
     }
 }
 
@@ -166,4 +209,15 @@ extension FavoriteVC: UITableViewDelegate, UITableViewDataSource, ProductTableCe
 
     }
     
+}
+
+//MARK: - EmptyViewDelegate
+extension FavoriteVC: EmptyViewDelegate {
+    private func applyEmptyViewDelegate() {
+        emptyView.delegate = self
+    }
+    
+    func didTapGoToPtoducts() {
+        navigationController?.popViewController(animated: true)
+    }
 }

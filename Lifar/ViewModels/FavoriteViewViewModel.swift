@@ -41,11 +41,26 @@ final class FavoriteViewViewModel: ObservableObject {
                 print(error.localizedDescription)
                 self?.error = error.localizedDescription
             }
-        } receiveValue: { state in
+        } receiveValue: { [weak self] state in
             print("DELETION STATE: \(state)")
-            self.getFavoriteItems()
+            self?.getFavoriteItems()
             
         }.store(in: &subscriptions)
+    }
+    
+    // delete all
+    func deleteAll() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        DatabaseManager.shared.collectionFavorite(deleteAllFor: userID).sink { [weak self] completion in
+            if case .failure(let error) = completion {
+                print(error.localizedDescription)
+                self?.error = error.localizedDescription
+            }
+        } receiveValue: { [weak self] _ in
+            print("DELETED")
+        }.store(in: &subscriptions)
+
     }
     
     

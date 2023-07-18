@@ -65,6 +65,7 @@ class MainVC: UIViewController {
         super.viewWillAppear(animated)
         
         handleAuth()
+        //sideMenu.layer.opacity = 0
         configureNavBar()
         viewModel.retreiveCakes(for: CategoriesTabs.allCases[categoriesScrollView.selectedTabIndex])
     }
@@ -84,12 +85,14 @@ class MainVC: UIViewController {
             if state {
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) { [weak self] in
                     self?.sideMenu.layer.opacity = 0
+                    self?.mainTable.isUserInteractionEnabled = true
                 } completion: { _ in }
                 self?.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "line.3.horizontal", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
                 
             } else {
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) { [weak self] in
                     self?.sideMenu.layer.opacity = 1
+                    self?.mainTable.isUserInteractionEnabled = false
                 } completion: { _ in }
         
                 self?.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "line.3.horizontal", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular))?.rotate(degrees: 90)
@@ -262,6 +265,9 @@ extension MainVC: SideMenuDelegate {
     
     func didSelectProfile() {
         print("PROFILE TAPPED")
+        
+        viewModel.isSideMenuHidden.toggle()
+        
         let vc = ProfileVC()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
@@ -271,6 +277,9 @@ extension MainVC: SideMenuDelegate {
     
     func didSelectOrders() {
         print("ORDERS TAPPED")
+        
+        viewModel.isSideMenuHidden.toggle()
+        
         let vc = OrdersVC()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
@@ -280,6 +289,9 @@ extension MainVC: SideMenuDelegate {
     
     func didSelectFavorite() {
         print("FAVORITE TAPPED")
+        
+        viewModel.isSideMenuHidden.toggle()
+        
         let vc = FavoriteVC()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
@@ -289,14 +301,23 @@ extension MainVC: SideMenuDelegate {
     
     func didSelectRate() {
         print("RATE TAPPED")
+        
+        viewModel.isSideMenuHidden.toggle()
+        
     }
     
     func didSelectShare() {
         print("SHARE TAPPED")
+        
+        viewModel.isSideMenuHidden.toggle()
+        
     }
     
     func didSelectAbout() {
         print("ABOUT TAPPED")
+        
+        viewModel.isSideMenuHidden.toggle()
+        
         let vc = AboutVC()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))

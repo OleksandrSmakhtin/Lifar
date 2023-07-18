@@ -75,6 +75,20 @@ class DatabaseManager {
         }.eraseToAnyPublisher()
     }
     
+    // delete all
+    func collectionFavorite(deleteAllFor id: String) -> AnyPublisher<Void, Error> {
+        return db.collection("\(usersPath)/\(id)\(favoritesPath)").getDocuments()
+            .tryMap(\.documents)
+            .tryMap { snapshots in
+                try snapshots.map({
+                    try $0.reference.delete() as Void
+                })
+            }
+            .map { _ in }
+            .eraseToAnyPublisher()
+    }
+
+    
     
     
     

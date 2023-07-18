@@ -48,6 +48,7 @@ class MainCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         // bg color
         backgroundColor = .clear
+        selectionStyle = .none
         // add subviews
         contentView.addSubview(productsCollectionView)
         // apply constraints
