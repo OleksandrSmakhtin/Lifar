@@ -21,6 +21,7 @@ class DatabaseManager {
     
     let usersPath = "Users"
     let favoritesPath = "/favorites"
+    let basketPath = "/basket"
     
     //MARK: - USER
     // add
@@ -78,6 +79,46 @@ class DatabaseManager {
     // delete all
     func collectionFavorite(deleteAllFor id: String) -> AnyPublisher<Void, Error> {
         return db.collection("\(usersPath)/\(id)\(favoritesPath)").getDocuments()
+            .tryMap(\.documents)
+            .tryMap { snapshots in
+                try snapshots.map({
+                    try $0.reference.delete() as Void
+                })
+            }
+            .map { _ in }
+            .eraseToAnyPublisher()
+    }
+    
+    
+    //MARK: - BASKET
+    // add to basket
+    func collectionBasket(add item: Cake, for id: String) -> AnyPublisher<Bool, Error> {
+        db.collection("\(usersPath)/\(id)\(basketPath)").document(item.title).setData(from: item).map { _ in
+            return true
+        }.eraseToAnyPublisher()
+    }
+    
+    // retreive
+    func collectionBasket(retreiveFor id: String) -> AnyPublisher<[Cake], Error> {
+        db.collection("\(usersPath)/\(id)\(basketPath)").getDocuments()
+            .tryMap(\.documents)
+            .tryMap { snapshots in
+                try snapshots.map({
+                    try $0.data(as: Cake.self)
+                })
+            }.eraseToAnyPublisher()
+    }
+    
+    // delete
+    func collectionBasket(delete name: String, for id: String) -> AnyPublisher<Bool, Error> {
+        db.collection("\(usersPath)/\(id)\(basketPath)").document(name).delete().map { _ in
+            return true
+        }.eraseToAnyPublisher()
+    }
+    
+    // delete all
+    func collectionBasket(deleteAllFor id: String) -> AnyPublisher<Void, Error> {
+        return db.collection("\(usersPath)/\(id)\(basketPath)").getDocuments()
             .tryMap(\.documents)
             .tryMap { snapshots in
                 try snapshots.map({

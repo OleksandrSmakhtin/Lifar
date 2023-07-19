@@ -1,34 +1,33 @@
 //
-//  FavoriteViewViewModel.swift
+//  BasketViewViewModel.swift
 //  Lifar
 //
-//  Created by Oleksandr Smakhtin on 16/07/2023.
+//  Created by Oleksandr Smakhtin on 19/07/2023.
 //
 
 import Foundation
-import FirebaseAuth
 import Combine
+import FirebaseAuth
 
 
-final class FavoriteViewViewModel: ObservableObject {
+final class BasketViewViewModel: ObservableObject {
     
-    @Published var favItems: [Cake] = []
+    @Published var items: [Cake] = []
     @Published var error: String?
     
     private var subscriptions: Set<AnyCancellable> = []
     
     // retreive
-    func getFavoriteItems() {
-        
+    func retreiveBasket() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        DatabaseManager.shared.collectionFavorite(retreiveFavs: userID).sink { [weak self] completion in
+        DatabaseManager.shared.collectionBasket(retreiveFor: userID).sink { [weak self] completion in
             if case .failure(let error) = completion {
                 print(error.localizedDescription)
                 self?.error = error.localizedDescription
             }
         } receiveValue: { [weak self] items in
-            self?.favItems = items
+            self?.items = items
         }.store(in: &subscriptions)
     }
     
@@ -36,15 +35,14 @@ final class FavoriteViewViewModel: ObservableObject {
     func deleteItem(with name: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        DatabaseManager.shared.collectionFavorite(delete: name, for: userID).sink { [weak self] completion in
+        DatabaseManager.shared.collectionBasket(delete: name, for: userID).sink { [weak self] completion in
             if case .failure(let error) = completion {
                 print(error.localizedDescription)
                 self?.error = error.localizedDescription
             }
         } receiveValue: { [weak self] state in
             print("DELETION STATE: \(state)")
-            self?.getFavoriteItems()
-            
+            self?.retreiveBasket()
         }.store(in: &subscriptions)
     }
     
@@ -52,7 +50,7 @@ final class FavoriteViewViewModel: ObservableObject {
     func deleteAll() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        DatabaseManager.shared.collectionFavorite(deleteAllFor: userID).sink { [weak self] completion in
+        DatabaseManager.shared.collectionBasket(deleteAllFor: userID).sink { [weak self] completion in
             if case .failure(let error) = completion {
                 print(error.localizedDescription)
                 self?.error = error.localizedDescription
@@ -61,6 +59,5 @@ final class FavoriteViewViewModel: ObservableObject {
             print("DELETED")
         }.store(in: &subscriptions)
     }
-    
     
 }

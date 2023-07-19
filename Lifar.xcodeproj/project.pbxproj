@@ -57,6 +57,7 @@
 		44DBF59B2A5EF41F00A71EE6 /* ProductTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF59A2A5EF41F00A71EE6 /* ProductTableCell.swift */; };
 		44DBF59D2A6474A300A71EE6 /* FavoriteViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF59C2A6474A300A71EE6 /* FavoriteViewViewModel.swift */; };
 		44DBF59F2A673E4300A71EE6 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF59E2A673E4300A71EE6 /* EmptyView.swift */; };
+		44DBF5A32A6820E400A71EE6 /* BasketViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5A22A6820E400A71EE6 /* BasketViewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,7 @@
 		44DBF59A2A5EF41F00A71EE6 /* ProductTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableCell.swift; sourceTree = "<group>"; };
 		44DBF59C2A6474A300A71EE6 /* FavoriteViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewViewModel.swift; sourceTree = "<group>"; };
 		44DBF59E2A673E4300A71EE6 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		44DBF5A22A6820E400A71EE6 /* BasketViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +178,6 @@
 				44DBF4F32A3B5E1200A71EE6 /* Main */,
 				44DBF4F22A3B5DD700A71EE6 /* Categories */,
 				44DBF5262A4B6A5100A71EE6 /* Profile */,
-				44DBF5992A5EF3D700A71EE6 /* Favorites */,
 				44DBF4F42A3B5E1F00A71EE6 /* SideMenu */,
 			);
 			path = Views;
@@ -190,6 +191,7 @@
 				44DBF52B2A4B739C00A71EE6 /* ProfileViewViewModel.swift */,
 				44DBF5972A56DFF900A71EE6 /* ItemViewViewModel.swift */,
 				44DBF59C2A6474A300A71EE6 /* FavoriteViewViewModel.swift */,
+				44DBF5A22A6820E400A71EE6 /* BasketViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -310,13 +312,6 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		44DBF5992A5EF3D700A71EE6 /* Favorites */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Favorites;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -421,6 +416,7 @@
 				44DBF5212A43399500A71EE6 /* AuthManager.swift in Sources */,
 				44DBF5232A433BE400A71EE6 /* LirafUser.swift in Sources */,
 				44DBF5962A56DEAB00A71EE6 /* ItemVC.swift in Sources */,
+				44DBF5A32A6820E400A71EE6 /* BasketViewViewModel.swift in Sources */,
 				44DBF4B52A1DD0C000A71EE6 /* MainVC.swift in Sources */,
 				44DBF4C02A2025BE00A71EE6 /* CategoryView.swift in Sources */,
 				44DBF4E42A28E2F900A71EE6 /* DatabaseManager.swift in Sources */,

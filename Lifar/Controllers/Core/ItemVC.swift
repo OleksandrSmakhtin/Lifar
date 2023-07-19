@@ -57,7 +57,7 @@ class ItemVC: UIViewController {
         btn.layer.shadowOffset = CGSize(width: 4, height: 4)
         btn.layer.shadowRadius = 4
         
-        //btn.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(didTapBuy), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -157,6 +157,21 @@ class ItemVC: UIViewController {
         viewModel.addToFavotites()
         viewModel.getAndCheckUserFavorites()
     }
+    
+    @objc private func didTapBuy() {
+        viewModel.addToBasket()
+        viewModel.checkBasket()
+    }
+    
+    @objc private func didTapGoToBasket() {
+        let vc = BasketVC()
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
     
     //MARK: - viewDidLoad
@@ -181,7 +196,9 @@ class ItemVC: UIViewController {
     //MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.backgroundColor = .white
         viewModel.getAndCheckUserFavorites()
+        viewModel.checkBasket()
     }
     
     
@@ -205,6 +222,22 @@ class ItemVC: UIViewController {
             }
             
             //print(self?.viewModel.favorites)
+        }.store(in: &subscriptions)
+        
+        viewModel.$isItemInBasket.sink { [weak self] state in
+            
+            if state {
+                self?.buyBtn.tintColor = .black
+                self?.buyBtn.backgroundColor = .cakeWhite
+                self?.buyBtn.setTitle("Go to basket", for: .normal)
+                self?.buyBtn.addTarget(self, action: #selector(self?.didTapGoToBasket), for: .touchUpInside)
+            } else {
+                self?.buyBtn.tintColor = .cakeWhite
+                self?.buyBtn.backgroundColor = .black
+                self?.buyBtn.setTitle("Buy", for: .normal)
+                self?.buyBtn.addTarget(self, action: #selector(self?.didTapBuy), for: .touchUpInside)
+            }
+            
         }.store(in: &subscriptions)
         
         // value

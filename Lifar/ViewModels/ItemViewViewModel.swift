@@ -14,9 +14,13 @@ final class ItemViewViewModel: ObservableObject {
     
     @Published var item: Cake?
     @Published var valueToOrder = 1
+    
     @Published var isMinusValueActive: Bool = false
     @Published var isPlusValueActive: Bool = true
+    
+    @Published var isItemInBasket: Bool = false
     @Published var isItemInFavorite: Bool = false
+    
     @Published var favorites: [String] = []
     @Published var error: String?
     
@@ -27,10 +31,8 @@ final class ItemViewViewModel: ObservableObject {
     
     
     
-    
+    //MARK: - ADD TO FAVORITE
     func addToFavotites() {
-        
-        
         guard let userID = Auth.auth().currentUser?.uid else { return }
         guard let title = item?.title else { return }
         guard let item = item else { return }
@@ -55,15 +57,12 @@ final class ItemViewViewModel: ObservableObject {
             } receiveValue: { isDeleted in
                 print("FAV DELETION STATE: \(isDeleted)")
             }.store(in: &subscriptions)
-
         }
-        
     }
     
     
-    // get favorites
+    //MARK: - CHECK FAVORITES
     func getAndCheckUserFavorites() {
-        
         guard let title = item?.title else { return }
         guard let userID = Auth.auth().currentUser?.uid else { return }
 
@@ -79,6 +78,46 @@ final class ItemViewViewModel: ObservableObject {
                     return
                 } else {
                     self?.isItemInFavorite = false
+                }
+            }
+        }.store(in: &subscriptions)
+    }
+    
+    
+    //MARK: - ADD TO BASKET
+    func addToBasket() {
+        guard let item = item else { return }
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        DatabaseManager.shared.collectionBasket(add: item, for: userID).sink { [weak self] completion in
+            if case .failure(let error) = completion {
+                print(error.localizedDescription)
+                self?.error = error.localizedDescription
+            }
+        } receiveValue: { state in
+            print("ADDING TO BASKET STATE: \(state)")
+        }.store(in: &subscriptions)
+    }
+    
+    //MARK: - CHECK BASKET
+    func checkBasket() {
+        guard let title = item?.title else { return }
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        DatabaseManager.shared.collectionBasket(retreiveFor: userID).sink { [weak self] completion in
+            if case .failure(let error) = completion {
+                print(error.localizedDescription)
+                self?.error = error.localizedDescription
+            }
+        } receiveValue: { [weak self] basketItems in
+            for basketItem in basketItems {
+                if basketItem.title == title {
+                    self?.isItemInBasket = true
+                    print("ITEM IS ALREADY IN BASKET")
+                    return
+                } else {
+                    self?.isItemInBasket = false
+                    print("ITEM IS NOT IN BASKET")
                 }
             }
         }.store(in: &subscriptions)
@@ -121,11 +160,13 @@ final class ItemViewViewModel: ObservableObject {
     // plus
     func plusValue() {
         valueToOrder += 1
+        item?.amountForOrder = valueToOrder
     }
     
     // minus
     func minusValue() {
         valueToOrder -= 1
+        item?.amountForOrder = valueToOrder
     }
     
 }
