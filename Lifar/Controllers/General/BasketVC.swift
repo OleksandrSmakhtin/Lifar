@@ -20,7 +20,7 @@ class BasketVC: UIViewController {
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        tableView.register(ProductTableCell.self, forCellReuseIdentifier: ProductTableCell.identifier)
+        tableView.register(BasketTableCell.self, forCellReuseIdentifier: BasketTableCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -165,7 +165,7 @@ class BasketVC: UIViewController {
 
 
 //MARK: - UITableViewDelegate & DataSource
-extension BasketVC: UITableViewDelegate, UITableViewDataSource, ProductTableCellDelegate {
+extension BasketVC: UITableViewDelegate, UITableViewDataSource, BasketTableCellDelegate {
     
     // delegates
     private func applyTableDelegates() {
@@ -180,7 +180,7 @@ extension BasketVC: UITableViewDelegate, UITableViewDataSource, ProductTableCell
     
     // cell for row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableCell.identifier) as? ProductTableCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BasketTableCell.identifier) as? BasketTableCell else { return UITableViewCell() }
         
         let model = viewModel.items[indexPath.row]
         cell.delegate = self

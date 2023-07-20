@@ -245,7 +245,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         case 2:
             cell.configure(with: viewModel.allCakes)
         case 3:
-            let custom = Cake(title: CategoriesTabs.allCases[categoriesScrollView.selectedTabIndex].rawValue, path: "", price: "", amountForOrder: 1, description: "")
+            let custom = Cake(title: CategoriesTabs.allCases[categoriesScrollView.selectedTabIndex].rawValue, path: "", price: "", priceForOne: "", amountForOrder: 1, description: "")
             cell.configure(with: [custom])
         default:
             return UITableViewCell()
