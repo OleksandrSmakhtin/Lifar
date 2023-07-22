@@ -207,6 +207,10 @@ extension BasketVC: UITableViewDelegate, UITableViewDataSource, BasketTableCellD
 
     }
     
+    func shouldUpdateRow() {
+        viewModel.retreiveBasket()
+    }
+    
 }
 
 //MARK: - EmptyViewDelegate

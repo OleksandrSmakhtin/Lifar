@@ -109,6 +109,13 @@ class DatabaseManager {
             }.eraseToAnyPublisher()
     }
     
+    // update
+    func colletionBasket(update item: Cake, for id: String) -> AnyPublisher<Bool, Error> {
+        db.collection("\(usersPath)/\(id)\(basketPath)").document(item.title).setData(from: item).map { _ in
+            return true
+        }.eraseToAnyPublisher()
+    }
+    
     // delete
     func collectionBasket(delete name: String, for id: String) -> AnyPublisher<Bool, Error> {
         db.collection("\(usersPath)/\(id)\(basketPath)").document(name).delete().map { _ in

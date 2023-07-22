@@ -11,6 +11,7 @@ import Combine
 
 protocol BasketTableCellDelegate: AnyObject {
     func didTapDelete(title: String)
+    func shouldUpdateRow()
 }
 
 class BasketTableCell: UITableViewCell {
@@ -120,12 +121,16 @@ class BasketTableCell: UITableViewCell {
         viewModel.minusValue()
         viewModel.validateValue()
         viewModel.calculatePrice(isPlusOperation: false)
+        viewModel.updateItem()
+        delegate?.shouldUpdateRow()
     }
     
     @objc private func didTapPlusBtn() {
         viewModel.plusValue()
         viewModel.validateValue()
         viewModel.calculatePrice(isPlusOperation: true)
+        viewModel.updateItem()
+        delegate?.shouldUpdateRow()
     }
     
     //MARK: - init
