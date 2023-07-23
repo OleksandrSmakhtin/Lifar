@@ -25,6 +25,8 @@ class BasketVC: UIViewController {
         return tableView
     }()
     
+    private let basketTableFooterView = OfferTableFooterView()
+    
     private let topSeparatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .cakeWhite
@@ -50,6 +52,8 @@ class BasketVC: UIViewController {
         addSubviews()
         // apply constraints
         applyConstraints()
+        // configure table
+        configureTable()
         // apply delegates
         applyTableDelegates()
         applyEmptyViewDelegate()
@@ -65,6 +69,16 @@ class BasketVC: UIViewController {
     
     //MARK: - BindViews
     private func bindViews() {
+        // price
+        viewModel.$moneySum.sink { [weak self] sum in
+            self?.basketTableFooterView.priceLbl.text = "€\(sum)0"
+        }.store(in: &subscriptions)
+        
+        // amount
+        viewModel.$amountForOrder.sink { [weak self] amount in
+            self?.basketTableFooterView.amountToOrderLbl.text = "\(amount)"
+        }.store(in: &subscriptions)
+        
         // bind items
         viewModel.$items.sink { [weak self] items in
             DispatchQueue.main.async {
@@ -72,12 +86,15 @@ class BasketVC: UIViewController {
                 
                 if items.isEmpty {
                     self?.emptyView.isHidden = false
+                    self?.basketTable.isHidden = true
                     self?.navigationItem.rightBarButtonItem?.isHidden = true
                 } else {
                     self?.emptyView.isHidden = true
+                    self?.basketTable.isHidden = false
                     self?.navigationItem.rightBarButtonItem?.isHidden = false
+                    
+                    self?.viewModel.countOrder()
                 }
-                
             }
         }.store(in: &subscriptions)
     }
@@ -160,12 +177,20 @@ class BasketVC: UIViewController {
         alert.addAction(cancelAction)
         
         present(alert, animated: true)
+        
+        
+        
     }
 }
 
 
 //MARK: - UITableViewDelegate & DataSource
 extension BasketVC: UITableViewDelegate, UITableViewDataSource, BasketTableCellDelegate {
+    // configure table
+    private func configureTable() {
+        basketTableFooterView.frame = CGRect(x: 0, y: 0, width: basketTable.frame.width, height: 300)
+        basketTable.tableFooterView = basketTableFooterView
+    }
     
     // delegates
     private func applyTableDelegates() {

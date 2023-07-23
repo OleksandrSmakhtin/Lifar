@@ -13,9 +13,42 @@ import FirebaseAuth
 final class BasketViewViewModel: ObservableObject {
     
     @Published var items: [Cake] = []
+    @Published var amountForOrder: Int = 0
+    @Published var moneySum: Float = 0.0
+    
     @Published var error: String?
     
     private var subscriptions: Set<AnyCancellable> = []
+    
+    
+    
+    
+    
+    func countOrder() {
+        countMoneySum()
+        countAmountOfItems()
+    }
+    
+    
+    // count amout of items for order
+    private func countAmountOfItems() {
+        var result = 0
+        for item in items {
+            result += item.amountForOrder
+        }
+        amountForOrder = result
+    }
+    
+    // count money sum
+    private func countMoneySum() {
+        var result: Float = 0.0
+        for item in items {
+            guard let price = Float(item.price) else { return }
+            result += price
+        }
+        moneySum = result
+    }
+    
     
     // retreive
     func retreiveBasket() {

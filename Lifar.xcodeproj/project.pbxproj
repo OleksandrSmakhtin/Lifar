@@ -60,6 +60,7 @@
 		44DBF5A32A6820E400A71EE6 /* BasketViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5A22A6820E400A71EE6 /* BasketViewViewModel.swift */; };
 		44DBF5A72A69D58A00A71EE6 /* BasketTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5A62A69D58A00A71EE6 /* BasketTableCell.swift */; };
 		44DBF5A92A69E4D700A71EE6 /* BasketCellViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5A82A69E4D700A71EE6 /* BasketCellViewViewModel.swift */; };
+		44DBF5AB2A6D887D00A71EE6 /* OfferTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5AA2A6D887D00A71EE6 /* OfferTableFooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		44DBF5A22A6820E400A71EE6 /* BasketViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewViewModel.swift; sourceTree = "<group>"; };
 		44DBF5A62A69D58A00A71EE6 /* BasketTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableCell.swift; sourceTree = "<group>"; };
 		44DBF5A82A69E4D700A71EE6 /* BasketCellViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketCellViewViewModel.swift; sourceTree = "<group>"; };
+		44DBF5AA2A6D887D00A71EE6 /* OfferTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferTableFooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				44DBF5A62A69D58A00A71EE6 /* BasketTableCell.swift */,
+				44DBF5AA2A6D887D00A71EE6 /* OfferTableFooterView.swift */,
 			);
 			path = Basket;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44DBF5AB2A6D887D00A71EE6 /* OfferTableFooterView.swift in Sources */,
 				44DBF4AF2A1DC1A200A71EE6 /* FirstWelcomeVC.swift in Sources */,
 				44DBF5A92A69E4D700A71EE6 /* BasketCellViewViewModel.swift in Sources */,
 				44DBF4E62A28E3D200A71EE6 /* Cake.swift in Sources */,
