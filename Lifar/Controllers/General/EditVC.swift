@@ -13,20 +13,64 @@ class EditVC: UIViewController {
     
     //MARK: - viewModel
     var viewModel = EditViewViewModel()
-    private var subscription: Set<AnyCancellable> = []
+    private var subscriptions: Set<AnyCancellable> = []
 
     //MARK: - UI Objects
+    private let changeBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.tintColor = .cakeWhite
+        btn.setTitle("Change", for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        
+        btn.backgroundColor = .black
+        btn.layer.borderWidth = 2
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.layer.cornerRadius = 20
+        // shadow
+        btn.layer.shadowColor = UIColor.black.cgColor
+        btn.layer.shadowOpacity = 0.5
+        btn.layer.shadowOffset = CGSize(width: 4, height: 4)
+        btn.layer.shadowRadius = 4
+        
+        btn.addTarget(self, action: #selector(didTapChangeBtn), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
     private let firstTextField: CustomTextField = {
         let textField = CustomTextField(frame: .zero, target: "")
-        //textField.addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
+        textField.addTarget(self, action: #selector(didFirstFieldTextChanged), for: .editingChanged)
         return textField
     }()
     
     private let secondTextField: CustomTextField = {
         let textField = CustomTextField(frame: .zero, target: "")
-        //textField.addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
+        textField.addTarget(self, action: #selector(didSecondFieldTextChanged), for: .editingChanged)
         return textField
     }()
+    
+    //MARK: - Actions
+    @objc private func didFirstFieldTextChanged() {
+        viewModel.firstField = firstTextField.text
+        viewModel.validateForm()
+    }
+    
+    @objc private func didSecondFieldTextChanged() {
+        viewModel.secondField = firstTextField.text
+        viewModel.validateForm()
+    }
+    
+    @objc private func didTapChangeBtn() {
+        viewModel.changeData()
+        firstTextField.isEnabled = false
+        UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear) { [weak self] in
+            self?.changeBtn.layer.opacity = 0
+        } completion: { _ in }
+    }
+    
+    @objc private func didTapToDissmiss() {
+        view.endEditing(true)
+    }
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -43,8 +87,44 @@ class EditVC: UIViewController {
         bindViews()
     }
     
+    //MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.retreiveUser()
+    }
+    
     //MARK: - Bind views
     private func bindViews() {
+        // is changes successful
+        viewModel.$isChangesSuccessful.sink { [weak self] state in
+            guard let state = state else { return }
+            
+            if state {
+                self?.changeBtn.backgroundColor = .systemGreen
+                self?.changeBtn.setTitle("Successful!", for: .normal)
+                self?.changeBtn.isUserInteractionEnabled = false
+                self?.changeBtn.layer.borderColor = UIColor.systemGreen.cgColor
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) { [weak self] in
+                        self?.changeBtn.layer.opacity = 1
+                    } completion: { _ in }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                    self?.navigationController?.popViewController(animated: true)
+                }
+                
+            } else {
+                
+            }
+            
+            
+        }.store(in: &subscriptions)
+        
+        // is form valid
+        viewModel.$isFormValid.sink { [weak self] state in
+            self?.changeBtn.isEnabled = state
+        }.store(in: &subscriptions)
         
         // edit type
         viewModel.$editType.sink { [weak self] type in
@@ -75,7 +155,7 @@ class EditVC: UIViewController {
             default:
                 return
             }
-        }.store(in: &subscription)
+        }.store(in: &subscriptions)
         
     }
     
@@ -83,6 +163,8 @@ class EditVC: UIViewController {
     private func addSubviews() {
         view.addSubview(firstTextField)
         view.addSubview(secondTextField)
+        view.addSubview(changeBtn)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapToDissmiss)))
     }
     
     //MARK: - Apply constraints
@@ -101,8 +183,16 @@ class EditVC: UIViewController {
             secondTextField.topAnchor.constraint(equalTo: firstTextField.bottomAnchor, constant: 45)
         ]
         
+        let changeBtnConstraints = [
+            changeBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            changeBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            changeBtn.heightAnchor.constraint(equalToConstant: 55),
+            changeBtn.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -20)
+        ]
+        
         NSLayoutConstraint.activate(firstTextFieldConstraints)
         NSLayoutConstraint.activate(secondTextFieldConstraints)
+        NSLayoutConstraint.activate(changeBtnConstraints)
     }
     
     
