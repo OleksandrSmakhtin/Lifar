@@ -10,6 +10,13 @@ import Combine
 import Firebase
 import FirebaseAuth
 
+enum EditType: String {
+    case name = "Change name"
+    case email = "Change email"
+    case password = "Change password"
+    case adress = "Delivery adress"
+}
+
 class ProfileVC: UIViewController {
     
     //MARK: - viewModel
@@ -166,15 +173,40 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.row {
         case 0:
-            print("Change name pressed")
+            let vc = EditVC()
+            vc.viewModel.editType = EditType.name
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+            navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+            navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+            navigationController?.pushViewController(vc, animated: true)
+            
         case 1:
-            print("Change email pressed")
+            let vc = EditVC()
+            vc.viewModel.editType = EditType.email
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+            navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+            navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+            navigationController?.pushViewController(vc, animated: true)
+            
         case 2:
-            print("Change password pressed")
+            let vc = EditVC()
+            vc.viewModel.editType = EditType.password
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+            navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+            navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+            navigationController?.pushViewController(vc, animated: true)
+            
         case 3:
-            print("Change delivery pressed")
+            let vc = EditVC()
+            vc.viewModel.editType = EditType.adress
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+            navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+            navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+            navigationController?.pushViewController(vc, animated: true)
+            
         case 4:
             print("Contact pressed")
+            
         case 5:
             print("Sign out pressed")
             showAlert(with: "Signing Out", and: "Are you sure, you want to sign out?") { [weak self] in

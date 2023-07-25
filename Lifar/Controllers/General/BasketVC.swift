@@ -27,6 +27,8 @@ class BasketVC: UIViewController {
     
     private let basketTableFooterView = OfferTableFooterView()
     
+    private let stickyOfferView = StickyOfferView()
+    
     private let topSeparatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .cakeWhite
@@ -72,6 +74,7 @@ class BasketVC: UIViewController {
         // price
         viewModel.$moneySum.sink { [weak self] sum in
             self?.basketTableFooterView.priceLbl.text = "€\(sum)0"
+            self?.stickyOfferView.priceLbl.text = "€\(sum)0"
         }.store(in: &subscriptions)
         
         // amount
@@ -104,6 +107,7 @@ class BasketVC: UIViewController {
         view.addSubview(topSeparatorView)
         view.addSubview(basketTable)
         view.addSubview(emptyView)
+        view.addSubview(stickyOfferView)
     }
     
     //MARK: - Apply constraints
@@ -129,9 +133,17 @@ class BasketVC: UIViewController {
             emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         
+        let stickyOfferViewConstraints = [
+            stickyOfferView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stickyOfferView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stickyOfferView.heightAnchor.constraint(equalToConstant: 80),
+            stickyOfferView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        
         NSLayoutConstraint.activate(topSeparatorViewConstraints)
         NSLayoutConstraint.activate(basketTableConstraints)
         NSLayoutConstraint.activate(emptyViewConstraints)
+        NSLayoutConstraint.activate(stickyOfferViewConstraints)
     }
     
     //MARK: - Configure nav bar
@@ -231,9 +243,32 @@ extension BasketVC: UITableViewDelegate, UITableViewDataSource, BasketTableCellD
         viewModel.deleteItem(with: title)
 
     }
-    
+    // should upate row
     func shouldUpdateRow() {
         viewModel.retreiveBasket()
+    }
+    
+    // scroll view did scroll
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let yPosition = scrollView.contentOffset.y
+        
+        if yPosition >  scrollView.contentSize.height - scrollView.bounds.size.height - 200 {
+                           
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) { [weak self] in
+                self?.stickyOfferView.layer.opacity = 0
+            } completion: { _ in }
+            
+                self.stickyOfferView.isHidden = true
+                        
+        } else if yPosition < scrollView.contentSize.height - scrollView.bounds.size.height - 10 {
+        
+                self.stickyOfferView.isHidden = false
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) { [weak self] in
+                self?.stickyOfferView.layer.opacity = 1
+            } completion: { _ in }
+            
+        }
     }
     
 }

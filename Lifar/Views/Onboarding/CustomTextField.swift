@@ -10,7 +10,7 @@ import UIKit
 class CustomTextField: UITextField {
 
     //MARK: - UI Objects
-    private let targetLbl: UILabel = {
+    let targetLbl: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont(name: "Futura", size: 18)
         lbl.textColor = .black

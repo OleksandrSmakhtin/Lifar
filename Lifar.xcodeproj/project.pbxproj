@@ -61,6 +61,9 @@
 		44DBF5A72A69D58A00A71EE6 /* BasketTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5A62A69D58A00A71EE6 /* BasketTableCell.swift */; };
 		44DBF5A92A69E4D700A71EE6 /* BasketCellViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5A82A69E4D700A71EE6 /* BasketCellViewViewModel.swift */; };
 		44DBF5AB2A6D887D00A71EE6 /* OfferTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5AA2A6D887D00A71EE6 /* OfferTableFooterView.swift */; };
+		44DBF5AD2A705C3E00A71EE6 /* StickyOfferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5AC2A705C3E00A71EE6 /* StickyOfferView.swift */; };
+		44DBF5AF2A70652E00A71EE6 /* EditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5AE2A70652E00A71EE6 /* EditVC.swift */; };
+		44DBF5B12A7065C100A71EE6 /* EditViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B02A7065C100A71EE6 /* EditViewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +113,9 @@
 		44DBF5A62A69D58A00A71EE6 /* BasketTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableCell.swift; sourceTree = "<group>"; };
 		44DBF5A82A69E4D700A71EE6 /* BasketCellViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketCellViewViewModel.swift; sourceTree = "<group>"; };
 		44DBF5AA2A6D887D00A71EE6 /* OfferTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferTableFooterView.swift; sourceTree = "<group>"; };
+		44DBF5AC2A705C3E00A71EE6 /* StickyOfferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyOfferView.swift; sourceTree = "<group>"; };
+		44DBF5AE2A70652E00A71EE6 /* EditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVC.swift; sourceTree = "<group>"; };
+		44DBF5B02A7065C100A71EE6 /* EditViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +207,7 @@
 				44DBF59C2A6474A300A71EE6 /* FavoriteViewViewModel.swift */,
 				44DBF5A22A6820E400A71EE6 /* BasketViewViewModel.swift */,
 				44DBF5A82A69E4D700A71EE6 /* BasketCellViewViewModel.swift */,
+				44DBF5B02A7065C100A71EE6 /* EditViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -252,6 +259,7 @@
 				44DBF4FF2A426A9400A71EE6 /* FavoriteVC.swift */,
 				44DBF4FD2A425E4900A71EE6 /* AboutVC.swift */,
 				44DBF5012A426E6B00A71EE6 /* BasketVC.swift */,
+				44DBF5AE2A70652E00A71EE6 /* EditVC.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -333,6 +341,7 @@
 			children = (
 				44DBF5A62A69D58A00A71EE6 /* BasketTableCell.swift */,
 				44DBF5AA2A6D887D00A71EE6 /* OfferTableFooterView.swift */,
+				44DBF5AC2A705C3E00A71EE6 /* StickyOfferView.swift */,
 			);
 			path = Basket;
 			sourceTree = "<group>";
@@ -425,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44DBF5AB2A6D887D00A71EE6 /* OfferTableFooterView.swift in Sources */,
+				44DBF5AF2A70652E00A71EE6 /* EditVC.swift in Sources */,
 				44DBF4AF2A1DC1A200A71EE6 /* FirstWelcomeVC.swift in Sources */,
 				44DBF5A92A69E4D700A71EE6 /* BasketCellViewViewModel.swift in Sources */,
 				44DBF4E62A28E3D200A71EE6 /* Cake.swift in Sources */,
@@ -434,6 +444,8 @@
 				44DBF4FC2A425E3C00A71EE6 /* ProfileVC.swift in Sources */,
 				44DBF4942A1DBE8A00A71EE6 /* AppDelegate.swift in Sources */,
 				44DBF4B12A1DC1F000A71EE6 /* SecondWelcomeVC.swift in Sources */,
+				44DBF5B12A7065C100A71EE6 /* EditViewViewModel.swift in Sources */,
+				44DBF5AD2A705C3E00A71EE6 /* StickyOfferView.swift in Sources */,
 				44DBF5252A4A561200A71EE6 /* OrdersVC.swift in Sources */,
 				44DBF4C62A21734D00A71EE6 /* CallUsView.swift in Sources */,
 				44DBF5282A4B6A9B00A71EE6 /* ProfileCell.swift in Sources */,
