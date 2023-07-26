@@ -52,7 +52,19 @@ final class EditViewViewModel: ObservableObject {
     
     // Email validation
     private func validateEmail() {
+        guard let currentEmail = Auth.auth().currentUser?.email, let newEmail = firstField, let password = secondField  else {
+            isFormValid = false
+            return
+        }
         
+        isFormValid = newEmail != currentEmail && isValidEmail(newEmail) && password != "" && password.count > 5
+    }
+    
+    // is email valid
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
     }
     
     // Password validation
@@ -100,6 +112,22 @@ final class EditViewViewModel: ObservableObject {
     
     //MARK: - Email
     private func changeEmail() {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        guard let newEmail = firstField else { return }
+        guard let password = secondField else { return }
+        
+        AuthManager.shared.reauthenticateUser(with: password, for: currentUser).flatMap { _ -> AnyPublisher<Bool, Error> in
+            AuthManager.shared.updateEmail(with: newEmail, for: currentUser)
+        }
+        .sink { [weak self] completion in
+            if case .failure(let error) = completion {
+                print(error.localizedDescription)
+                self?.error = error.localizedDescription
+            }
+        } receiveValue: { [weak self] state in
+            self?.isChangesSuccessful = state
+        }.store(in: &subscriptions)
+        
         
     }
     

@@ -23,4 +23,30 @@ class AuthManager {
         return Auth.auth().signIn(withEmail: email, password: password).map(\.user).eraseToAnyPublisher()
     }
     
+    func updateEmail(with newEmail: String, for user: User) -> AnyPublisher<Bool, Error> {
+        return Future<Bool, Error> { promise in
+            user.updateEmail(to: newEmail) { error in
+                if let error = error {
+                    promise(.failure(error))
+                } else {
+                    promise(.success(true))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func reauthenticateUser(with password: String, for user: User) -> AnyPublisher<Void, Error> {
+        let credential = EmailAuthProvider.credential(withEmail: user.email!, password: password)
+        return Future<Void, Error> { promise in
+            user.reauthenticate(with: credential) { authResult, error in
+                if let error = error {
+                    promise(.failure(error))
+                } else {
+                    promise(.success(()))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
 }

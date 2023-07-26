@@ -56,7 +56,7 @@ class EditVC: UIViewController {
     }
     
     @objc private func didSecondFieldTextChanged() {
-        viewModel.secondField = firstTextField.text
+        viewModel.secondField = secondTextField.text
         viewModel.validateForm()
     }
     
@@ -138,13 +138,13 @@ class EditVC: UIViewController {
                 self?.firstTextField.isHidden = false
                 self?.firstTextField.targetLbl.text = "Email to change"
                 self?.secondTextField.isHidden = false
-                self?.secondTextField.targetLbl.text = "Repeat new email"
+                self?.secondTextField.targetLbl.text = "Password"
                 
             case .password:
                 self?.firstTextField.isHidden = false
-                self?.firstTextField.targetLbl.text = "Password to change"
+                self?.firstTextField.targetLbl.text = "Password"
                 self?.secondTextField.isHidden = false
-                self?.secondTextField.targetLbl.text = "Repeat new password"
+                self?.secondTextField.targetLbl.text = "New password"
                 
             case .adress:
                 self?.firstTextField.isHidden = false
