@@ -35,7 +35,7 @@ class AuthManager {
         }
         .eraseToAnyPublisher()
     }
-    
+     
     func reauthenticateUser(with password: String, for user: User) -> AnyPublisher<Void, Error> {
         let credential = EmailAuthProvider.credential(withEmail: user.email!, password: password)
         return Future<Void, Error> { promise in
