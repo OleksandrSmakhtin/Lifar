@@ -95,6 +95,38 @@ class EditVC: UIViewController {
     
     //MARK: - Bind views
     private func bindViews() {
+        
+        // error
+        viewModel.$error.sink { [weak self] errorMessage in
+            guard let errorMessage = errorMessage else { return }
+            
+            self?.changeBtn.backgroundColor = .systemRed
+            self?.changeBtn.setTitle("Try again", for: .normal)
+            self?.changeBtn.isUserInteractionEnabled = false
+            self?.changeBtn.layer.borderColor = UIColor.systemRed.cgColor
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) { [weak self] in
+                    self?.changeBtn.layer.opacity = 1
+                } completion: { _ in }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) { [weak self] in
+                    
+                    
+                    self?.changeBtn.backgroundColor = .black
+                    self?.changeBtn.setTitle("Change", for: .normal)
+                    self?.changeBtn.isUserInteractionEnabled = true
+                    self?.changeBtn.layer.borderColor = UIColor.black.cgColor
+                    
+                    self?.changeBtn.layer.opacity = 1
+                } completion: { _ in }
+            }
+            
+            
+        }.store(in: &subscriptions)
+        
         // is changes successful
         viewModel.$isChangesSuccessful.sink { [weak self] state in
             guard let state = state else { return }
@@ -105,12 +137,12 @@ class EditVC: UIViewController {
                 self?.changeBtn.isUserInteractionEnabled = false
                 self?.changeBtn.layer.borderColor = UIColor.systemGreen.cgColor
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) { [weak self] in
                         self?.changeBtn.layer.opacity = 1
                     } completion: { _ in }
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     self?.navigationController?.popViewController(animated: true)
                 }
                 

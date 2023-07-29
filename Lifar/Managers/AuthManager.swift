@@ -35,6 +35,18 @@ class AuthManager {
         }
         .eraseToAnyPublisher()
     }
+    
+    func updatePassword(with newPassword: String, for user: User) -> AnyPublisher<Bool, Error> {
+        return Future<Bool, Error> { promise in
+            user.updatePassword(to: newPassword) { error in
+                if let error = error {
+                    promise(.failure(error))
+                } else {
+                    promise(.success(true))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
      
     func reauthenticateUser(with password: String, for user: User) -> AnyPublisher<Void, Error> {
         let credential = EmailAuthProvider.credential(withEmail: user.email!, password: password)

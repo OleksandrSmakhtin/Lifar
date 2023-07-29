@@ -69,7 +69,11 @@ final class EditViewViewModel: ObservableObject {
     
     // Password validation
     private func validatePassword() {
-        
+        guard let currentPassword = firstField, let newPassword = secondField else {
+            isFormValid = false
+            return
+        }
+        isFormValid = currentPassword != newPassword && currentPassword.count > 5 && newPassword.count > 5
     }
     
     // Address validation
@@ -133,7 +137,21 @@ final class EditViewViewModel: ObservableObject {
     
     //MARK: - Password
     private func changePassword() {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        guard let currentPassword = firstField else { return }
+        guard let newPassword = secondField else { return }
         
+        AuthManager.shared.reauthenticateUser(with: currentPassword, for: currentUser).flatMap { _ -> AnyPublisher<Bool, Error> in
+            AuthManager.shared.updatePassword(with: newPassword, for: currentUser)
+        }
+        .sink { [weak self] completion in
+            if case .failure(let error) = completion {
+                print(error.localizedDescription)
+                self?.error = error.localizedDescription
+            }
+        } receiveValue: { [weak self] state in
+            self?.isChangesSuccessful = state
+        }.store(in: &subscriptions)
     }
     
     //MARK: - Address
