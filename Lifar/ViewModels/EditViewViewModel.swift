@@ -78,7 +78,16 @@ final class EditViewViewModel: ObservableObject {
     
     // Address validation
     private func validateAddress() {
+        guard let adress1 = firstField else {
+            isFormValid = false
+            return
+        }
         
+        if secondField != nil {
+            isFormValid = adress1.count > 5 && secondField!.count > 5
+        } else {
+            isFormValid = adress1.count > 5
+        }
     }
     
     //MARK: - Change Data
@@ -156,6 +165,25 @@ final class EditViewViewModel: ObservableObject {
     
     //MARK: - Address
     private func changeAddress() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        guard let adress1 = firstField else { return }
+        
+        var updatedFields: [String : Any] = [:]
+        
+        if secondField != nil {
+            updatedFields = ["address1" : adress1, "address2" : secondField!]
+        } else {
+            updatedFields = ["address1" : adress1]
+        }
+        
+        DatabaseManager.shared.collectionUsers(updateFields: updatedFields, for: userID).sink { [weak self] completion in
+            if case .failure(let error) = completion {
+                print(error.localizedDescription)
+                self?.error = error.localizedDescription
+            }
+        } receiveValue: { [weak self] state in
+            self?.isChangesSuccessful = state
+        }.store(in: &subscriptions)
         
     }
     

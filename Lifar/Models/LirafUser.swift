@@ -13,6 +13,8 @@ struct LirafUser: Codable {
     let id: String
     var name: String = ""
     var avatarPath: String = ""
+    var address1: String = ""
+    var address2: String = ""
     
     init(from user: User, name: String) {
         self.id = user.uid

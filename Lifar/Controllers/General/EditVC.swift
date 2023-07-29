@@ -182,7 +182,7 @@ class EditVC: UIViewController {
                 self?.firstTextField.isHidden = false
                 self?.firstTextField.targetLbl.text = "Adress 1"
                 self?.secondTextField.isHidden = false
-                self?.secondTextField.targetLbl.text = "Adress 2"
+                self?.secondTextField.targetLbl.text = "Adress 2 (Optional)"
                 
             default:
                 return
