@@ -59,6 +59,7 @@ class BasketVC: UIViewController {
         // apply delegates
         applyTableDelegates()
         applyEmptyViewDelegate()
+        applyCheckoutDelegate()
         // bind views
         bindViews()
     }
@@ -204,7 +205,7 @@ extension BasketVC: UITableViewDelegate, UITableViewDataSource, BasketTableCellD
         basketTable.tableFooterView = basketTableFooterView
     }
     
-    // delegates
+    // table delegates
     private func applyTableDelegates() {
         basketTable.delegate = self
         basketTable.dataSource = self
@@ -281,5 +282,21 @@ extension BasketVC: EmptyViewDelegate {
     
     func didTapGoToPtoducts() {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+//MARK: - CheckoutDelegate
+extension BasketVC: CheckoutDelegate {
+    private func applyCheckoutDelegate() {
+        stickyOfferView.delegate = self
+        basketTableFooterView.delegate = self
+    }
+    
+    func didTapOrder() {
+        let vc = CheckoutVC()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

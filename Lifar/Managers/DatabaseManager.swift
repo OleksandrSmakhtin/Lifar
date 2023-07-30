@@ -22,6 +22,7 @@ class DatabaseManager {
     let usersPath = "Users"
     let favoritesPath = "/favorites"
     let basketPath = "/basket"
+    let ordersPath = "Orders"
     
     //MARK: - USER
     // add
@@ -162,6 +163,14 @@ class DatabaseManager {
                     try $0.data(as: Cake.self)
                 })
             }.eraseToAnyPublisher()
+    }
+    
+    //MARK: - ORDERS
+    // add
+    func collectionOrders(add item: Order, for id: String) -> AnyPublisher<Bool, Error> {
+        db.collection(ordersPath).document(id).setData(from: item).map { _ in
+            return true
+        }.eraseToAnyPublisher()
     }
      
     

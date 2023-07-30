@@ -7,14 +7,11 @@
 
 import UIKit
 
-protocol StickyOfferViewDelegate: AnyObject {
-    func didTapOrderBtn()
-}
 
 class StickyOfferView: UIView {
     
     //MARK: - Delegate
-    weak var delegate: StickyOfferViewDelegate?
+    weak var delegate: CheckoutDelegate?
 
     //MARK: - UI Objects
     //MARK: - UI Objects
@@ -34,7 +31,7 @@ class StickyOfferView: UIView {
         btn.layer.shadowOffset = CGSize(width: 4, height: 4)
         btn.layer.shadowRadius = 4
         
-        //btn.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(didTapChechoutBtn), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -54,6 +51,11 @@ class StickyOfferView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    //MARK: - Actions
+    @objc private func didTapChechoutBtn() {
+        delegate?.didTapOrder()
+    }
     
     //MARK: - init
     override init(frame: CGRect) {

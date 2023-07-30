@@ -64,6 +64,8 @@
 		44DBF5AD2A705C3E00A71EE6 /* StickyOfferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5AC2A705C3E00A71EE6 /* StickyOfferView.swift */; };
 		44DBF5AF2A70652E00A71EE6 /* EditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5AE2A70652E00A71EE6 /* EditVC.swift */; };
 		44DBF5B12A7065C100A71EE6 /* EditViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B02A7065C100A71EE6 /* EditViewViewModel.swift */; };
+		44DBF5B32A76F0C800A71EE6 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B22A76F0C800A71EE6 /* Order.swift */; };
+		44DBF5B72A76F69D00A71EE6 /* CheckoutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B62A76F69D00A71EE6 /* CheckoutVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +118,8 @@
 		44DBF5AC2A705C3E00A71EE6 /* StickyOfferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyOfferView.swift; sourceTree = "<group>"; };
 		44DBF5AE2A70652E00A71EE6 /* EditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVC.swift; sourceTree = "<group>"; };
 		44DBF5B02A7065C100A71EE6 /* EditViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewViewModel.swift; sourceTree = "<group>"; };
+		44DBF5B22A76F0C800A71EE6 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		44DBF5B62A76F69D00A71EE6 /* CheckoutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +222,7 @@
 				44DBF4E52A28E3D200A71EE6 /* Cake.swift */,
 				44DBF4F02A3B5C9700A71EE6 /* MenuItem.swift */,
 				44DBF5222A433BE400A71EE6 /* LirafUser.swift */,
+				44DBF5B22A76F0C800A71EE6 /* Order.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -252,14 +257,10 @@
 		44DBF4C92A25372E00A71EE6 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				44DBF5B52A76F66000A71EE6 /* Ordering */,
+				44DBF5B42A76F62D00A71EE6 /* Profile */,
 				44DBF5162A42787C00A71EE6 /* Onboarding */,
 				44DBF4AD2A1DC18300A71EE6 /* Welcomes */,
-				44DBF4FB2A425E3C00A71EE6 /* ProfileVC.swift */,
-				44DBF5242A4A561200A71EE6 /* OrdersVC.swift */,
-				44DBF4FF2A426A9400A71EE6 /* FavoriteVC.swift */,
-				44DBF4FD2A425E4900A71EE6 /* AboutVC.swift */,
-				44DBF5012A426E6B00A71EE6 /* BasketVC.swift */,
-				44DBF5AE2A70652E00A71EE6 /* EditVC.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -344,6 +345,27 @@
 				44DBF5AC2A705C3E00A71EE6 /* StickyOfferView.swift */,
 			);
 			path = Basket;
+			sourceTree = "<group>";
+		};
+		44DBF5B42A76F62D00A71EE6 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				44DBF4FB2A425E3C00A71EE6 /* ProfileVC.swift */,
+				44DBF5242A4A561200A71EE6 /* OrdersVC.swift */,
+				44DBF4FF2A426A9400A71EE6 /* FavoriteVC.swift */,
+				44DBF4FD2A425E4900A71EE6 /* AboutVC.swift */,
+				44DBF5AE2A70652E00A71EE6 /* EditVC.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		44DBF5B52A76F66000A71EE6 /* Ordering */ = {
+			isa = PBXGroup;
+			children = (
+				44DBF5012A426E6B00A71EE6 /* BasketVC.swift */,
+				44DBF5B62A76F69D00A71EE6 /* CheckoutVC.swift */,
+			);
+			path = Ordering;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -445,6 +467,7 @@
 				44DBF4942A1DBE8A00A71EE6 /* AppDelegate.swift in Sources */,
 				44DBF4B12A1DC1F000A71EE6 /* SecondWelcomeVC.swift in Sources */,
 				44DBF5B12A7065C100A71EE6 /* EditViewViewModel.swift in Sources */,
+				44DBF5B32A76F0C800A71EE6 /* Order.swift in Sources */,
 				44DBF5AD2A705C3E00A71EE6 /* StickyOfferView.swift in Sources */,
 				44DBF5252A4A561200A71EE6 /* OrdersVC.swift in Sources */,
 				44DBF4C62A21734D00A71EE6 /* CallUsView.swift in Sources */,
@@ -460,6 +483,7 @@
 				44DBF4C02A2025BE00A71EE6 /* CategoryView.swift in Sources */,
 				44DBF5A72A69D58A00A71EE6 /* BasketTableCell.swift in Sources */,
 				44DBF4E42A28E2F900A71EE6 /* DatabaseManager.swift in Sources */,
+				44DBF5B72A76F69D00A71EE6 /* CheckoutVC.swift in Sources */,
 				44DBF51F2A43353800A71EE6 /* AuthViewViewModel.swift in Sources */,
 				44DBF51D2A43313D00A71EE6 /* SignUpVC.swift in Sources */,
 				44DBF4C42A2170A300A71EE6 /* ProductCell.swift in Sources */,
