@@ -293,7 +293,10 @@ extension BasketVC: CheckoutDelegate {
     }
     
     func didTapOrder() {
+        
         let vc = CheckoutVC()
+        vc.viewModel.configureOrder(toOrder: viewModel.items, for: viewModel.moneySum)
+        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))

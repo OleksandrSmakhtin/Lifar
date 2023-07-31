@@ -66,6 +66,7 @@
 		44DBF5B12A7065C100A71EE6 /* EditViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B02A7065C100A71EE6 /* EditViewViewModel.swift */; };
 		44DBF5B32A76F0C800A71EE6 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B22A76F0C800A71EE6 /* Order.swift */; };
 		44DBF5B72A76F69D00A71EE6 /* CheckoutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B62A76F69D00A71EE6 /* CheckoutVC.swift */; };
+		44DBF5B92A783BFE00A71EE6 /* CheckoutViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B82A783BFE00A71EE6 /* CheckoutViewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +121,7 @@
 		44DBF5B02A7065C100A71EE6 /* EditViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewViewModel.swift; sourceTree = "<group>"; };
 		44DBF5B22A76F0C800A71EE6 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		44DBF5B62A76F69D00A71EE6 /* CheckoutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutVC.swift; sourceTree = "<group>"; };
+		44DBF5B82A783BFE00A71EE6 /* CheckoutViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 				44DBF5A22A6820E400A71EE6 /* BasketViewViewModel.swift */,
 				44DBF5A82A69E4D700A71EE6 /* BasketCellViewViewModel.swift */,
 				44DBF5B02A7065C100A71EE6 /* EditViewViewModel.swift */,
+				44DBF5B82A783BFE00A71EE6 /* CheckoutViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				44DBF4FA2A3FBAE000A71EE6 /* Extension+UIImage.swift in Sources */,
 				44DBF59B2A5EF41F00A71EE6 /* ProductTableCell.swift in Sources */,
 				44DBF5982A56DFF900A71EE6 /* ItemViewViewModel.swift in Sources */,
+				44DBF5B92A783BFE00A71EE6 /* CheckoutViewViewModel.swift in Sources */,
 				44DBF4C22A2165BF00A71EE6 /* MainCell.swift in Sources */,
 				44DBF51B2A427B8C00A71EE6 /* CustomTextField.swift in Sources */,
 				44DBF5002A426A9400A71EE6 /* FavoriteVC.swift in Sources */,

@@ -168,7 +168,10 @@ class DatabaseManager {
     //MARK: - ORDERS
     // add
     func collectionOrders(add item: Order, for id: String) -> AnyPublisher<Bool, Error> {
-        db.collection(ordersPath).document(id).setData(from: item).map { _ in
+//        db.collection(ordersPath).document(id).setData(from: item).map { _ in
+//            return true
+//        }.eraseToAnyPublisher()
+        db.collection("\(ordersPath)/\(id)/UsersOrders").document("\(item.orderTime)").setData(from: item).map { _ in
             return true
         }.eraseToAnyPublisher()
     }
