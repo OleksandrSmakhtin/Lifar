@@ -61,6 +61,8 @@ class StickyOfferView: UIView {
         super.init(frame: frame)
         // bg colol
         backgroundColor = .cakeWhite
+        // hidden
+        isHidden = true
         // enable constraints
         translatesAutoresizingMaskIntoConstraints = false
         // add subviews

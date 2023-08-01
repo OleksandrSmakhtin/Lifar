@@ -90,12 +90,13 @@ class BasketVC: UIViewController {
                 
                 if items.isEmpty {
                     self?.emptyView.isHidden = false
-                    self?.stickyOfferView.isHidden = true
                     self?.basketTable.isHidden = true
                     self?.navigationItem.rightBarButtonItem?.isHidden = true
                 } else {
                     self?.emptyView.isHidden = true
-                    self?.stickyOfferView.isHidden = false
+                    if items.count > 3 {
+                        self?.stickyOfferView.isHidden = false
+                    }
                     self?.basketTable.isHidden = false
                     self?.navigationItem.rightBarButtonItem?.isHidden = false
                     
@@ -254,6 +255,7 @@ extension BasketVC: UITableViewDelegate, UITableViewDataSource, BasketTableCellD
     // scroll view did scroll
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let yPosition = scrollView.contentOffset.y
+        print(yPosition)
         
         if yPosition >  scrollView.contentSize.height - scrollView.bounds.size.height - 200 {
                            
@@ -263,7 +265,7 @@ extension BasketVC: UITableViewDelegate, UITableViewDataSource, BasketTableCellD
             
                 self.stickyOfferView.isHidden = true
                         
-        } else if yPosition < scrollView.contentSize.height - scrollView.bounds.size.height - 10 {
+        } else if yPosition < scrollView.contentSize.height - scrollView.bounds.size.height - 10 && viewModel.items.count > 3 {
         
                 self.stickyOfferView.isHidden = false
             
