@@ -173,7 +173,7 @@ final class EditViewViewModel: ObservableObject {
         if secondField != nil {
             updatedFields = ["address1" : adress1, "address2" : secondField!]
         } else {
-            updatedFields = ["address1" : adress1]
+            updatedFields = ["address1" : adress1, "address2" : ""]
         }
         
         DatabaseManager.shared.collectionUsers(updateFields: updatedFields, for: userID).sink { [weak self] completion in

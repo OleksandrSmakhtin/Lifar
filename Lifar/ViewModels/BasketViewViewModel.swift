@@ -18,6 +18,8 @@ final class BasketViewViewModel: ObservableObject {
     
     @Published var error: String?
     
+    var isStickyOfferViewHidden = true
+    
     private var subscriptions: Set<AnyCancellable> = []
     
     

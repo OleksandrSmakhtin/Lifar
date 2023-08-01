@@ -146,10 +146,7 @@ class EditVC: UIViewController {
                     self?.navigationController?.popViewController(animated: true)
                 }
                 
-            } else {
-                
             }
-            
             
         }.store(in: &subscriptions)
         

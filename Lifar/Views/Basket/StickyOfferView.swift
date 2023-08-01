@@ -14,7 +14,6 @@ class StickyOfferView: UIView {
     weak var delegate: CheckoutDelegate?
 
     //MARK: - UI Objects
-    //MARK: - UI Objects
     private let checkoutBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.tintColor = .cakeWhite

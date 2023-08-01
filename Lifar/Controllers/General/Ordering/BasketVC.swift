@@ -90,10 +90,12 @@ class BasketVC: UIViewController {
                 
                 if items.isEmpty {
                     self?.emptyView.isHidden = false
+                    self?.stickyOfferView.isHidden = true
                     self?.basketTable.isHidden = true
                     self?.navigationItem.rightBarButtonItem?.isHidden = true
                 } else {
                     self?.emptyView.isHidden = true
+                    self?.stickyOfferView.isHidden = false
                     self?.basketTable.isHidden = false
                     self?.navigationItem.rightBarButtonItem?.isHidden = false
                     

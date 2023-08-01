@@ -190,12 +190,17 @@ class CheckoutVC: UIViewController {
         btn.layer.shadowOffset = CGSize(width: 4, height: 4)
         btn.layer.shadowRadius = 4
         
-        //btn.addTarget(self, action: #selector(didTapChechoutBtn), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(didTapConfirmBtn), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
     //MARK: - Actions
+    @objc private func didTapConfirmBtn() {
+        viewModel.createOrder()
+        confirmBtn.isEnabled = false
+    }
+    
     @objc private func didTapEmailMethodBtn() {
         viewModel.changeContactMethod(changeTo: .byEmail)
     }
@@ -237,6 +242,42 @@ class CheckoutVC: UIViewController {
     
     //MARK: - Bind views
     private func bindViews() {
+        
+        // is successed
+        viewModel.$isOrderSuccessed.sink { [weak self] state in
+            if state {
+                self?.viewModel.deleteBasket()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) { [weak self] in
+                        self?.confirmBtn.isEnabled = true
+                        self?.confirmBtn.backgroundColor = .systemGreen
+                        self?.confirmBtn.setTitle("Successful!", for: .normal)
+                        self?.confirmBtn.isUserInteractionEnabled = false
+                        self?.confirmBtn.layer.borderColor = UIColor.systemGreen.cgColor
+                        self?.confirmBtn.layer.opacity = 1
+                    } completion: { _ in }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    self?.navigationController?.popToRootViewController(animated: true)
+                }
+            }
+        }.store(in: &subscriptions)
+        
+        // items
+        viewModel.$itemsToOrder.sink { [weak self] items in
+            guard let items = items else { return }
+            
+            self?.yourOrderValueLbl.text = self?.viewModel.getFormattedItems(items: items)
+        }.store(in: &subscriptions)
+        
+        // user
+        viewModel.$user.sink { [weak self] user in
+            guard let user = user else { return }
+            
+            self?.nameValueLbl.text = user.name
+            self?.addressValueLbl.text = "\(user.address1) \(user.address2)"
+        }.store(in: &subscriptions)
         
         // contact method
         viewModel.$contactMethod.sink { [weak self] type in

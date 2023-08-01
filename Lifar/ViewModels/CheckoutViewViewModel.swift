@@ -29,6 +29,7 @@ final class CheckoutViewViewModel: ObservableObject {
     @Published var itemsToOrder: [Cake]?
     @Published var orderPrice: Float?
     
+    @Published var isOrderSuccessed: Bool = false
     @Published var error: String?
     
     private var subscriptions: Set<AnyCancellable> = []
@@ -60,8 +61,43 @@ final class CheckoutViewViewModel: ObservableObject {
                 self?.error = error.localizedDescription
             }
         } receiveValue: { [weak self] state in
-            print("ORDER CREATED: \(state)")
+            self?.isOrderSuccessed = state
         }.store(in: &subscriptions) 
+    }
+    
+    // delete all basket
+    func deleteBasket() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        DatabaseManager.shared.collectionBasket(deleteAllFor: userID).sink { [weak self] completion in
+            if case .failure(let error) = completion {
+                print(error.localizedDescription)
+                self?.error = error.localizedDescription
+            }
+        } receiveValue: { [weak self] _ in
+            print("DELETED")
+        }.store(in: &subscriptions)
+    }
+    
+    // get formatted items
+    func getFormattedItems(items: [Cake]) -> String {
+        var result = ""
+        for item in items {
+            if item.title != items.last?.title {
+                if item.amountForOrder != 1 {
+                    result += "\(item.title) x \(item.amountForOrder),"
+                } else {
+                    result += "\(item.title),"
+                }
+            } else {
+                if item.amountForOrder != 1 {
+                    result += "\(item.title) x \(item.amountForOrder)"
+                } else {
+                    result += "\(item.title)"
+                }
+            }
+        }
+        return result
     }
     
     // configure order
