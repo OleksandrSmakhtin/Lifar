@@ -68,6 +68,8 @@
 		44DBF5B72A76F69D00A71EE6 /* CheckoutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B62A76F69D00A71EE6 /* CheckoutVC.swift */; };
 		44DBF5B92A783BFE00A71EE6 /* CheckoutViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B82A783BFE00A71EE6 /* CheckoutViewViewModel.swift */; };
 		44DBF5BC2A7AA3A900A71EE6 /* OrderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5BB2A7AA3A900A71EE6 /* OrderTableCell.swift */; };
+		44DBF5BE2A7ABAEA00A71EE6 /* OrdersViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5BD2A7ABAEA00A71EE6 /* OrdersViewViewModel.swift */; };
+		44DBF5C02A7ABEF700A71EE6 /* ExpandedOrderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5BF2A7ABEF700A71EE6 /* ExpandedOrderTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +126,8 @@
 		44DBF5B62A76F69D00A71EE6 /* CheckoutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutVC.swift; sourceTree = "<group>"; };
 		44DBF5B82A783BFE00A71EE6 /* CheckoutViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewViewModel.swift; sourceTree = "<group>"; };
 		44DBF5BB2A7AA3A900A71EE6 /* OrderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableCell.swift; sourceTree = "<group>"; };
+		44DBF5BD2A7ABAEA00A71EE6 /* OrdersViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewViewModel.swift; sourceTree = "<group>"; };
+		44DBF5BF2A7ABEF700A71EE6 /* ExpandedOrderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedOrderTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +222,7 @@
 				44DBF5A82A69E4D700A71EE6 /* BasketCellViewViewModel.swift */,
 				44DBF5B02A7065C100A71EE6 /* EditViewViewModel.swift */,
 				44DBF5B82A783BFE00A71EE6 /* CheckoutViewViewModel.swift */,
+				44DBF5BD2A7ABAEA00A71EE6 /* OrdersViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -378,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				44DBF5BB2A7AA3A900A71EE6 /* OrderTableCell.swift */,
+				44DBF5BF2A7ABEF700A71EE6 /* ExpandedOrderTableCell.swift */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -481,6 +487,7 @@
 				44DBF4FC2A425E3C00A71EE6 /* ProfileVC.swift in Sources */,
 				44DBF4942A1DBE8A00A71EE6 /* AppDelegate.swift in Sources */,
 				44DBF4B12A1DC1F000A71EE6 /* SecondWelcomeVC.swift in Sources */,
+				44DBF5BE2A7ABAEA00A71EE6 /* OrdersViewViewModel.swift in Sources */,
 				44DBF5B12A7065C100A71EE6 /* EditViewViewModel.swift in Sources */,
 				44DBF5B32A76F0C800A71EE6 /* Order.swift in Sources */,
 				44DBF5AD2A705C3E00A71EE6 /* StickyOfferView.swift in Sources */,
@@ -506,6 +513,7 @@
 				44DBF4F12A3B5C9700A71EE6 /* MenuItem.swift in Sources */,
 				44DBF59D2A6474A300A71EE6 /* FavoriteViewViewModel.swift in Sources */,
 				44DBF59F2A673E4300A71EE6 /* EmptyView.swift in Sources */,
+				44DBF5C02A7ABEF700A71EE6 /* ExpandedOrderTableCell.swift in Sources */,
 				44DBF4B92A1DD3DF00A71EE6 /* Extension+UIColor.swift in Sources */,
 				44DBF4FE2A425E4900A71EE6 /* AboutVC.swift in Sources */,
 				44DBF4FA2A3FBAE000A71EE6 /* Extension+UIImage.swift in Sources */,

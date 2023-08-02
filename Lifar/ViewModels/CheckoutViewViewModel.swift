@@ -68,7 +68,7 @@ final class CheckoutViewViewModel: ObservableObject {
     // get formatted date
     private func getFormattedDate(for date: Date) -> String {
         let formater = DateFormatter()
-        formater.dateFormat = "dd.MM.YY, HH:MM"
+        formater.dateFormat = "dd.MM.YY, hh:mm"
         return formater.string(from: date)
     }
     

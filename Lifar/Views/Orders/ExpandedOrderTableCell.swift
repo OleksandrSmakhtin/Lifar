@@ -1,5 +1,5 @@
 //
-//  OrderTableCell.swift
+//  ExpandedOrderTableCell.swift
 //  Lifar
 //
 //  Created by Oleksandr Smakhtin on 02/08/2023.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-class OrderTableCell: UITableViewCell {
-        
+class ExpandedOrderTableCell: UITableViewCell {
+
     //MARK: - Identifier
-    static let identifier = "OrderTableCell"
+    static let identifier = "ExpandedOrderTableCell"
 
     //MARK: - UI Objects
     private let titleLbl: UILabel = {
@@ -40,10 +40,27 @@ class OrderTableCell: UITableViewCell {
         return lbl
     }()
     
+    private let priceLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Price:"
+        lbl.textColor = .black
+        lbl.font = UIFont(name: "Futura", size: 16)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    private let contactMethodLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.textColor = .black
+        lbl.font = UIFont(name: "Futura", size: 16)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
     private let detailsLbl: UILabel = {
         let lbl = UILabel()
         lbl.textColor = #colorLiteral(red: 0.7808385491, green: 0.7481611371, blue: 0.5794531703, alpha: 1)
-        lbl.text = "Show details"
+        lbl.text = "Hide details"
         lbl.font = UIFont(name: "Futura", size: 16)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
@@ -51,7 +68,7 @@ class OrderTableCell: UITableViewCell {
     
     private let detailsArrowView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "arrowtriangle.down.fill")
+        imageView.image = UIImage(systemName: "arrowtriangle.up.fill")
         imageView.tintColor = #colorLiteral(red: 0.7808385491, green: 0.7481611371, blue: 0.5794531703, alpha: 1)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -92,11 +109,13 @@ class OrderTableCell: UITableViewCell {
     //MARK: - Add subviews
     private func addSubviews() {
         contentView.addSubview(customContentView)
-        customContentView.addSubview(detailsArrowView)
         customContentView.addSubview(detailsLbl)
+        customContentView.addSubview(detailsArrowView)
         customContentView.addSubview(titleLbl)
         customContentView.addSubview(statusLbl)
         customContentView.addSubview(statusValueLbl)
+        customContentView.addSubview(priceLbl)
+        customContentView.addSubview(contactMethodLbl)
         
     }
     
@@ -105,24 +124,25 @@ class OrderTableCell: UITableViewCell {
         
         let customContentViewConstrants = [
             //contentView.heightAnchor.constraint(equalToConstant: 100),
-            customContentView.heightAnchor.constraint(equalToConstant: 110),
+            customContentView.heightAnchor.constraint(equalToConstant: 400),
             customContentView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             customContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             customContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             customContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ]
         
-        let detailsArrowViewConstraints = [
-            detailsArrowView.centerXAnchor.constraint(equalTo: customContentView.centerXAnchor),
-            detailsArrowView.heightAnchor.constraint(equalToConstant: 10),
-            detailsArrowView.widthAnchor.constraint(equalToConstant: 10),
-            detailsArrowView.bottomAnchor.constraint(equalTo: customContentView.bottomAnchor, constant: -5)
+        let detailsLblConstraints = [
+            detailsLbl.centerXAnchor.constraint(equalTo: customContentView.centerXAnchor),
+            detailsLbl.bottomAnchor.constraint(equalTo: customContentView.bottomAnchor, constant: -5)
         ]
         
-        let detailsLblConstraints = [
-            detailsLbl.centerXAnchor.constraint(equalTo: detailsArrowView.centerXAnchor),
-            detailsLbl.bottomAnchor.constraint(equalTo: detailsArrowView.topAnchor, constant: -2)
+        let detailsArrowViewConstraints = [
+            detailsArrowView.centerXAnchor.constraint(equalTo: detailsLbl.centerXAnchor),
+            detailsArrowView.heightAnchor.constraint(equalToConstant: 10),
+            detailsArrowView.widthAnchor.constraint(equalToConstant: 10),
+            detailsArrowView.bottomAnchor.constraint(equalTo: detailsLbl.topAnchor, constant: -2)
         ]
+        
         
         let titleLblConstraints = [
             titleLbl.leadingAnchor.constraint(equalTo: customContentView.leadingAnchor, constant: 20),
@@ -138,13 +158,25 @@ class OrderTableCell: UITableViewCell {
             statusValueLbl.leadingAnchor.constraint(equalTo: statusLbl.trailingAnchor, constant: 5),
             statusValueLbl.centerYAnchor.constraint(equalTo: statusLbl.centerYAnchor)
         ]
+        
+        let priceLblConstraints = [
+            priceLbl.leadingAnchor.constraint(equalTo: statusLbl.leadingAnchor),
+            priceLbl.topAnchor.constraint(equalTo: statusLbl.bottomAnchor, constant: 10)
+        ]
+        
+        let contactMethodLblConstraints = [
+            contactMethodLbl.leadingAnchor.constraint(equalTo: priceLbl.leadingAnchor),
+            contactMethodLbl.topAnchor.constraint(equalTo: priceLbl.bottomAnchor, constant: 10)
+        ]
     
         NSLayoutConstraint.activate(customContentViewConstrants)
-        NSLayoutConstraint.activate(detailsArrowViewConstraints)
         NSLayoutConstraint.activate(detailsLblConstraints)
+        NSLayoutConstraint.activate(detailsArrowViewConstraints)
         NSLayoutConstraint.activate(titleLblConstraints)
         NSLayoutConstraint.activate(statusLblConstraints)
         NSLayoutConstraint.activate(statusValueLblConstraints)
+        NSLayoutConstraint.activate(priceLblConstraints)
+        NSLayoutConstraint.activate(contactMethodLblConstraints)
     }
         
     
@@ -152,12 +184,13 @@ class OrderTableCell: UITableViewCell {
     public func configure(with model: Order) {
         titleLbl.text = "Order \(model.orderTime)"
         statusValueLbl.text = model.orderStatus
+        priceLbl.text = "Price: €\(model.orderPrice)0"
+        contactMethodLbl.text = "Contact method: \(model.contactMethod)"
     }
     
     //MARK: - required init
     required init?(coder: NSCoder) {
         fatalError()
     }
-
 
 }

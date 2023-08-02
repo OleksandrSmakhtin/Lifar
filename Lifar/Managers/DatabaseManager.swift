@@ -173,6 +173,16 @@ class DatabaseManager {
         }.eraseToAnyPublisher()
     }
      
+    // retreive all
+    func collectionOrders(retreiveFor id: String) -> AnyPublisher<[Order], Error> {
+        db.collection("\(ordersPath)/\(id)/UsersOrders").getDocuments()
+            .tryMap(\.documents)
+            .tryMap { snapshots in
+                try snapshots.map({
+                    try $0.data(as: Order.self)
+                })
+            }.eraseToAnyPublisher()
+    }
     
     
     //MARK: - Path generator

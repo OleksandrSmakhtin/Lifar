@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 class OrdersVC: UIViewController {
+    
+    //MARK: - viewModel
+    private var viewModel = OrdersViewViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
     
     //MARK: - UI Objects
     private let ordersTable: UITableView = {
@@ -17,6 +22,7 @@ class OrdersVC: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(OrderTableCell.self, forCellReuseIdentifier: OrderTableCell.identifier)
+        tableView.register(ExpandedOrderTableCell.self, forCellReuseIdentifier: ExpandedOrderTableCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -43,6 +49,32 @@ class OrdersVC: UIViewController {
         applyConstraints()
         // apply delegates
         applyTableDelegates()
+        // bind views
+        bindViews()
+    }
+    
+    //MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.retreiveOrders()
+    }
+    
+    //MARK: - Bind views
+    private func bindViews() {
+        // orders
+        viewModel.$orders.sink { [weak self] orders in
+            DispatchQueue.main.async {
+                self?.ordersTable.reloadData()
+                
+                if orders.isEmpty {
+                    self?.emptyView.isHidden = false
+                    self?.navigationItem.rightBarButtonItem?.isHidden = true
+                } else {
+                    self?.emptyView.isHidden = true
+                    self?.navigationItem.rightBarButtonItem?.isHidden = false
+                }
+            }
+        }.store(in: &subscriptions)
     }
     
     //MARK: - Add subviews
@@ -106,14 +138,22 @@ extension OrdersVC: UITableViewDelegate, UITableViewDataSource {
     
     // number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return viewModel.orders.count
     }
     
     // cell for row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: OrderTableCell.identifier) as? OrderTableCell else { return UITableViewCell()}
+        let model = viewModel.orders[indexPath.row]
         
-        return cell
+        if !model.isExpanded {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: OrderTableCell.identifier) as? OrderTableCell else { return UITableViewCell()}
+            cell.configure(with: model)
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedOrderTableCell.identifier) as? ExpandedOrderTableCell else { return UITableViewCell() }
+            cell.configure(with: model)
+            return cell
+        }
     }
     
     // cell height
@@ -123,8 +163,9 @@ extension OrdersVC: UITableViewDelegate, UITableViewDataSource {
     
     // did select row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        guard let cell = tableView.cellForRow(at: indexPath) as? OrderTableCell else { return }
+        //tableView.deselectRow(at: indexPath, animated: true)
+        viewModel.orders[indexPath.row].isExpanded.toggle()
+        tableView.reloadRows(at: [indexPath], with: .fade)
     }
     
 }
