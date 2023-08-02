@@ -51,9 +51,9 @@ final class CheckoutViewViewModel: ObservableObject {
     func createOrder() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         guard let user = user, let itemsToOrder = itemsToOrder, let orderPrice = orderPrice else { return }
+        let formattedDate = "From \(getFormattedDate(for: Date()))"
                 
-                
-        let order = Order(user: user, items: itemsToOrder, orderTime: Date(), orderPrice: orderPrice, delivery: delivery.rawValue, contactMethod: contactMethod.rawValue)
+        let order = Order(user: user, items: itemsToOrder, orderTime: formattedDate, orderPrice: orderPrice, delivery: delivery.rawValue, contactMethod: contactMethod.rawValue)
         
         DatabaseManager.shared.collectionOrders(add: order, for: userID).sink { [weak self] completion in
             if case .failure(let error) = completion {
@@ -63,6 +63,13 @@ final class CheckoutViewViewModel: ObservableObject {
         } receiveValue: { [weak self] state in
             self?.isOrderSuccessed = state
         }.store(in: &subscriptions) 
+    }
+    
+    // get formatted date
+    private func getFormattedDate(for date: Date) -> String {
+        let formater = DateFormatter()
+        formater.dateFormat = "dd.MM.YY, HH:MM"
+        return formater.string(from: date)
     }
     
     // delete all basket

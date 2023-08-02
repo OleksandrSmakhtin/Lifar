@@ -10,7 +10,7 @@ import Foundation
 struct Order: Codable {
     let user: LirafUser
     let items: [Cake]
-    let orderTime: Date
+    let orderTime: String
     let orderPrice: Float
     let delivery: String
     let contactMethod: String
