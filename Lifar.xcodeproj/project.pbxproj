@@ -67,6 +67,7 @@
 		44DBF5B32A76F0C800A71EE6 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B22A76F0C800A71EE6 /* Order.swift */; };
 		44DBF5B72A76F69D00A71EE6 /* CheckoutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B62A76F69D00A71EE6 /* CheckoutVC.swift */; };
 		44DBF5B92A783BFE00A71EE6 /* CheckoutViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5B82A783BFE00A71EE6 /* CheckoutViewViewModel.swift */; };
+		44DBF5BC2A7AA3A900A71EE6 /* OrderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5BB2A7AA3A900A71EE6 /* OrderTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +123,7 @@
 		44DBF5B22A76F0C800A71EE6 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		44DBF5B62A76F69D00A71EE6 /* CheckoutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutVC.swift; sourceTree = "<group>"; };
 		44DBF5B82A783BFE00A71EE6 /* CheckoutViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewViewModel.swift; sourceTree = "<group>"; };
+		44DBF5BB2A7AA3A900A71EE6 /* OrderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 				44DBF4F32A3B5E1200A71EE6 /* Main */,
 				44DBF4F22A3B5DD700A71EE6 /* Categories */,
 				44DBF5A52A69D56C00A71EE6 /* Basket */,
+				44DBF5BA2A7AA38500A71EE6 /* Orders */,
 				44DBF5A42A69D54200A71EE6 /* Favorite */,
 				44DBF5262A4B6A5100A71EE6 /* Profile */,
 				44DBF4F42A3B5E1F00A71EE6 /* SideMenu */,
@@ -371,6 +374,14 @@
 			path = Ordering;
 			sourceTree = "<group>";
 		};
+		44DBF5BA2A7AA38500A71EE6 /* Orders */ = {
+			isa = PBXGroup;
+			children = (
+				44DBF5BB2A7AA3A900A71EE6 /* OrderTableCell.swift */,
+			);
+			path = Orders;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -461,6 +472,7 @@
 				44DBF5AB2A6D887D00A71EE6 /* OfferTableFooterView.swift in Sources */,
 				44DBF5AF2A70652E00A71EE6 /* EditVC.swift in Sources */,
 				44DBF4AF2A1DC1A200A71EE6 /* FirstWelcomeVC.swift in Sources */,
+				44DBF5BC2A7AA3A900A71EE6 /* OrderTableCell.swift in Sources */,
 				44DBF5A92A69E4D700A71EE6 /* BasketCellViewViewModel.swift in Sources */,
 				44DBF4E62A28E3D200A71EE6 /* Cake.swift in Sources */,
 				44DBF52C2A4B739C00A71EE6 /* ProfileViewViewModel.swift in Sources */,

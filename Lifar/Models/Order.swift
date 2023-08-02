@@ -16,4 +16,5 @@ struct Order: Codable {
     let contactMethod: String
     var isOrderCompleted: Bool = false
     var orderStatus: String = "New"
+    var isExpanded: Bool = false
 }

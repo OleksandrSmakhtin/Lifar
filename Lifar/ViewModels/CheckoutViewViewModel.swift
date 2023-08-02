@@ -51,7 +51,7 @@ final class CheckoutViewViewModel: ObservableObject {
     func createOrder() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         guard let user = user, let itemsToOrder = itemsToOrder, let orderPrice = orderPrice else { return }
-        let formattedDate = "From \(getFormattedDate(for: Date()))"
+        let formattedDate = "from \(getFormattedDate(for: Date()))"
                 
         let order = Order(user: user, items: itemsToOrder, orderTime: formattedDate, orderPrice: orderPrice, delivery: delivery.rawValue, contactMethod: contactMethod.rawValue)
         
