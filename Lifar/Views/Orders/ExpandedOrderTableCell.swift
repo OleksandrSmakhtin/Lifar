@@ -57,6 +57,36 @@ class ExpandedOrderTableCell: UITableViewCell {
         return lbl
     }()
     
+    private let deliveryMethodLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.textColor = .black
+        lbl.font = UIFont(name: "Futura", size: 16)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    private let itemsLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Items:"
+        lbl.textColor = .black
+        lbl.font = UIFont(name: "Futura", size: 16)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    private let itemsValueLbl: UILabel = {
+        let lbl = UILabel()
+        //lbl.text = "Cream Dream, Flower Dream, Sky Flowers, Tropic Dream, White Dream, Ice Cake"
+        lbl.textAlignment = .left
+        lbl.numberOfLines = 0
+        //lbl.textAlignment = .center
+        lbl.textColor = .black
+        lbl.font = UIFont(name: "Futura", size: 16)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    
     private let detailsLbl: UILabel = {
         let lbl = UILabel()
         lbl.textColor = #colorLiteral(red: 0.7808385491, green: 0.7481611371, blue: 0.5794531703, alpha: 1)
@@ -116,6 +146,9 @@ class ExpandedOrderTableCell: UITableViewCell {
         customContentView.addSubview(statusValueLbl)
         customContentView.addSubview(priceLbl)
         customContentView.addSubview(contactMethodLbl)
+        customContentView.addSubview(deliveryMethodLbl)
+        customContentView.addSubview(itemsLbl)
+        customContentView.addSubview(itemsValueLbl)
         
     }
     
@@ -124,7 +157,7 @@ class ExpandedOrderTableCell: UITableViewCell {
         
         let customContentViewConstrants = [
             //contentView.heightAnchor.constraint(equalToConstant: 100),
-            customContentView.heightAnchor.constraint(equalToConstant: 400),
+            //customContentView.heightAnchor.constraint(equalToConstant: 400),
             customContentView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             customContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             customContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
@@ -168,6 +201,23 @@ class ExpandedOrderTableCell: UITableViewCell {
             contactMethodLbl.leadingAnchor.constraint(equalTo: priceLbl.leadingAnchor),
             contactMethodLbl.topAnchor.constraint(equalTo: priceLbl.bottomAnchor, constant: 10)
         ]
+        
+        let deliveryMethodLblConstraints = [
+            deliveryMethodLbl.leadingAnchor.constraint(equalTo: contactMethodLbl.leadingAnchor),
+            deliveryMethodLbl.topAnchor.constraint(equalTo: contactMethodLbl.bottomAnchor, constant: 10)
+        ]
+        
+        let itemsLblConstraints = [
+            itemsLbl.leadingAnchor.constraint(equalTo: deliveryMethodLbl.leadingAnchor),
+            itemsLbl.topAnchor.constraint(equalTo: deliveryMethodLbl.bottomAnchor, constant: 10)
+        ]
+        
+        let itemsValueLblConstraints = [
+            itemsValueLbl.trailingAnchor.constraint(equalTo: customContentView.trailingAnchor, constant: -10),
+            itemsValueLbl.topAnchor.constraint(equalTo: deliveryMethodLbl.bottomAnchor, constant: 10),
+            itemsValueLbl.leadingAnchor.constraint(equalTo: itemsLbl.leadingAnchor, constant: 50),
+            itemsValueLbl.bottomAnchor.constraint(equalTo: detailsLbl.topAnchor, constant: -20)
+        ]
     
         NSLayoutConstraint.activate(customContentViewConstrants)
         NSLayoutConstraint.activate(detailsLblConstraints)
@@ -177,6 +227,9 @@ class ExpandedOrderTableCell: UITableViewCell {
         NSLayoutConstraint.activate(statusValueLblConstraints)
         NSLayoutConstraint.activate(priceLblConstraints)
         NSLayoutConstraint.activate(contactMethodLblConstraints)
+        NSLayoutConstraint.activate(deliveryMethodLblConstraints)
+        NSLayoutConstraint.activate(itemsLblConstraints)
+        NSLayoutConstraint.activate(itemsValueLblConstraints)
     }
         
     
@@ -186,6 +239,30 @@ class ExpandedOrderTableCell: UITableViewCell {
         statusValueLbl.text = model.orderStatus
         priceLbl.text = "Price: €\(model.orderPrice)0"
         contactMethodLbl.text = "Contact method: \(model.contactMethod)"
+        deliveryMethodLbl.text = "Delivery method: \(model.delivery)"
+        itemsValueLbl.text = getFormattedItems(items: model.items)
+        
+    }
+    
+    // get formatted items
+    private func getFormattedItems(items: [Cake]) -> String {
+        var result = ""
+        for item in items {
+            if item.title != items.last?.title {
+                if item.amountForOrder != 1 {
+                    result += "\(item.title) x \(item.amountForOrder),"
+                } else {
+                    result += "\(item.title),"
+                }
+            } else {
+                if item.amountForOrder != 1 {
+                    result += "\(item.title) x \(item.amountForOrder)"
+                } else {
+                    result += "\(item.title)"
+                }
+            }
+        }
+        return result
     }
     
     //MARK: - required init
