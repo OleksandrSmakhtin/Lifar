@@ -23,6 +23,7 @@ class DatabaseManager {
     let favoritesPath = "/favorites"
     let basketPath = "/basket"
     let ordersPath = "Orders"
+    let allOrdersPath = "AllOrders"
     
     //MARK: - USER
     // add
@@ -168,7 +169,8 @@ class DatabaseManager {
     //MARK: - ORDERS
     // add
     func collectionOrders(add item: Order, for id: String) -> AnyPublisher<Bool, Error> {
-        db.collection("\(ordersPath)/\(id)/UsersOrders").document(item.orderTime).setData(from: item).map { _ in
+        db.collection("\(ordersPath)/\(id)/UsersOrders").document(item.orderTime).setData(from: item).map { [weak self] _ in
+            self?.collectionAllOrders(add: item)
             return true
         }.eraseToAnyPublisher()
     }
@@ -182,6 +184,14 @@ class DatabaseManager {
                     try $0.data(as: Order.self)
                 })
             }.eraseToAnyPublisher()
+    }
+    
+    //MARK: - All orders
+    func collectionAllOrders(add item: Order) -> AnyPublisher<Bool, Error> {
+        let id = UUID().uuidString
+        return db.collection(allOrdersPath).document(id).setData(from: item).map { _ in
+            return true
+        }.eraseToAnyPublisher()
     }
     
     

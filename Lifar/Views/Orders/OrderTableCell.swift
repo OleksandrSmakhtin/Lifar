@@ -153,6 +153,7 @@ class OrderTableCell: UITableViewCell {
         titleLbl.text = "Order \(model.orderTime)"
         statusValueLbl.text = model.orderStatus
     }
+
     
     //MARK: - required init
     required init?(coder: NSCoder) {

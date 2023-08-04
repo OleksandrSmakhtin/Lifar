@@ -150,9 +150,11 @@ extension OrdersVC: UITableViewDelegate, UITableViewDataSource {
             cell.configure(with: model)
             return cell
         } else {
+            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedOrderTableCell.identifier) as? ExpandedOrderTableCell else { return UITableViewCell() }
             cell.configure(with: model)
             return cell
+                        
         }
     }
     
@@ -163,7 +165,6 @@ extension OrdersVC: UITableViewDelegate, UITableViewDataSource {
     
     // did select row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //tableView.deselectRow(at: indexPath, animated: true)
         viewModel.orders[indexPath.row].isExpanded.toggle()
         tableView.reloadRows(at: [indexPath], with: .fade)
     }

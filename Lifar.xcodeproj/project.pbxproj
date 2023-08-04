@@ -70,6 +70,7 @@
 		44DBF5BC2A7AA3A900A71EE6 /* OrderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5BB2A7AA3A900A71EE6 /* OrderTableCell.swift */; };
 		44DBF5BE2A7ABAEA00A71EE6 /* OrdersViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5BD2A7ABAEA00A71EE6 /* OrdersViewViewModel.swift */; };
 		44DBF5C02A7ABEF700A71EE6 /* ExpandedOrderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5BF2A7ABEF700A71EE6 /* ExpandedOrderTableCell.swift */; };
+		44DBF5C22A7C2D0300A71EE6 /* MessagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DBF5C12A7C2D0300A71EE6 /* MessagesVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +129,7 @@
 		44DBF5BB2A7AA3A900A71EE6 /* OrderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableCell.swift; sourceTree = "<group>"; };
 		44DBF5BD2A7ABAEA00A71EE6 /* OrdersViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewViewModel.swift; sourceTree = "<group>"; };
 		44DBF5BF2A7ABEF700A71EE6 /* ExpandedOrderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedOrderTableCell.swift; sourceTree = "<group>"; };
+		44DBF5C12A7C2D0300A71EE6 /* MessagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,6 +366,7 @@
 				44DBF4FB2A425E3C00A71EE6 /* ProfileVC.swift */,
 				44DBF5242A4A561200A71EE6 /* OrdersVC.swift */,
 				44DBF4FF2A426A9400A71EE6 /* FavoriteVC.swift */,
+				44DBF5C12A7C2D0300A71EE6 /* MessagesVC.swift */,
 				44DBF4FD2A425E4900A71EE6 /* AboutVC.swift */,
 				44DBF5AE2A70652E00A71EE6 /* EditVC.swift */,
 			);
@@ -478,6 +481,7 @@
 				44DBF5AB2A6D887D00A71EE6 /* OfferTableFooterView.swift in Sources */,
 				44DBF5AF2A70652E00A71EE6 /* EditVC.swift in Sources */,
 				44DBF4AF2A1DC1A200A71EE6 /* FirstWelcomeVC.swift in Sources */,
+				44DBF5C22A7C2D0300A71EE6 /* MessagesVC.swift in Sources */,
 				44DBF5BC2A7AA3A900A71EE6 /* OrderTableCell.swift in Sources */,
 				44DBF5A92A69E4D700A71EE6 /* BasketCellViewViewModel.swift in Sources */,
 				44DBF4E62A28E3D200A71EE6 /* Cake.swift in Sources */,

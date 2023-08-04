@@ -20,6 +20,7 @@ class MenuItemData {
             MenuItem(title: "Profile", image: "person"),
             MenuItem(title: "Orders", image: "basket"),
             MenuItem(title: "Favorite", image: "heart"),
+            MenuItem(title: "Messages", image: "message"),
             MenuItem(title: "Rate app", image: "hand.thumbsup"),
             MenuItem(title: "Share app", image: "square.and.arrow.up"),
             MenuItem(title: "About", image: "questionmark"),

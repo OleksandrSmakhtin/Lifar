@@ -299,6 +299,16 @@ extension MainVC: SideMenuDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    func didSelectMessages() {
+        viewModel.isSideMenuHidden.toggle()
+        
+        let vc = MessagesVC()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func didSelectRate() {
         print("RATE TAPPED")
         
